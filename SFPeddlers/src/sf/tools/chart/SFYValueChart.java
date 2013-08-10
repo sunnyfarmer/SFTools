@@ -10,7 +10,7 @@ public class SFYValueChart extends SFChart {
 
 	// min\max value on the screen
 	protected float mYMinValue = 0.0f;
-	protected float mYMaxValue = 9000.0f;
+	protected float mYMaxValue = 10000.0f;
 
 	// min\max value displaying on the screen
 	protected float mYDisplayMinValue = mYMinValue;
