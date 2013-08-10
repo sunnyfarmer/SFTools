@@ -54,8 +54,10 @@ public class SFChart extends View {
 	}
 
 	private void drawXAxis(Canvas canvas) {
-		int width = canvas.getWidth();
-		int height = canvas.getHeight();
+		int width = this.getWidth();
+		int height = this.getHeight();
+//		int width = canvas.getWidth();
+//		int height = canvas.getHeight();
 
 		this.mPaint.setStrokeWidth(this.mStrokeSizeOfAxis);
 		this.mPaint.setColor(this.mStrokeColorOfAxis);
@@ -95,7 +97,9 @@ public class SFChart extends View {
 	}
 
 	private void drawYAxis(Canvas canvas) {
-		int height = canvas.getHeight();
+//		int height = canvas.getHeight();
+		int width = this.getWidth();
+		int height = this.getHeight();
 
 		this.mPaint.setStrokeWidth(this.mStrokeSizeOfAxis);
 		this.mPaint.setColor(this.mStrokeColorOfAxis);
