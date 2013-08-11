@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/deep_dark_gray"
+    android:orientation="vertical" >
+
+    <LinearLayout android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/activity_header_height"
+        android:layout_marginBottom="1dp"
+        android:background="@color/light_gray"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/first_feeling"
+            android:textColor="@android:color/black"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvFirstFeeling"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+		android:layout_weight="1">
+    </ListView>
+
+	<LinearLayout android:id="@+id/footer"
+	    android:layout_width="fill_parent"
+	    android:layout_height="@dimen/activity_footer_height"
+	    android:orientation="horizontal"
+	    android:layout_marginTop="1dp"
+	
+	    android:background="@android:color/black">
+		<Button
+		    android:id="@+id/btnInSelling"
+		    android:layout_width="0dp"
+		    android:layout_height="fill_parent"
+		    android:layout_weight="1"
+		    android:background="@drawable/tab_selector"
+		    android:layout_marginRight="1dp"
+		    android:text="@string/in_selling" />
+
+		<Button
+		    android:id="@+id/btnStatistics"
+		    android:layout_width="0dp"
+		    android:layout_height="fill_parent"
+		    android:layout_weight="1"
+		    android:background="@drawable/tab_selector"
+		    android:layout_marginRight="1dp"
+		    android:text="@string/statistics" />
+
+		<Button
+		    android:id="@+id/btnOrganizing"
+		    android:layout_width="0dp"
+		    android:layout_height="fill_parent"
+		    android:layout_weight="1"
+		    android:background="@drawable/tab_selector"
+		    android:text="@string/organizing" />
+
+	</LinearLayout>    
+</LinearLayout>
