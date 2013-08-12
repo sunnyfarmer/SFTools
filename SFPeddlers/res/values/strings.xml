@@ -12,4 +12,7 @@
 
     <!-- string for IN_SELLING -->
     <string name="first_feeling">第一感觉</string>
+    <string name="customer_characteristic">顾客特征</string>
+
+    <string name="shopping_begin">开始选购</string>
 </resources>

@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import sf.tools.peddlers.adapter.AdapterFirstFeeling;
 
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class ActivityFirstFeeling extends Activity {
+public class ActivityFirstFeeling extends TopActivity {
 	public static final String TAG = "FirstFeelingActivity";
 
 	private ListView lvFirstFeeling = null;
@@ -26,14 +24,10 @@ public class ActivityFirstFeeling extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_first_feeling);
-
-		this.initData();
-		this.initView();
-		this.setListener();
 	}
 
-	private void initData() {
+	@Override
+	protected void initData() {
 		this.mFirstFeelingArray = new ArrayList<String>();
 		this.mFirstFeelingArray.add("年轻女孩");
 		this.mFirstFeelingArray.add("中年妇女");
@@ -45,7 +39,10 @@ public class ActivityFirstFeeling extends Activity {
 		this.mFirstFeelingAdapter = new AdapterFirstFeeling(this, this.mFirstFeelingArray);
 	}
 
-	private void initView() {
+	@Override
+	protected void initView() {
+		this.setContentView(R.layout.activity_first_feeling);
+
 		this.lvFirstFeeling = (ListView) this.findViewById(R.id.lvFirstFeeling);
 		this.lvFirstFeeling.setAdapter(this.mFirstFeelingAdapter);
 
@@ -54,7 +51,8 @@ public class ActivityFirstFeeling extends Activity {
 		this.btnOrganizing = (Button) this.findViewById(R.id.btnOrganizing);
 	}
 
-	private void setListener() {
+	@Override
+	protected void setListener() {
 		this.btnInSelling.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -77,6 +75,7 @@ public class ActivityFirstFeeling extends Activity {
 				
 			}
 		});
+		this.lvFirstFeeling.setOnItemClickListener(this.mFirstFeelingAdapter);
 	}
 
 }

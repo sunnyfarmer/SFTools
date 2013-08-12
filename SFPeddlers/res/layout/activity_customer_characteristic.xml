@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/deep_dark_gray"
@@ -10,22 +10,41 @@
         android:layout_height="@dimen/activity_header_height"
         android:layout_marginBottom="1dp"
         android:background="@color/light_gray"
-        android:gravity="center">
-        <TextView
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/first_feeling"
+            android:layout_gravity="center"
+            android:text="@string/first_feeling" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/customer_characteristic"
+            android:gravity="center"
             android:textColor="@android:color/black"/>
+
+        <Button
+            android:id="@+id/btnBeginShopping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+            android:text="@string/shopping_begin" />
+
     </LinearLayout>
 
     <ListView
-        android:id="@+id/lvFirstFeeling"
+        android:id="@+id/lvCustomerCharacteristic"
         android:layout_width="match_parent"
         android:layout_height="0dp"
 		android:layout_weight="1">
     </ListView>
 
-	<LinearLayout android:id="@+id/footer"
+    <LinearLayout android:id="@+id/footer"
 	    android:layout_width="fill_parent"
 	    android:layout_height="@dimen/activity_footer_height"
 	    android:orientation="horizontal"

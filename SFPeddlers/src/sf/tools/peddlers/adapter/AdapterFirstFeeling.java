@@ -2,18 +2,22 @@ package sf.tools.peddlers.adapter;
 
 import java.util.ArrayList;
 
+import sf.tools.peddlers.ActivityCustomerCharacteristic;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.viewholder.VHFirstFeeling;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class AdapterFirstFeeling extends BaseAdapter {
+public class AdapterFirstFeeling extends BaseAdapter implements OnItemClickListener{
 	public static final String TAG = "FirstFeelingAdapter";
 
 	private Context mContext = null;
@@ -64,5 +68,11 @@ public class AdapterFirstFeeling extends BaseAdapter {
 		convertView.setLayoutParams(params);
 
 		return convertView;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		Intent intent = new Intent(this.mContext, ActivityCustomerCharacteristic.class);
+		this.mContext.startActivity(intent);
 	}
 }
