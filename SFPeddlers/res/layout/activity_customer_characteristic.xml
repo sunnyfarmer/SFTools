@@ -49,7 +49,6 @@
 	    android:layout_height="@dimen/activity_footer_height"
 	    android:orientation="horizontal"
 	    android:layout_marginTop="1dp"
-	
 	    android:background="@android:color/black">
 		<Button
 		    android:id="@+id/btnInSelling"
