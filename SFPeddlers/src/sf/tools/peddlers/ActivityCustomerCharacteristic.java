@@ -2,9 +2,11 @@ package sf.tools.peddlers;
 
 import java.util.ArrayList;
 
+import sf.log.SFLog;
 import sf.tools.peddlers.adapter.AdapterCustomerCharacteristic;
 import sf.tools.peddlers.model.Characteristic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -81,7 +83,9 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				for (Characteristic chara : ActivityCustomerCharacteristic.this.mCharacteristicArray) {
+					SFLog.d(TAG, chara.toString());
+				}
 			}
 		});
 		this.btnInSelling.setOnClickListener(new OnClickListener() {

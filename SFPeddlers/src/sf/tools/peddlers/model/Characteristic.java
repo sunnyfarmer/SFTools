@@ -40,4 +40,8 @@ public class Characteristic {
 			this.mSelectedCharacteristic = mSelectedCharacteristic;
 		}
 	}
+	@Override
+	public String toString() {
+		return String.format("%s:%s", this.mTitle, this.mSelectedCharacteristic);
+	}
 }

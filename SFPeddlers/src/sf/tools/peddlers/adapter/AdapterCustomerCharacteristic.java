@@ -6,6 +6,7 @@ import sf.tools.peddlers.R;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.viewholder.VHCustomerCharacteristic;
 import sf.view.RadioButtonGroup;
+import sf.view.RadioButtonGroup.OnCheckedChangeListener;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -60,10 +61,16 @@ public class AdapterCustomerCharacteristic extends BaseAdapter {
 			vhCustomerCharacteristic = (VHCustomerCharacteristic) convertView.getTag();
 		}
 
-		Characteristic characteristic = this.getItem(position);
+		final Characteristic characteristic = this.getItem(position);
 		vhCustomerCharacteristic.tvCharacteristic.setText(characteristic.getmTitle());
-
 		vhCustomerCharacteristic.rbgCharacteristic.setValues(characteristic.getmValuesArray());
+		vhCustomerCharacteristic.rbgCharacteristic.setCheckedValue(characteristic.getmSelectedCharacteristic());
+		vhCustomerCharacteristic.rbgCharacteristic.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChange(String value) {
+				characteristic.setmSelectedCharacteristic(value);
+			}
+		});
 		return convertView;
 	}
 
