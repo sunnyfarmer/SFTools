@@ -25,38 +25,9 @@
 		android:layout_weight="1">
     </ListView>
 
-	<LinearLayout android:id="@+id/footer"
-	    android:layout_width="fill_parent"
-	    android:layout_height="@dimen/activity_footer_height"
-	    android:orientation="horizontal"
-	    android:layout_marginTop="1dp"
-	
-	    android:background="@android:color/black">
-		<Button
-		    android:id="@+id/btnInSelling"
-		    android:layout_width="0dp"
-		    android:layout_height="fill_parent"
-		    android:layout_weight="1"
-		    android:background="@drawable/tab_selected_selector"
-		    android:layout_marginRight="1dp"
-		    android:text="@string/in_selling" />
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/activity_footer_height"
+        layout="@layout/footer" />
 
-		<Button
-		    android:id="@+id/btnStatistics"
-		    android:layout_width="0dp"
-		    android:layout_height="fill_parent"
-		    android:layout_weight="1"
-		    android:background="@drawable/tab_selector"
-		    android:layout_marginRight="1dp"
-		    android:text="@string/statistics" />
-
-		<Button
-		    android:id="@+id/btnOrganizing"
-		    android:layout_width="0dp"
-		    android:layout_height="fill_parent"
-		    android:layout_weight="1"
-		    android:background="@drawable/tab_selector"
-		    android:text="@string/organizing" />
-
-	</LinearLayout>
 </LinearLayout>
