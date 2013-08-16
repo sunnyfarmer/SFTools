@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import sf.tools.peddlers.adapter.AdapterFirstFeeling;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -64,7 +65,8 @@ public class ActivityFirstFeeling extends TopActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				Intent intent = new Intent(ActivityFirstFeeling.this, ActivityStatistic.class);
+				ActivityFirstFeeling.this.startActivity(intent);
 			}
 		});
 		this.btnOrganizing.setOnClickListener(new OnClickListener() {

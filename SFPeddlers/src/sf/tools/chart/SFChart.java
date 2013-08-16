@@ -39,12 +39,6 @@ public class SFChart extends View {
 	}
 
 	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		this.invalidate();
-		return true;
-	}
-
-	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		SFLog.d(TAG, "SFChart onDraw");
