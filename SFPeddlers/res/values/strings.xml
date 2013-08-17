@@ -2,8 +2,6 @@
 <resources>
 
     <string name="app_name">SFPeddlers</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
 
     <!-- string for footer -->
     <string name="in_selling">销售中</string>
@@ -13,6 +11,7 @@
     <!-- string for IN_SELLING -->
     <string name="first_feeling">第一感觉</string>
     <string name="customer_characteristic">顾客特征</string>
-
+    <string name="cargo_list">货物清单</string>
     <string name="shopping_begin">开始选购</string>
+    <string name="shopping_end">选购结束</string>
 </resources>
