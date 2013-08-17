@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/deep_dark_gray"
+    android:orientation="vertical" >
+
+    <LinearLayout android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/activity_header_height"
+        android:layout_marginBottom="1dp"
+        android:background="@color/light_gray"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/statistics"
+            android:gravity="center"
+            android:textColor="@android:color/black"/>
+
+    </LinearLayout>
+    
+    <sf.tools.chart.SFLineChart
+        android:id="@+id/sFLineChart1"
+        android:layout_width="wrap_content"
+        android:background="@android:color/white"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="5dp"/>
+
+    <include layout="@layout/footer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_footer_height"/>
+</LinearLayout>

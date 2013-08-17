@@ -3,6 +3,7 @@ package sf.tools.chart;
 import java.util.ArrayList;
 
 import sf.tools.chart.entity.SFLineChartEntity;
+import sf.tools.chart.listener.SFLineChartOnGestureListener;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -39,6 +40,8 @@ public class SFLineChart extends SFYValueChart {
 		this.addLineChartEntity(new SFLineChartEntity("拖鞋8", 7500.0f));
 		this.addLineChartEntity(new SFLineChartEntity("拖鞋9", 8500.0f));
 		this.addLineChartEntity(new SFLineChartEntity("拖鞋10", 1500.0f));
+
+		this.setOnTouchListener(new SFLineChartOnGestureListener(context));
 	}
 
 	@Override
