@@ -86,6 +86,8 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 				for (Characteristic chara : ActivityCustomerCharacteristic.this.mCharacteristicArray) {
 					SFLog.d(TAG, chara.toString());
 				}
+				Intent intent = new Intent(ActivityCustomerCharacteristic.this, ActivityShopping.class);
+				ActivityCustomerCharacteristic.this.startActivity(intent);
 			}
 		});
 		this.btnInSelling.setOnClickListener(new OnClickListener() {

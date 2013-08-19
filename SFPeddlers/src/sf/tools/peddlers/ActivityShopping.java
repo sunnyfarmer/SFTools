@@ -19,8 +19,8 @@ public class ActivityShopping extends TopActivity {
 	}
 	@Override
 	protected void initView() {
-		// TODO Auto-generated method stub
 		super.initView();
+		this.setContentView(R.layout.activity_shopping);
 	}
 	@Override
 	protected void setListener() {

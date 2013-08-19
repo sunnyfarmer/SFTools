@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout android:id="@+id/header"
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/activity_header_height"
         android:layout_marginBottom="1dp"
         android:background="@color/light_gray"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/btnBack"
@@ -23,21 +23,85 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/cargo_list"
             android:gravity="center"
-            android:textColor="@android:color/black"/>
+            android:text="@string/cargo_list"
+            android:textColor="@android:color/black" />
 
         <Button
-            android:id="@+id/btnBeginShopping"
+            android:id="@+id/btnFinishShopping"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-			android:layout_gravity="center_vertical"
+            android:layout_gravity="center_vertical"
             android:text="@string/shopping_end" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" >
+            <RadioGroup
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:orientation="horizontal">
+                <RadioButton android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:background="@drawable/tab_checkbox_selector"
+					android:button="@android:color/transparent"
+					android:text="女装1"/>
+				<RadioButton android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:background="@drawable/tab_checkbox_selector"
+					android:button="@android:color/transparent"
+					android:text="男装1"/>
+				<RadioButton android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:background="@drawable/tab_checkbox_selector"
+					android:button="@android:color/transparent"
+					android:text="男装2"/>
+				<RadioButton android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:background="@drawable/tab_checkbox_selector"
+					android:button="@android:color/transparent"
+					android:text="男装3"/>
+				<RadioButton android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:background="@drawable/tab_checkbox_selector"
+					android:button="@android:color/transparent"
+					android:text="男装4"/>
+				<RadioButton android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:background="@drawable/tab_checkbox_selector"
+					android:button="@android:color/transparent"
+					android:text="男装5"/>
+				<RadioButton android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:background="@drawable/tab_checkbox_selector"
+					android:button="@android:color/transparent"
+					android:text="男装6"/>
+				<RadioButton android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:background="@drawable/tab_checkbox_selector"
+					android:button="@android:color/transparent"
+					android:text="男装7"/>
+            </RadioGroup>
+        </HorizontalScrollView>
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
     </LinearLayout>
 
     <include
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_footer_height"
-        layout="@layout/footer"/>
+        layout="@layout/footer" />
+
 </LinearLayout>
