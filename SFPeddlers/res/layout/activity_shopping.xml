@@ -40,12 +40,11 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical" >
-
         <HorizontalScrollView
-            android:id="@+id/horizontalScrollView1"
             android:layout_width="match_parent"
-            android:layout_height="50dp" >
+            android:layout_height="@dimen/cargo_type_height" >
             <RadioGroup
+                android:id="@+id/rgCargoType"
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
 				android:orientation="horizontal">
@@ -54,46 +53,11 @@
 					android:background="@drawable/tab_checkbox_selector"
 					android:button="@android:color/transparent"
 					android:text="女装1"/>
-				<RadioButton android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:background="@drawable/tab_checkbox_selector"
-					android:button="@android:color/transparent"
-					android:text="男装1"/>
-				<RadioButton android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:background="@drawable/tab_checkbox_selector"
-					android:button="@android:color/transparent"
-					android:text="男装2"/>
-				<RadioButton android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:background="@drawable/tab_checkbox_selector"
-					android:button="@android:color/transparent"
-					android:text="男装3"/>
-				<RadioButton android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:background="@drawable/tab_checkbox_selector"
-					android:button="@android:color/transparent"
-					android:text="男装4"/>
-				<RadioButton android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:background="@drawable/tab_checkbox_selector"
-					android:button="@android:color/transparent"
-					android:text="男装5"/>
-				<RadioButton android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:background="@drawable/tab_checkbox_selector"
-					android:button="@android:color/transparent"
-					android:text="男装6"/>
-				<RadioButton android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:background="@drawable/tab_checkbox_selector"
-					android:button="@android:color/transparent"
-					android:text="男装7"/>
             </RadioGroup>
         </HorizontalScrollView>
 
         <ListView
-            android:id="@+id/listView1"
+            android:id="@+id/lvCargo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
         </ListView>
