@@ -1,12 +1,10 @@
 package sf.view.listener;
 
-import sf.log.SFLog;
-import sf.math.SFMath;
 import android.content.Context;
-import android.graphics.PointF;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
@@ -14,14 +12,13 @@ public class OnGestureListener implements OnTouchListener {
 	public static final String TAG = "OnGestureListener";
 
 	private GestureDetector mGestureDetector = null;
+	private ScaleGestureDetector mScaleGestureDetector = null;
 	private Context mContext = null;
-
-	private PointF[] mPinchBeginPointArray = new PointF[2];
-	private PointF[] mPinchEndPointArray = new PointF[2];
 
 	public OnGestureListener(Context context) {
 		this.mContext = context;
 		this.mGestureDetector = new GestureDetector(this.mContext, new GestureListener());
+		this.mScaleGestureDetector = new ScaleGestureDetector(this.mContext, new ScaleListener());
 	}
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
@@ -29,10 +26,26 @@ public class OnGestureListener implements OnTouchListener {
 			//上\下\左\右滑动
 			return true;
 		}
-		if (this.pinchDetector(v, event)) {
+		if (this.mScaleGestureDetector.onTouchEvent(event)) {
 			//缩放手势
 			return true;
 		}
+		return false;
+	}
+
+	public boolean onSwipeTop() {
+		return false;
+	}
+	public boolean onSwipeBottom() {
+		return false;
+	}
+	public boolean onSwipeLeft() {
+		return false;
+	}
+	public boolean onSwipeRight() {
+		return false;
+	}
+	public boolean onPinch(float scale) {
 		return false;
 	}
 
@@ -74,60 +87,19 @@ public class OnGestureListener implements OnTouchListener {
 		}
 	}
 
-	public boolean onSwipeTop() {
-		return false;
-	}
-	public boolean onSwipeBottom() {
-		return false;
-	}
-	public boolean onSwipeLeft() {
-		return false;
-	}
-	public boolean onSwipeRight() {
-		return false;
-	}
+	private final class ScaleListener implements ScaleGestureDetector.OnScaleGestureListener {
 
-	public boolean pinchDetector(View v, MotionEvent event) {
-		int eventAction = event.getAction();
-		int pointerCount = event.getPointerCount();
-		SFLog.d(TAG, "action : " + eventAction);
-		switch (eventAction) {
-		case MotionEvent.ACTION_DOWN:
-			SFLog.d(TAG, "ACTION_DOWN");
-			if (pointerCount==2) {
-				SFLog.d(TAG, "pinch begin");
-				this.mPinchBeginPointArray[0].x = event.getX(0);
-				this.mPinchBeginPointArray[0].y = event.getY(0);
-				this.mPinchBeginPointArray[1].x = event.getX(1);
-				this.mPinchBeginPointArray[1].y = event.getY(1);
-			}
-			break;
-		case MotionEvent.ACTION_MOVE:
-			if (pointerCount==2) {
-				SFLog.d(TAG, "pinch move");
-				this.mPinchEndPointArray[0].x = event.getX(0);
-				this.mPinchEndPointArray[0].y = event.getY(0);
-				this.mPinchEndPointArray[1].x = event.getX(1);
-				this.mPinchEndPointArray[1].y = event.getY(1);
-
-				double originDistance = SFMath.lengthOfLine(this.mPinchBeginPointArray[0], this.mPinchBeginPointArray[1]);
-				double nowDistance = SFMath.lengthOfLine(this.mPinchEndPointArray[0], this.mPinchEndPointArray[1]);
-				float scale = (float) (nowDistance / originDistance);
-				float scaleRatio = Math.abs(scale-1.0f) * 0.1f;
-				if (scale > 1.0f) {
-					scale = 1.0f + scaleRatio;
-				} else {
-					scale = 1.0f - scaleRatio;
-				}
-				onPinch(scale);
-			}
-			break;
-		default:
-			break;
+		@Override
+		public boolean onScale(ScaleGestureDetector detector) {
+			float scaleFactor = detector.getScaleFactor();
+			return onPinch(scaleFactor);
 		}
-		return false;
-	}
-	public boolean onPinch(float scale) {
-		return false;
+		@Override
+		public boolean onScaleBegin(ScaleGestureDetector detector) {
+			return true;
+		}
+		@Override
+		public void onScaleEnd(ScaleGestureDetector detector) {
+		}
 	}
 }
