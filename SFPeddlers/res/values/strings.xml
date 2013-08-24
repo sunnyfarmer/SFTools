@@ -15,5 +15,7 @@
     <string name="shopping_begin">开始选购</string>
     <string name="shopping_end">选购结束</string>
 	<string name="look">看</string>
+	<string name="looked">已看</string>
 	<string name="buy">买</string>
+	<string name="buyed">已买</string>
 </resources>
