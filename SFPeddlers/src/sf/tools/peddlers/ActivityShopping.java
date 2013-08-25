@@ -8,7 +8,11 @@ import sf.log.SFLog;
 import sf.tools.peddlers.adapter.AdapterShoppingCargo;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
+import sf.tools.peddlers.model.Characteristic;
+import sf.tools.peddlers.model.ShoppingList;
+import sf.tools.peddlers.utils.SFGlobal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup.LayoutParams;
@@ -28,9 +32,21 @@ public class ActivityShopping extends TopActivity {
 
 	private AdapterShoppingCargo mAdapterShoppingCargo = null;
 
+	private ShoppingList mShoppingList = null;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		Intent intent = this.getIntent();
+		this.mShoppingList = (ShoppingList) intent.getSerializableExtra(SFGlobal.EXTRA_SHOPPINGLIST);
+
+		this.parseShoppingList(this.mShoppingList);
 	}
 
 	@Override
@@ -122,5 +138,22 @@ public class ActivityShopping extends TopActivity {
 		this.mSelectedCargo = mSelectedCargo;
 		this.refreshCargo();
 	}
-	
+
+	private void parseShoppingList(ShoppingList shoppingList) {
+		if (shoppingList==null || shoppingList.getmFirstFeeling()==null) {
+			Intent firstFeelingIntent = new Intent(this, ActivityFirstFeeling.class);
+			this.startActivity(firstFeelingIntent);
+			this.finish();
+		} else if (shoppingList.getmCharacteristic()==null){
+			Intent characteristicIntent = new Intent(this, ActivityCustomerCharacteristic.class);
+			characteristicIntent.putExtra(SFGlobal.EXTRA_SHOPPINGLIST, shoppingList);
+			this.startActivity(characteristicIntent);
+			this.finish();
+		}
+
+		SFLog.d(TAG, "FirstFeeling: "+shoppingList.getmFirstFeeling().getmFirstFeeling());
+		for (Characteristic characteristic : shoppingList.getmCharacteristic()) {
+			SFLog.d(TAG, "Chara: " + characteristic.getmTitle()+","+characteristic.getmSelectedCharacteristic());
+		}
+	}
 }

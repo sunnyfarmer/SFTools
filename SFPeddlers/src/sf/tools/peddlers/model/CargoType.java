@@ -1,6 +1,13 @@
 package sf.tools.peddlers.model;
 
-public class CargoType {
+import java.io.Serializable;
+
+public class CargoType implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8175652174337896275L;
+
 	public static final String TAG = "CargoType";
 
 	private String mCargoTypeName = null;

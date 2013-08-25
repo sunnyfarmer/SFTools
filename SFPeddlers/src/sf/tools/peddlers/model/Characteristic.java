@@ -1,8 +1,14 @@
 package sf.tools.peddlers.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Characteristic {
+public class Characteristic implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4749038793940437454L;
+
 	public static final String TAG = "Characteristic";
 
 	private String mTitle = null;

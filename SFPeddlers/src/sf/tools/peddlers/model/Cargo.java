@@ -1,6 +1,12 @@
 package sf.tools.peddlers.model;
 
-public class Cargo {
+import java.io.Serializable;
+
+public class Cargo implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2253625273503187217L;
 	public static final String TAG = "Cargo";
 
 	public static enum CUSTOMER_BEHAVIOR {
@@ -9,6 +15,7 @@ public class Cargo {
 		CB_BUY
 	};
 
+	private String mCargoId = null;
 	private String mCargoName = null;
 	private CargoType mCargoType = null;
 
@@ -17,6 +24,14 @@ public class Cargo {
 	public Cargo(String cargoName, CargoType cargoType) {
 		this.setmCargoName(cargoName);
 		this.setmCargoType(cargoType);
+	}
+
+	public String getmCargoId() {
+		return mCargoId;
+	}
+
+	public void setmCargoId(String mCargoId) {
+		this.mCargoId = mCargoId;
 	}
 
 	public String getmCargoName() {

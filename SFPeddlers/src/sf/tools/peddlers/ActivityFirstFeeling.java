@@ -3,6 +3,7 @@ package sf.tools.peddlers;
 import java.util.ArrayList;
 
 import sf.tools.peddlers.adapter.AdapterFirstFeeling;
+import sf.tools.peddlers.model.FirstFeeling;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ public class ActivityFirstFeeling extends TopActivity {
 	private Button btnOrganizing = null;
 
 	private AdapterFirstFeeling mFirstFeelingAdapter = null;
-	private ArrayList<String> mFirstFeelingArray = null;
+	private ArrayList<FirstFeeling> mFirstFeelingArray = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +30,13 @@ public class ActivityFirstFeeling extends TopActivity {
 
 	@Override
 	protected void initData() {
-		this.mFirstFeelingArray = new ArrayList<String>();
-		this.mFirstFeelingArray.add("年轻女孩");
-		this.mFirstFeelingArray.add("中年妇女");
-		this.mFirstFeelingArray.add("老龄妇女");
-		this.mFirstFeelingArray.add("年轻男孩");
-		this.mFirstFeelingArray.add("中年男子");
-		this.mFirstFeelingArray.add("老龄男人");
+		this.mFirstFeelingArray = new ArrayList<FirstFeeling>();
+		this.mFirstFeelingArray.add(new FirstFeeling("年轻女孩"));
+		this.mFirstFeelingArray.add(new FirstFeeling("中年妇女"));
+		this.mFirstFeelingArray.add(new FirstFeeling("老龄妇女"));
+		this.mFirstFeelingArray.add(new FirstFeeling("年轻男孩"));
+		this.mFirstFeelingArray.add(new FirstFeeling("中年男子"));
+		this.mFirstFeelingArray.add(new FirstFeeling("老龄男人"));
 
 		this.mFirstFeelingAdapter = new AdapterFirstFeeling(this, this.mFirstFeelingArray);
 	}

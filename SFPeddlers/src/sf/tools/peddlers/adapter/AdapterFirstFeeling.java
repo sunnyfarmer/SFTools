@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import sf.tools.peddlers.ActivityCustomerCharacteristic;
 import sf.tools.peddlers.R;
+import sf.tools.peddlers.model.FirstFeeling;
+import sf.tools.peddlers.model.ShoppingList;
+import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.VHFirstFeeling;
 
 import android.content.Context;
@@ -21,9 +24,9 @@ public class AdapterFirstFeeling extends BaseAdapter implements OnItemClickListe
 	public static final String TAG = "FirstFeelingAdapter";
 
 	private Context mContext = null;
-	private ArrayList<String> mFirstFeelingArray = null;
+	private ArrayList<FirstFeeling> mFirstFeelingArray = null;
 
-	public AdapterFirstFeeling(Context context, ArrayList<String> firstFeelingArray) {
+	public AdapterFirstFeeling(Context context, ArrayList<FirstFeeling> firstFeelingArray) {
 		this.mFirstFeelingArray = firstFeelingArray;
 		this.mContext = context;
 	}
@@ -37,7 +40,7 @@ public class AdapterFirstFeeling extends BaseAdapter implements OnItemClickListe
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public FirstFeeling getItem(int position) {
 		if (this.mFirstFeelingArray!=null) {
 			return this.mFirstFeelingArray.get(position);
 		}
@@ -62,7 +65,7 @@ public class AdapterFirstFeeling extends BaseAdapter implements OnItemClickListe
 			firstFeelingViewHolder = (VHFirstFeeling) convertView.getTag();
 		}
 
-		firstFeelingViewHolder.tvFirstFeeling.setText(this.mFirstFeelingArray.get(position));
+		firstFeelingViewHolder.tvFirstFeeling.setText(this.mFirstFeelingArray.get(position).getmFirstFeeling());
 
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, 110);
 		convertView.setLayoutParams(params);
@@ -73,6 +76,13 @@ public class AdapterFirstFeeling extends BaseAdapter implements OnItemClickListe
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		Intent intent = new Intent(this.mContext, ActivityCustomerCharacteristic.class);
+
+		FirstFeeling firstFeeling = this.getItem(arg2);
+		ShoppingList shoppingList = new ShoppingList();
+		shoppingList.setmFirstFeeling(firstFeeling);
+
+		intent.putExtra(SFGlobal.EXTRA_SHOPPINGLIST, shoppingList);
+
 		this.mContext.startActivity(intent);
 	}
 }

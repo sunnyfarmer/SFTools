@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import sf.log.SFLog;
 import sf.tools.peddlers.adapter.AdapterCustomerCharacteristic;
 import sf.tools.peddlers.model.Characteristic;
+import sf.tools.peddlers.model.ShoppingList;
+import sf.tools.peddlers.utils.SFGlobal;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,10 +28,21 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 	private Button btnOrganizing = null;
 	private ListView lvCustomerCharacteristic = null;
 
+	private ShoppingList mShoppingList = null;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		Intent intent = this.getIntent();
+		this.mShoppingList = (ShoppingList) intent.getSerializableExtra(SFGlobal.EXTRA_SHOPPINGLIST);
+
+		this.parseShoppingList(this.mShoppingList);
 	}
 
 	@Override
@@ -87,6 +100,8 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 					SFLog.d(TAG, chara.toString());
 				}
 				Intent intent = new Intent(ActivityCustomerCharacteristic.this, ActivityShopping.class);
+				ActivityCustomerCharacteristic.this.mShoppingList.setmCharacteristic(mCharacteristicArray);
+				intent.putExtra(SFGlobal.EXTRA_SHOPPINGLIST, ActivityCustomerCharacteristic.this.mShoppingList);
 				ActivityCustomerCharacteristic.this.startActivity(intent);
 			}
 		});
@@ -111,5 +126,18 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 				
 			}
 		});
+	}
+
+	private void parseShoppingList(ShoppingList shoppingList) {
+		if (this.mShoppingList==null) {
+			Intent backIntent = new Intent(this, ActivityFirstFeeling.class);
+			this.startActivity(backIntent);
+			this.finish();
+		} else {
+			if (shoppingList.getmCharacteristic()!=null) {
+				this.mCharacteristicArray = shoppingList.getmCharacteristic();
+			}
+			SFLog.d(TAG, "FirstFeeling: " + this.mShoppingList.getmFirstFeeling().getmFirstFeeling());
+		}
 	}
 }
