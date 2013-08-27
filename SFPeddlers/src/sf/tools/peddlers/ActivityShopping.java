@@ -15,7 +15,10 @@ import sf.tools.peddlers.utils.SFGlobal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -29,6 +32,7 @@ public class ActivityShopping extends TopActivity {
 
 	private RadioGroup rgCargoType = null;
 	private ListView lvCargo = null;
+	private Button btnFinishShopping = null;
 
 	private AdapterShoppingCargo mAdapterShoppingCargo = null;
 
@@ -77,6 +81,8 @@ public class ActivityShopping extends TopActivity {
 
 		this.rgCargoType = (RadioGroup) this.findViewById(R.id.rgCargoType);
 		this.refreshCargoType();
+
+		this.btnFinishShopping = (Button) this.findViewById(R.id.btnFinishShopping);
 	}
 	@Override
 	protected void setListener() {
@@ -87,6 +93,13 @@ public class ActivityShopping extends TopActivity {
 				RadioButton rb = (RadioButton)group.findViewById(checkedId);
 				CargoType cargoType = (CargoType) rb.getTag();
 				ActivityShopping.this.setmSelectedCargo(cargoType);
+			}
+		});
+		this.btnFinishShopping.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ActivityShopping.this.finishShoppingList();
+				//TODO: 入database
 			}
 		});
 	}
@@ -155,5 +168,35 @@ public class ActivityShopping extends TopActivity {
 		for (Characteristic characteristic : shoppingList.getmCharacteristic()) {
 			SFLog.d(TAG, "Chara: " + characteristic.getmTitle()+","+characteristic.getmSelectedCharacteristic());
 		}
+	}
+
+	private void finishShoppingList() {
+		ArrayList<Cargo> lookCargoArray = new ArrayList<Cargo>();
+		ArrayList<Cargo> buyCargoArray = new ArrayList<Cargo>();
+		ArrayList<Cargo> relatedCargoArray = new ArrayList<Cargo>();
+
+		for (CargoType cargoType : this.mCargoHashMap.keySet()) {
+			ArrayList<Cargo> cargoArray = this.mCargoHashMap.get(cargoType);
+			for (Cargo cargo : cargoArray) {
+				switch (cargo.getmBehavior()) {
+				case CB_NONE:
+					break;
+				case CB_LOOK:
+					lookCargoArray.add(cargo);
+					relatedCargoArray.add(cargo);
+					break;
+				case CB_BUY:
+					lookCargoArray.add(cargo);
+					buyCargoArray.add(cargo);
+					relatedCargoArray.add(cargo);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		this.mShoppingList.setmLookCargo(lookCargoArray);
+		this.mShoppingList.setmBuyCargo(buyCargoArray);
+		this.mShoppingList.setmRelatedCargo(relatedCargoArray);
 	}
 }

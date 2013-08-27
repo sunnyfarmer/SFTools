@@ -44,4 +44,7 @@ public class ShoppingList implements Serializable{
 	public ArrayList<Cargo> getmRelatedCargo() {
 		return mRelatedCargo;
 	}
+	public void setmRelatedCargo(ArrayList<Cargo> mRelatedCargo) {
+		this.mRelatedCargo = mRelatedCargo;
+	}
 }
