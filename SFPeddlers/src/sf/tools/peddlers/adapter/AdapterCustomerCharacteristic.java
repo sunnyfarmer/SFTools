@@ -62,13 +62,16 @@ public class AdapterCustomerCharacteristic extends BaseAdapter {
 		}
 
 		final Characteristic characteristic = this.getItem(position);
-		vhCustomerCharacteristic.tvCharacteristic.setText(characteristic.getmTitle());
-		vhCustomerCharacteristic.rbgCharacteristic.setValues(characteristic.getmValuesArray());
-		vhCustomerCharacteristic.rbgCharacteristic.setCheckedValue(characteristic.getmSelectedCharacteristic());
+		vhCustomerCharacteristic.tvCharacteristic.setText(characteristic.getmCharacteristicName());
+		vhCustomerCharacteristic.rbgCharacteristic.setValues(characteristic.getmCharacteristicItemStringArray());
+		vhCustomerCharacteristic.rbgCharacteristic.setCheckedValue(
+				characteristic.getmSelectedCharacteristicItem()!=null ?
+				characteristic.getmSelectedCharacteristicItem().getmCharacteristicItemName():
+				null);
 		vhCustomerCharacteristic.rbgCharacteristic.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChange(String value) {
-				characteristic.setmSelectedCharacteristic(value);
+				characteristic.setmSelectedCharacteristicItem(value);
 			}
 		});
 		return convertView;

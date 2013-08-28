@@ -11,6 +11,15 @@ public class DataStructure {
 			COL_SETTING_GROUP_ID,
 			COL_SETTING_GROUP_NAME
 		};
+		public static final String SQL_CREATE = String.format(
+				"create table %s ("+
+				"%s text primary key,"+
+				"%s text);",
+				TB_NAME,
+				COL_SETTING_GROUP_ID,
+				COL_SETTING_GROUP_NAME
+				);
+		public static final String SQL_DROP = String.format("DROP TABLE IF EXISTS %s", TB_NAME);
 	}
 	public static class DSFirstFeeling {
 		public static final String TB_NAME = "tb_first_feeling";
@@ -22,6 +31,17 @@ public class DataStructure {
 			COL_FIRST_FEELING_NAME,
 			COL_SETTING_GROUP_ID
 		};
+		public static final String SQL_CREATE = String.format(
+				"create table %s ("+
+				"%s integer primary key autoincrement,"+
+				"%s text,"+
+				"%s text);",
+				TB_NAME,
+				COL_FIRST_FEELING_ID,
+				COL_FIRST_FEELING_NAME,
+				COL_SETTING_GROUP_ID
+				);
+		public static final String SQL_DROP = String.format("DROP TABLE IF EXISTS %s", TB_NAME);
 	}
 	public static class DSCharacteristic {
 		public static final String TB_NAME = "tb_characteristic";
@@ -33,6 +53,17 @@ public class DataStructure {
 			COL_CHARACTERISTIC_NAME,
 			COL_SETTING_GROUP_ID
 		};
+		public static final String SQL_CREATE = String.format(
+				"create table %s ("+
+				"%s integer primary key autoincrement,"+
+				"%s text,"+
+				"%s text);",
+				TB_NAME,
+				COL_CHARACTERISTIC_ID,
+				COL_CHARACTERISTIC_NAME,
+				COL_SETTING_GROUP_ID
+				);
+		public static final String SQL_DROP = String.format("DROP TABLE IF EXISTS %s", TB_NAME);
 	}
 	public static class DSCharacteristicItem {
 		public static final String TB_NAME = "tb_characteristic_item";
@@ -44,6 +75,17 @@ public class DataStructure {
 			COL_CHARACTERISTIC_ITEM_NAME,
 			COL_CHARACTERISTIC_ID
 		};
+		public static final String SQL_CREATE = String.format(
+				"create table %s ("+
+				"%s integer primary key autoincrement,"+
+				"%s text,"+
+				"%s integer);",
+				TB_NAME,
+				COL_CHARACTERISTIC_ITEM_ID,
+				COL_CHARACTERISTIC_ITEM_NAME,
+				COL_CHARACTERISTIC_ID
+				);
+		public static final String SQL_DROP = String.format("DROP TABLE IF EXISTS %s", TB_NAME);
 	}
 	public static class DSShoppingList {
 		public static final String TB_NAME = "tb_shopping_list";
@@ -55,6 +97,17 @@ public class DataStructure {
 			COL_FIRST_FEELING_ID,
 			COL_SETTING_GROUP_ID
 		};
+		public static final String SQL_CREATE = String.format(
+				"create table %s ("+
+				"%s text primary key autoincrement,"+
+				"%s integer,"+
+				"%s text);",
+				TB_NAME,
+				COL_SHOPPING_LIST_ID,
+				COL_FIRST_FEELING_ID,
+				COL_SETTING_GROUP_ID
+				);
+		public static final String SQL_DROP = String.format("DROP TABLE IF EXISTS %s", TB_NAME);
 	}
 	public static class DSCargoType {
 		public static final String TB_NAME = "tb_cargo_type";
@@ -66,6 +119,16 @@ public class DataStructure {
 			COL_CARGO_TYPE_NAME,
 			COL_SETTING_GROUP_ID
 		};
+		public static final String SQL_CREATE = String.format(
+				"create table %s ("+
+				"%s integer primary key autoincrement,"+
+				"%s text,"+
+				"%s text);",
+				COL_CARGO_TYPE_ID,
+				COL_CARGO_TYPE_NAME,
+				COL_SETTING_GROUP_ID
+				);
+		public static final String SQL_DROP = String.format("DROP TABLE IF EXISTS %s", TB_NAME);
 	}
 	public static class DSCargo {
 		public static final String TB_NAME = "tb_cargo";
@@ -79,23 +142,62 @@ public class DataStructure {
 			COL_CARGO_TYPE_ID,
 			COL_SETTING_GROUP_ID
 		};
+		public static final String SQL_CREATE = String.format(
+				"create table %s ("+
+				"%s integer primary key autoincrement,"+
+				"%s text,"+
+				"%s integer,"+
+				"%s text);",
+				TB_NAME,
+				COL_CARGO_ID,
+				COL_CARGO_NAME,
+				COL_CARGO_TYPE_ID,
+				COL_SETTING_GROUP_ID
+				);
+		public static final String SQL_DROP = String.format("DROP TABLE IF EXISTS %s", TB_NAME);
 	}
 	public static class DSCargoInList {
 		public static final String TB_NAME = "tb_cargo_in_list";
 		public static final String COL_CARGO_ID = "cargo_id";
 		public static final String COL_SHOPPING_LIST_ID = "shopping_list_id";
+		public static final String COL_USER_BEHAVIOR = "user_behavior";
 		public static final String[] COLUMNS = {
 			COL_CARGO_ID,
-			COL_SHOPPING_LIST_ID
+			COL_SHOPPING_LIST_ID,
+			COL_USER_BEHAVIOR
 		};
+		public static final String SQL_CREATE = String.format(
+				"create table %s ("+
+				"%s integer,"+
+				"%s text,"+
+				"%s integer);",
+				TB_NAME,
+				COL_CARGO_ID,
+				COL_SHOPPING_LIST_ID,
+				COL_USER_BEHAVIOR
+				);
+		public static final String SQL_DROP = String.format("DROP TABLE IF EXISTS %s", TB_NAME);
 	}
-	public static class characteristicItemInList {
+	public static class DSCharacteristicItemInList {
 		public static final String TB_NAME = "tb_characteristic_item_in_list";
+		public static final String COL_CHARACTERISTIC_ID = "characteristic_id";
 		public static final String COL_CHARACTERISTIC_ITEM_ID = "characteristic_item_id";
 		public static final String COL_SHOPPING_LIST_ID = "shopping_list_id";
 		public static final String[] COLUMNS = {
+			COL_CHARACTERISTIC_ID,
 			COL_CHARACTERISTIC_ITEM_ID,
 			COL_SHOPPING_LIST_ID
 		};
+		public static final String SQL_CREATE = String.format(
+				"create table %s ("+
+				"%s integer,"+
+				"%s integer,"+
+				"%s text);",
+				TB_NAME,
+				COL_CHARACTERISTIC_ID,
+				COL_CHARACTERISTIC_ITEM_ID,
+				COL_SHOPPING_LIST_ID
+				);
+		public static final String SQL_DROP = String.format("DROP TABLE IF EXISTS %s", TB_NAME);
 	}
 }

@@ -66,7 +66,7 @@ public class ActivityShopping extends TopActivity {
 		};
 		for (CargoType cargoType : cargoTypeArray) {
 			for (int cot = 0; cot < 10; cot++) {
-				String cargoName = cargoType.getCargoTypeName() + cot;
+				String cargoName = cargoType.getmCargoTypeName() + cot;
 				Cargo cargo = new Cargo(cargoName, cargoType);
 				this.putCargo(cargo);
 			}
@@ -125,7 +125,7 @@ public class ActivityShopping extends TopActivity {
 			rb.setGravity(Gravity.CENTER);
 			rb.setBackgroundResource(R.drawable.tab_checkbox_selector);
 			rb.setButtonDrawable(android.R.color.transparent);
-			rb.setText(cargoType.getCargoTypeName());
+			rb.setText(cargoType.getmCargoTypeName());
 			rb.setTag(cargoType);
 
 			this.rgCargoType.addView(rb);
@@ -164,9 +164,9 @@ public class ActivityShopping extends TopActivity {
 			this.finish();
 		}
 
-		SFLog.d(TAG, "FirstFeeling: "+shoppingList.getmFirstFeeling().getmFirstFeeling());
+		SFLog.d(TAG, "FirstFeeling: "+shoppingList.getmFirstFeeling().getmFirstFeelingName());
 		for (Characteristic characteristic : shoppingList.getmCharacteristic()) {
-			SFLog.d(TAG, "Chara: " + characteristic.getmTitle()+","+characteristic.getmSelectedCharacteristic());
+			SFLog.d(TAG, "Chara: " + characteristic.getmCharacteristicName()+","+characteristic.getmSelectedCharacteristicItem());
 		}
 	}
 

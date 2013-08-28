@@ -3,7 +3,11 @@ package sf.tools.peddlers.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Characteristic implements Serializable{
+import sf.tools.peddlers.db.DataStructure.DSCharacteristic;
+
+import android.content.ContentValues;
+
+public class Characteristic implements Serializable,Model{
 	/**
 	 * 
 	 */
@@ -11,43 +15,71 @@ public class Characteristic implements Serializable{
 
 	public static final String TAG = "Characteristic";
 
-	private String mTitle = null;
-	private ArrayList<String> mValuesArray = null;
+	private int mCharacteristicId;
+	private String mCharacteristicName = null;
+	private SettingGroup mSettingGroup = null;
+	private ArrayList<CharacteristicItem> mCharacteristicItemArray = null;
 
-	private String mSelectedCharacteristic = null;
+	private CharacteristicItem mSelectedCharacteristicItem = null;
 
 	public Characteristic(String title) {
-		this.setmTitle(title);
+		this.setmCharacteristicName(title);
 	}
 
-	public String getmTitle() {
-		return mTitle;
+	public int getmCharacteristicId() {
+		return mCharacteristicId;
 	}
-	public void setmTitle(String mTitle) {
-		this.mTitle = mTitle;
+
+	public void setmCharacteristicId(int mCharacteristicId) {
+		this.mCharacteristicId = mCharacteristicId;
 	}
-	public ArrayList<String> getmValuesArray() {
-		if (this.mValuesArray == null) {
-			this.mValuesArray = new ArrayList<String>();
+
+	public String getmCharacteristicName() {
+		return mCharacteristicName;
+	}
+	public void setmCharacteristicName(String mTitle) {
+		this.mCharacteristicName = mTitle;
+	}
+	public ArrayList<CharacteristicItem> getmCharacteristicItemArray() {
+		if (this.mCharacteristicItemArray == null) {
+			this.mCharacteristicItemArray = new ArrayList<CharacteristicItem>();
 		}
-		return mValuesArray;
+		return mCharacteristicItemArray;
 	}
-	public void setmValuesArray(ArrayList<String> mValuesArray) {
-		this.mValuesArray = mValuesArray;
+	public ArrayList<String> getmCharacteristicItemStringArray() {
+		ArrayList<String> stringArray = new ArrayList<String>();
+		for (CharacteristicItem characteristicItem : this.getmCharacteristicItemArray()) {
+			stringArray.add(characteristicItem.getmCharacteristicItemName());
+		}
+		return stringArray;
 	}
-	public void addValue(String value) {
-		this.getmValuesArray().add(value);
+	public void setmCharacteristicItemArray(ArrayList<CharacteristicItem> mValuesArray) {
+		this.mCharacteristicItemArray = mValuesArray;
 	}
-	public String getmSelectedCharacteristic() {
-		return mSelectedCharacteristic;
+	public void addCharacteristicItem(CharacteristicItem value) {
+		this.getmCharacteristicItemArray().add(value);
 	}
-	public void setmSelectedCharacteristic(String mSelectedCharacteristic) {
-		if (-1 != this.mValuesArray.indexOf(mSelectedCharacteristic)) {
-			this.mSelectedCharacteristic = mSelectedCharacteristic;
+	public CharacteristicItem getmSelectedCharacteristicItem() {
+		return mSelectedCharacteristicItem;
+	}
+	public void setmSelectedCharacteristicItem(String characteristicItemString) {
+		for (CharacteristicItem characteristicItem : this.mCharacteristicItemArray) {
+			if (characteristicItemString.equals(characteristicItem.getmCharacteristicItemName())) {
+				this.mSelectedCharacteristicItem = characteristicItem;
+			}
 		}
 	}
 	@Override
 	public String toString() {
-		return String.format("%s:%s", this.mTitle, this.mSelectedCharacteristic);
+		return String.format("%s:%s", this.mCharacteristicName, this.mSelectedCharacteristicItem.getmCharacteristicItemName());
+	}
+
+	@Override
+	public ContentValues getContentValues() {
+		ContentValues values = new ContentValues();
+		values.put(DSCharacteristic.COL_CHARACTERISTIC_ID, this.mCharacteristicId);
+		values.put(DSCharacteristic.COL_CHARACTERISTIC_NAME, this.mCharacteristicName);
+		values.put(DSCharacteristic.COL_SETTING_GROUP_ID, this.mSettingGroup.getmSettingGroupId());
+		return values;
 	}
 }

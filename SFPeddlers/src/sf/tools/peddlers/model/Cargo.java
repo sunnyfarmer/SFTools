@@ -2,7 +2,11 @@ package sf.tools.peddlers.model;
 
 import java.io.Serializable;
 
-public class Cargo implements Serializable{
+import sf.tools.peddlers.db.DataStructure.DSCargo;
+
+import android.content.ContentValues;
+
+public class Cargo implements Serializable,Model{
 	/**
 	 * 
 	 */
@@ -15,22 +19,33 @@ public class Cargo implements Serializable{
 		CB_BUY
 	};
 
-	private String mCargoId = null;
+	private int mCargoId;
 	private String mCargoName = null;
 	private CargoType mCargoType = null;
+	private SettingGroup mSettingGroup = null;
 
 	private CUSTOMER_BEHAVIOR mBehavior = CUSTOMER_BEHAVIOR.CB_NONE;
+
+	@Override
+	public ContentValues getContentValues() {
+		ContentValues values = new ContentValues();
+		values.put(DSCargo.COL_CARGO_ID, this.mCargoId);
+		values.put(DSCargo.COL_CARGO_NAME, this.mCargoName);
+		values.put(DSCargo.COL_CARGO_TYPE_ID, this.mCargoType.getmCargoTypeId());
+		values.put(DSCargo.COL_SETTING_GROUP_ID, this.mSettingGroup.getmSettingGroupId());
+		return values;
+	}
 
 	public Cargo(String cargoName, CargoType cargoType) {
 		this.setmCargoName(cargoName);
 		this.setmCargoType(cargoType);
 	}
 
-	public String getmCargoId() {
+	public int getmCargoId() {
 		return mCargoId;
 	}
 
-	public void setmCargoId(String mCargoId) {
+	public void setmCargoId(int mCargoId) {
 		this.mCargoId = mCargoId;
 	}
 
@@ -53,5 +68,13 @@ public class Cargo implements Serializable{
 
 	public void setmBehavior(CUSTOMER_BEHAVIOR mBehavior) {
 		this.mBehavior = mBehavior;
+	}
+
+	public SettingGroup getmSettingGroup() {
+		return mSettingGroup;
+	}
+
+	public void setmSettingGroup(SettingGroup mSettingGroup) {
+		this.mSettingGroup = mSettingGroup;
 	}
 }

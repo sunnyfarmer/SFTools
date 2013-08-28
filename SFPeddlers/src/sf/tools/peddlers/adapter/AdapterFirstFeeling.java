@@ -65,7 +65,7 @@ public class AdapterFirstFeeling extends BaseAdapter implements OnItemClickListe
 			firstFeelingViewHolder = (VHFirstFeeling) convertView.getTag();
 		}
 
-		firstFeelingViewHolder.tvFirstFeeling.setText(this.mFirstFeelingArray.get(position).getmFirstFeeling());
+		firstFeelingViewHolder.tvFirstFeeling.setText(this.mFirstFeelingArray.get(position).getmFirstFeelingName());
 
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, 110);
 		convertView.setLayoutParams(params);

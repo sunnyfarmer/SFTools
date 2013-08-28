@@ -3,7 +3,11 @@ package sf.tools.peddlers.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ShoppingList implements Serializable{
+import sf.tools.peddlers.db.DataStructure.DSShoppingList;
+
+import android.content.ContentValues;
+
+public class ShoppingList implements Serializable, Model{
 	/**
 	 * 
 	 */
@@ -11,17 +15,31 @@ public class ShoppingList implements Serializable{
 
 	public static final String TAG = "ShoppingList";
 
+	private String mShoppingListId = null;
 	private FirstFeeling mFirstFeeling = null;
+	private SettingGroup mSettingGroup = null;
 	private ArrayList<Characteristic> mCharacteristic = null;
 	private ArrayList<Cargo> mLookCargo = null;
 	private ArrayList<Cargo> mBuyCargo = null;
 	private ArrayList<Cargo> mRelatedCargo = null;
 
+	public String getmShoppingListId() {
+		return mShoppingListId;
+	}
+	public void setmShoppingListId(String mShoppingListId) {
+		this.mShoppingListId = mShoppingListId;
+	}
 	public FirstFeeling getmFirstFeeling() {
 		return mFirstFeeling;
 	}
 	public void setmFirstFeeling(FirstFeeling mFirstFeeling) {
 		this.mFirstFeeling = mFirstFeeling;
+	}
+	public SettingGroup getmSettingGroup() {
+		return mSettingGroup;
+	}
+	public void setmSettingGroup(SettingGroup mSettingGroup) {
+		this.mSettingGroup = mSettingGroup;
 	}
 	public ArrayList<Characteristic> getmCharacteristic() {
 		return mCharacteristic;
@@ -46,5 +64,13 @@ public class ShoppingList implements Serializable{
 	}
 	public void setmRelatedCargo(ArrayList<Cargo> mRelatedCargo) {
 		this.mRelatedCargo = mRelatedCargo;
+	}
+	@Override
+	public ContentValues getContentValues() {
+		ContentValues values = new ContentValues();
+		values.put(DSShoppingList.COL_SHOPPING_LIST_ID, this.mShoppingListId);
+		values.put(DSShoppingList.COL_FIRST_FEELING_ID, this.mFirstFeeling.getmFirstFeelingId());
+		values.put(DSShoppingList.COL_SETTING_GROUP_ID, this.mSettingGroup.getmSettingGroupId());
+		return values;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import sf.log.SFLog;
 import sf.tools.peddlers.adapter.AdapterCustomerCharacteristic;
 import sf.tools.peddlers.model.Characteristic;
+import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.model.ShoppingList;
 import sf.tools.peddlers.utils.SFGlobal;
 
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ActivityCustomerCharacteristic extends TopActivity {
 	public static final String TAG = "ActivityCustomerCharacteristic";
@@ -50,19 +52,19 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 		super.initData();
 		this.mCharacteristicArray.clear();
 		Characteristic sizeCharacter = new Characteristic("鞋码");
-		sizeCharacter.addValue("35");
-		sizeCharacter.addValue("36");
-		sizeCharacter.addValue("37");
-		sizeCharacter.addValue("38");
-		sizeCharacter.addValue("40");
-		sizeCharacter.addValue("41");
-		sizeCharacter.addValue("42");
-		sizeCharacter.addValue("43");
-		sizeCharacter.addValue("44");
-		sizeCharacter.addValue("45");
+		sizeCharacter.addCharacteristicItem(new CharacteristicItem("35", sizeCharacter));
+		sizeCharacter.addCharacteristicItem(new CharacteristicItem("36", sizeCharacter));
+		sizeCharacter.addCharacteristicItem(new CharacteristicItem("37", sizeCharacter));
+		sizeCharacter.addCharacteristicItem(new CharacteristicItem("38", sizeCharacter));
+		sizeCharacter.addCharacteristicItem(new CharacteristicItem("39", sizeCharacter));
+		sizeCharacter.addCharacteristicItem(new CharacteristicItem("40", sizeCharacter));
+		sizeCharacter.addCharacteristicItem(new CharacteristicItem("41", sizeCharacter));
+		sizeCharacter.addCharacteristicItem(new CharacteristicItem("42", sizeCharacter));
+		sizeCharacter.addCharacteristicItem(new CharacteristicItem("43", sizeCharacter));
+		sizeCharacter.addCharacteristicItem(new CharacteristicItem("44", sizeCharacter));
 		Characteristic voiceCharacter = new Characteristic("口音");
-		voiceCharacter.addValue("粤语");
-		voiceCharacter.addValue("普通话");
+		voiceCharacter.addCharacteristicItem(new CharacteristicItem("粤语", voiceCharacter));
+		voiceCharacter.addCharacteristicItem(new CharacteristicItem("普通话", voiceCharacter));
 		this.mCharacteristicArray.add(sizeCharacter);
 		this.mCharacteristicArray.add(voiceCharacter);
 
@@ -137,7 +139,9 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 			if (shoppingList.getmCharacteristic()!=null) {
 				this.mCharacteristicArray = shoppingList.getmCharacteristic();
 			}
-			SFLog.d(TAG, "FirstFeeling: " + this.mShoppingList.getmFirstFeeling().getmFirstFeeling());
+			Toast.makeText(this, "FirstFeeling: " + this.mShoppingList.getmFirstFeeling().getmFirstFeelingName(), Toast.LENGTH_SHORT)
+			.show();
+			SFLog.d(TAG, "FirstFeeling: " + this.mShoppingList.getmFirstFeeling().getmFirstFeelingName());
 		}
 	}
 }
