@@ -7,6 +7,7 @@ Tools created by Sunnyfarmer!
 * 不能伸缩
 * 不能平移
 * 连续值范围根据离散点对应的Y轴值来确定
+
 ###### 相关属性
 * entityMin 对应的X轴离散点的最小值
 * entityMax 对应的X轴离散点的最大值
@@ -22,5 +23,6 @@ Tools created by Sunnyfarmer!
 最大：显示１个离散点
 * 可平移
 显示的离散点数量不变
+
 ###### 相关属性
 * numberOfEntity
