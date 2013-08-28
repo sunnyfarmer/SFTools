@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import sf.tools.chart.entity.SFLineChartEntity;
 import sf.tools.chart.listener.SFLineChartOnGestureListener;
+import sf.utils.SFAndroidSize;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.util.AttributeSet;
@@ -77,7 +78,7 @@ public class SFLineChart extends SFYValueChart {
 		}
 		int height = this.getHeight();
 		//init the paint
-		this.mPaint.setTextSize(this.mTextSizeOfAxis);
+		this.mPaint.setTextSize(SFAndroidSize.dp2Px((Activity)this.getContext(), this.mTextSizeOfAxis));
 		this.mPaint.setColor(this.mTextColorOfAxis);
 
 		//draw step

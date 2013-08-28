@@ -1,5 +1,7 @@
 package sf.tools.chart;
 
+import sf.utils.SFAndroidSize;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -12,13 +14,17 @@ public class SFYValueChart extends SFChart {
 	protected float mYMinValue = 0.0f;
 	protected float mYMaxValue = 10000.0f;
 
-	// min\max value displaying on the screen
+	// min\max value displaying on the screen(即当前界面上显示最大最小值)
 	protected float mYDisplayMinValue = mYMinValue;
 	protected float mYDisplayMaxValue = mYMaxValue;
 
+	// min\max value of the chart entity(即X轴中要显示的点,最大最小值)
+	protected float mEntityYMaxValue = mYDisplayMaxValue;
+	protected float mEntityYMinValue = mYDisplayMinValue;
+
 	// steps of Y Value
 	protected int mStepsOfValue = 10;
-	protected float mYValueGap = (mYMaxValue-mYMinValue)/mStepsOfValue;
+	protected float mYValueGap = (mYDisplayMaxValue-mYDisplayMinValue)/mStepsOfValue;
 
 	protected float mScale = 1.0f;
 
@@ -55,7 +61,7 @@ public class SFYValueChart extends SFChart {
 	}
 
 	private void drawValues(Canvas canvas) {
-		this.mPaint.setTextSize(this.mTextSizeOfAxis);
+		this.mPaint.setTextSize(SFAndroidSize.dp2Px((Activity)this.getContext(), this.mTextSizeOfAxis));
 		this.mPaint.setColor(this.mTextColorOfAxis);
 
 		float maxWidthOfValueText = 0.0f;
