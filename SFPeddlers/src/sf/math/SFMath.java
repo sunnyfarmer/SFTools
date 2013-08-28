@@ -26,4 +26,30 @@ public class SFMath {
 		length = Math.sqrt(gapOfX*gapOfX + gapOfY*gapOfY);
 		return length;
 	}
+
+	public static int getPower(double num) {
+		int power = 0;
+		if (num > 1.0f) {
+			int cot = 1;
+			while (true) {
+				double powerNumber = Math.pow(10.0f, cot);
+				if (num/powerNumber<1.0f) {
+					power = cot;
+					break;
+				}
+				cot++;
+			}
+		} else {
+			int cot = -1;
+			double powerNumber = Math.pow(10.0f, cot);
+			while (true) {
+				if (num/powerNumber>=1.0f) {
+					power = cot;
+					break;
+				}
+				cot--;
+			}
+		}
+		return power;
+	}
 }

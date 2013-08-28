@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 public class SFYValueChart extends SFChart {
 	public static final String TAG = "SFYValueChart";
 
-	// min\max value on the screen
+	// min\max value on the screen(根据entityMin/entityMax定义出来的Y轴范围)
 	protected float mYMinValue = 0.0f;
 	protected float mYMaxValue = 10000.0f;
 
@@ -26,8 +26,6 @@ public class SFYValueChart extends SFChart {
 	protected int mStepsOfValue = 10;
 	protected float mYValueGap = (mYDisplayMaxValue-mYDisplayMinValue)/mStepsOfValue;
 
-	protected float mScale = 1.0f;
-
 	public SFYValueChart(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
@@ -41,6 +39,10 @@ public class SFYValueChart extends SFChart {
 		this.drawValues(canvas);
 	}
 
+	/**
+	 * 绘制Y轴上的刻度
+	 * @param canvas
+	 */
 	private void drawSteps(Canvas canvas) {
 		// draw n-2 steps on the Y Axis Of the chart
 		this.mPaint.setStrokeWidth(this.mStrokeSizeOfAxis);
@@ -60,6 +62,10 @@ public class SFYValueChart extends SFChart {
 		}
 	}
 
+	/**
+	 * 绘制Y轴上的刻度对应的值
+	 * @param canvas
+	 */
 	private void drawValues(Canvas canvas) {
 		this.mPaint.setTextSize(SFAndroidSize.dp2Px((Activity)this.getContext(), this.mTextSizeOfAxis));
 		this.mPaint.setColor(this.mTextColorOfAxis);
@@ -94,4 +100,53 @@ public class SFYValueChart extends SFChart {
 			this.invalidate();
 		}
 	}
+
+
+	public float getmYMinValue() {
+		return mYMinValue;
+	}
+
+
+	public float getmYMaxValue() {
+		return mYMaxValue;
+	}
+
+
+	public float getmYDisplayMinValue() {
+		return mYDisplayMinValue;
+	}
+
+
+	public float getmYDisplayMaxValue() {
+		return mYDisplayMaxValue;
+	}
+
+
+	public float getmEntityYMaxValue() {
+		return mEntityYMaxValue;
+	}
+
+
+	public float getmEntityYMinValue() {
+		return mEntityYMinValue;
+	}
+	public int getmStepsOfValue() {
+		return mStepsOfValue;
+	}
+	public void setEntityRange(float entityMinValue, float entityMaxValue) {
+		this.mEntityYMinValue = entityMinValue;
+		this.mEntityYMaxValue = entityMaxValue;
+
+		float gapOfEntity = (this.mEntityYMaxValue-this.mEntityYMinValue) / this.mStepsOfValue;
+	}
+	public void setmStepsOfValue(int mStepsOfValue) {
+		this.mStepsOfValue = mStepsOfValue;
+
+		// update the "display range" and "y value range"
+		this.setEntityRange(this.mEntityYMinValue, this.mEntityYMaxValue);
+
+		// update the gap of y vale
+		this.mYValueGap = (mYDisplayMaxValue-mYDisplayMinValue)/mStepsOfValue;
+	}
+	
 }
