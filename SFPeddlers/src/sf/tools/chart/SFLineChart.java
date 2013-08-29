@@ -41,7 +41,8 @@ public class SFLineChart extends SFYValueChart {
 		this.addLineChartEntity(new SFLineChartEntity("拖鞋8", 75.0f));
 		this.addLineChartEntity(new SFLineChartEntity("拖鞋9", 85.0f));
 		this.addLineChartEntity(new SFLineChartEntity("拖鞋10", 15.0f));
-
+		this.setEntityRange(15.0f, 85.0f);
+		this.setmStepsOfValue(10);
 		this.setOnTouchListener(new SFLineChartOnGestureListener(context));
 	}
 

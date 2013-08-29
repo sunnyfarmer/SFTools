@@ -30,8 +30,6 @@ public class SFYValueChart extends SFChart {
 
 	public SFYValueChart(Context context, AttributeSet attrs) {
 		super(context, attrs);
-
-		this.setEntityRange(23.0f, 88.0f);
 	}
 
 	@Override
@@ -141,24 +139,9 @@ public class SFYValueChart extends SFChart {
 		this.mEntityYMinValue = entityMinValue;
 		this.mEntityYMaxValue = entityMaxValue;
 
-		float gapOfEntity = (this.mEntityYMaxValue-this.mEntityYMinValue) / this.mStepsOfValue;
-		int powerOfGapEntity = SFMath.getPower(gapOfEntity);
-		double lastPositionOfMax = this.mEntityYMaxValue%Math.pow(10.0f, powerOfGapEntity);
-		double previousPositionOfMax = (int)(this.mEntityYMaxValue/Math.pow(10.0f, powerOfGapEntity)) * Math.pow(10.0f, powerOfGapEntity);
-		double lastPositoinOfMin = this.mEntityYMinValue%Math.pow(10.0f, powerOfGapEntity);
-		double previousPositionOfMin = (int)(this.mEntityYMinValue/Math.pow(10.0f, powerOfGapEntity)) * Math.pow(10.0f, powerOfGapEntity);
-
-		if (lastPositionOfMax > 5*Math.pow(10.0f, powerOfGapEntity-1)) {
-			this.mYMaxValue = (float) (previousPositionOfMax + Math.pow(10.f, powerOfGapEntity));
-		} else {
-			this.mYMaxValue = (float) (previousPositionOfMax + 5*Math.pow(10.0f, powerOfGapEntity-1));
-		}
-
-		if (lastPositoinOfMin > 5*Math.pow(10.0f, powerOfGapEntity-1)) {
-			this.mYMinValue = (float) (previousPositionOfMin + 5*Math.pow(10.0f, powerOfGapEntity-1));
-		} else {
-			this.mYMinValue = (float) previousPositionOfMin;
-		}
+		float[] totalRange = SFYValueChart.getTotalRangeByEntityRange(this.mEntityYMinValue, this.mEntityYMaxValue, this.mStepsOfValue);
+		this.mYMinValue = totalRange[0];
+		this.mYMaxValue = totalRange[1];
 
 		this.mYDisplayMaxValue = this.mYMaxValue;
 		this.mYDisplayMinValue = this.mYMinValue;
@@ -171,9 +154,29 @@ public class SFYValueChart extends SFChart {
 
 		// update the "display range" and "y value range"
 		this.setEntityRange(this.mEntityYMinValue, this.mEntityYMaxValue);
-//
-//		// update the gap of y vale
-//		this.mYValueGap = (mYDisplayMaxValue-mYDisplayMinValue)/mStepsOfValue;
 	}
-	
+	private static float[] getTotalRangeByEntityRange(float minEntity, float maxEntity, float steps) {
+		float[] range = new float[2];
+
+		float gapOfEntity = (maxEntity-minEntity) / steps;
+		int powerOfGapEntity = SFMath.getPower(gapOfEntity);
+		double lastPositionOfMax = maxEntity%Math.pow(10.0f, powerOfGapEntity);
+		double previousPositionOfMax = (int)(maxEntity/Math.pow(10.0f, powerOfGapEntity)) * Math.pow(10.0f, powerOfGapEntity);
+		double lastPositoinOfMin = minEntity%Math.pow(10.0f, powerOfGapEntity);
+		double previousPositionOfMin = (int)(minEntity/Math.pow(10.0f, powerOfGapEntity)) * Math.pow(10.0f, powerOfGapEntity);
+
+		if (lastPositionOfMax > 5*Math.pow(10.0f, powerOfGapEntity-1)) {
+			range[1] = (float) (previousPositionOfMax + Math.pow(10.f, powerOfGapEntity));
+		} else {
+			range[1] = (float) (previousPositionOfMax + 5*Math.pow(10.0f, powerOfGapEntity-1));
+		}
+
+		if (lastPositoinOfMin > 5*Math.pow(10.0f, powerOfGapEntity-1)) {
+			range[0] = (float) (previousPositionOfMin + 5*Math.pow(10.0f, powerOfGapEntity-1));
+		} else {
+			range[0] = (float) previousPositionOfMin;
+		}
+
+		return range;
+	}
 }
