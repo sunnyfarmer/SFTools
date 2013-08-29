@@ -29,7 +29,7 @@ public class SFMath {
 
 	public static int getPower(double num) {
 		int power = 0;
-		if (num > 1.0f) {
+		if (num >= 1.0f) {
 			int cot = 1;
 			while (true) {
 				double powerNumber = Math.pow(10.0f, cot);
@@ -41,8 +41,8 @@ public class SFMath {
 			}
 		} else {
 			int cot = -1;
-			double powerNumber = Math.pow(10.0f, cot);
 			while (true) {
+				double powerNumber = Math.pow(10.0f, cot);
 				if (num/powerNumber>=1.0f) {
 					power = cot;
 					break;
