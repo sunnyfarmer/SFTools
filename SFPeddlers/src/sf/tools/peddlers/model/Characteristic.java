@@ -15,7 +15,7 @@ public class Characteristic implements Serializable,Model{
 
 	public static final String TAG = "Characteristic";
 
-	private int mCharacteristicId;
+	private int mCharacteristicId = ID_UNDEFINED;
 	private String mCharacteristicName = null;
 	private SettingGroup mSettingGroup = null;
 	private ArrayList<CharacteristicItem> mCharacteristicItemArray = null;

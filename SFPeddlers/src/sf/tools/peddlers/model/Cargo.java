@@ -19,7 +19,7 @@ public class Cargo implements Serializable,Model{
 		CB_BUY
 	};
 
-	private int mCargoId;
+	private int mCargoId = ID_UNDEFINED;
 	private String mCargoName = null;
 	private CargoType mCargoType = null;
 	private SettingGroup mSettingGroup = null;

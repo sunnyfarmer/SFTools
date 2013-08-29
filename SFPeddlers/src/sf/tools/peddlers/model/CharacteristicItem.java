@@ -14,7 +14,7 @@ public class CharacteristicItem implements Serializable, Model {
 	private static final long serialVersionUID = -9150668579559277416L;
 	public static final String TAG = "CharacteristicItem";
 
-	private int mCharacteristicItemId;
+	private int mCharacteristicItemId = ID_UNDEFINED;
 	private String mCharacteristicItemName = null;
 	private Characteristic mCharacteristic = null;
 

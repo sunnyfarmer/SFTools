@@ -31,12 +31,12 @@ public class ActivityFirstFeeling extends TopActivity {
 	@Override
 	protected void initData() {
 		this.mFirstFeelingArray = new ArrayList<FirstFeeling>();
-		this.mFirstFeelingArray.add(new FirstFeeling("年轻女孩"));
-		this.mFirstFeelingArray.add(new FirstFeeling("中年妇女"));
-		this.mFirstFeelingArray.add(new FirstFeeling("老龄妇女"));
-		this.mFirstFeelingArray.add(new FirstFeeling("年轻男孩"));
-		this.mFirstFeelingArray.add(new FirstFeeling("中年男子"));
-		this.mFirstFeelingArray.add(new FirstFeeling("老龄男人"));
+		this.mFirstFeelingArray.add(new FirstFeeling("年轻女孩", null));
+		this.mFirstFeelingArray.add(new FirstFeeling("中年妇女", null));
+		this.mFirstFeelingArray.add(new FirstFeeling("老龄妇女", null));
+		this.mFirstFeelingArray.add(new FirstFeeling("年轻男孩", null));
+		this.mFirstFeelingArray.add(new FirstFeeling("中年男子", null));
+		this.mFirstFeelingArray.add(new FirstFeeling("老龄男人", null));
 
 		this.mFirstFeelingAdapter = new AdapterFirstFeeling(this, this.mFirstFeelingArray);
 	}

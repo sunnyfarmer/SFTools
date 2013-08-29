@@ -14,7 +14,7 @@ public class CargoType implements Serializable,Model{
 
 	public static final String TAG = "CargoType";
 
-	private int mCargoTypeId;
+	private int mCargoTypeId = ID_UNDEFINED;
 	private String mCargoTypeName = null;
 	private SettingGroup mSettingGroup = null;
 

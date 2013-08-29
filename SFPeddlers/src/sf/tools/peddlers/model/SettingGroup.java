@@ -16,6 +16,10 @@ public class SettingGroup implements Serializable,Model{
 	private String mSettingGroupId = null;
 	private String mSettingGroupName = null;
 
+	public SettingGroup(String settingGroupName) {
+		this.setmSettingGroupName(settingGroupName);
+	}
+
 	public String getmSettingGroupId() {
 		return mSettingGroupId;
 	}

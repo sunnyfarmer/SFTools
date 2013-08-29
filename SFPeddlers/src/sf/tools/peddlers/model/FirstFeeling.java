@@ -16,11 +16,11 @@ public class FirstFeeling implements Serializable,Model{
 
 	private SettingGroup mSettingGroup = null;
 	private String mFirstFeelingName = null;
-	private int mFirstFeelingId;
-	
+	private int mFirstFeelingId = ID_UNDEFINED;
 
-	public FirstFeeling(String firstFeeling) {
+	public FirstFeeling(String firstFeeling, SettingGroup settingGroup) {
 		this.setmFirstFeelingName(firstFeeling);
+		this.setmSettingGroup(settingGroup);
 	}
 
 	public SettingGroup getmSettingGroup() {
