@@ -1,10 +1,12 @@
 package sf.tools.chart;
 
+import sf.math.SFMath;
 import sf.utils.SFAndroidSize;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.hardware.Camera.PreviewCallback;
 import android.util.AttributeSet;
 
 public class SFYValueChart extends SFChart {
@@ -28,6 +30,8 @@ public class SFYValueChart extends SFChart {
 
 	public SFYValueChart(Context context, AttributeSet attrs) {
 		super(context, attrs);
+
+		this.setEntityRange(23.0f, 88.0f);
 	}
 
 	@Override
@@ -138,15 +142,38 @@ public class SFYValueChart extends SFChart {
 		this.mEntityYMaxValue = entityMaxValue;
 
 		float gapOfEntity = (this.mEntityYMaxValue-this.mEntityYMinValue) / this.mStepsOfValue;
+		int powerOfGapEntity = SFMath.getPower(gapOfEntity);
+		double lastPositionOfMax = this.mEntityYMaxValue%Math.pow(10.0f, powerOfGapEntity);
+		double previousPositionOfMax = (int)(this.mEntityYMaxValue/Math.pow(10.0f, powerOfGapEntity)) * Math.pow(10.0f, powerOfGapEntity);
+		double lastPositoinOfMin = this.mEntityYMinValue%Math.pow(10.0f, powerOfGapEntity);
+		double previousPositionOfMin = (int)(this.mEntityYMinValue/Math.pow(10.0f, powerOfGapEntity)) * Math.pow(10.0f, powerOfGapEntity);
+
+		if (lastPositionOfMax > 5*Math.pow(10.0f, powerOfGapEntity-1)) {
+			this.mYMaxValue = (float) (previousPositionOfMax + Math.pow(10.f, powerOfGapEntity));
+		} else {
+			this.mYMaxValue = (float) (previousPositionOfMax + 5*Math.pow(10.0f, powerOfGapEntity-1));
+		}
+
+		if (lastPositoinOfMin > 5*Math.pow(10.0f, powerOfGapEntity-1)) {
+			this.mYMinValue = (float) (previousPositionOfMin + 5*Math.pow(10.0f, powerOfGapEntity-1));
+		} else {
+			this.mYMinValue = (float) previousPositionOfMin;
+		}
+
+		this.mYDisplayMaxValue = this.mYMaxValue;
+		this.mYDisplayMinValue = this.mYMinValue;
+
+		// update the gap of y vale
+		this.mYValueGap = (mYDisplayMaxValue-mYDisplayMinValue)/mStepsOfValue;
 	}
 	public void setmStepsOfValue(int mStepsOfValue) {
 		this.mStepsOfValue = mStepsOfValue;
 
 		// update the "display range" and "y value range"
 		this.setEntityRange(this.mEntityYMinValue, this.mEntityYMaxValue);
-
-		// update the gap of y vale
-		this.mYValueGap = (mYDisplayMaxValue-mYDisplayMinValue)/mStepsOfValue;
+//
+//		// update the gap of y vale
+//		this.mYValueGap = (mYDisplayMaxValue-mYDisplayMinValue)/mStepsOfValue;
 	}
 	
 }
