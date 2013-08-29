@@ -2,6 +2,7 @@ package sf.tools.chart;
 
 import java.util.ArrayList;
 
+import sf.math.SFMath;
 import sf.tools.chart.entity.SFLineChartEntity;
 import sf.tools.chart.listener.SFLineChartOnGestureListener;
 import sf.utils.SFAndroidSize;
@@ -24,6 +25,8 @@ public class SFLineChart extends SFYValueChart {
 	private float mSizeOfPointInLine = 5.0f;
 	private int mColorOfPointInLine = Color.RED;
 
+	private int mNumOfDisplayingEntity = 0;
+
 	public SFLineChart(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		if (this.isInEditMode()) {
@@ -41,8 +44,9 @@ public class SFLineChart extends SFYValueChart {
 		this.addLineChartEntity(new SFLineChartEntity("拖鞋8", 75.0f));
 		this.addLineChartEntity(new SFLineChartEntity("拖鞋9", 85.0f));
 		this.addLineChartEntity(new SFLineChartEntity("拖鞋10", 15.0f));
-		this.setEntityRange(15.0f, 85.0f);
+		this.setEntityRange(20.0f, 85.0f);
 		this.setmStepsOfValue(10);
+		this.setmNumOfDisplayingEntity(10);
 		this.setOnTouchListener(new SFLineChartOnGestureListener(context));
 	}
 
@@ -134,8 +138,32 @@ public class SFLineChart extends SFYValueChart {
 		for (int cot = 0; cot < pointArray.size()-1; cot++) {
 			PointF p1 = pointArray.get(cot);
 			PointF p2 = pointArray.get(cot+1);
+			p1.x = this.makeDataBackIntoRange(this.mBeginPointOfXAxis.x, this.mEndPointOfXAxis.x, p1.x);
+			p1.y = this.makeDataBackIntoRange(this.mEndPointOfYAxis.y, this.mBeginPointOfYAxis.y, p1.y);
+			p2.x = this.makeDataBackIntoRange(this.mBeginPointOfXAxis.x, this.mEndPointOfXAxis.x, p2.x);
+			p2.y = this.makeDataBackIntoRange(this.mEndPointOfYAxis.y, this.mBeginPointOfYAxis.y, p2.y);
 			canvas.drawLine(p1.x, p1.y, p2.x, p2.y, this.mPaint);
 		}
+	}
+
+	private float makeDataBackIntoRange(float min, float max, float data) {
+		float rs = data;
+
+		//先排大小
+		float[] minMax = SFMath.getMinMax(min, max);
+		min = minMax[0];
+		max = minMax[1];
+
+		//如果小于min,则让rs等于min;如果大于max,则让rs等于max
+		if (!SFMath.dataInRange(min, max, data)) {
+			if (data < min) {
+				rs = min;
+			} else if (data > max){
+				rs = max;
+			}
+		}
+
+		return rs;
 	}
 
 	public boolean addLineChartEntity(SFLineChartEntity entity) {
@@ -157,5 +185,13 @@ public class SFLineChart extends SFYValueChart {
 			this.mLinentityList = new ArrayList<SFLineChartEntity>();
 		}
 		return this.mLinentityList;
+	}
+
+	public int getmNumOfDisplayingEntity() {
+		return mNumOfDisplayingEntity;
+	}
+
+	public void setmNumOfDisplayingEntity(int mNumOfDisplayingEntity) {
+		this.mNumOfDisplayingEntity = mNumOfDisplayingEntity;
 	}
 }
