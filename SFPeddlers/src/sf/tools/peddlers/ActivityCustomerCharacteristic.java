@@ -51,7 +51,7 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 	protected void initData() {
 		super.initData();
 		this.mCharacteristicArray.clear();
-		Characteristic sizeCharacter = new Characteristic("鞋码");
+		Characteristic sizeCharacter = new Characteristic("鞋码", null);
 		sizeCharacter.addCharacteristicItem(new CharacteristicItem("35", sizeCharacter));
 		sizeCharacter.addCharacteristicItem(new CharacteristicItem("36", sizeCharacter));
 		sizeCharacter.addCharacteristicItem(new CharacteristicItem("37", sizeCharacter));
@@ -62,7 +62,7 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 		sizeCharacter.addCharacteristicItem(new CharacteristicItem("42", sizeCharacter));
 		sizeCharacter.addCharacteristicItem(new CharacteristicItem("43", sizeCharacter));
 		sizeCharacter.addCharacteristicItem(new CharacteristicItem("44", sizeCharacter));
-		Characteristic voiceCharacter = new Characteristic("口音");
+		Characteristic voiceCharacter = new Characteristic("口音", null);
 		voiceCharacter.addCharacteristicItem(new CharacteristicItem("粤语", voiceCharacter));
 		voiceCharacter.addCharacteristicItem(new CharacteristicItem("普通话", voiceCharacter));
 		this.mCharacteristicArray.add(sizeCharacter);

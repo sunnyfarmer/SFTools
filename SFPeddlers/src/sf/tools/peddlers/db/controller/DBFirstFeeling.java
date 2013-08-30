@@ -24,7 +24,7 @@ public class DBFirstFeeling extends DBController {
 			firstFeeling.getmSettingGroup().getmSettingGroupId()==null) {
 			return false;
 		}
-		return this.insert(firstFeeling);
+		return super.insert(firstFeeling);
 	}
 
 	public boolean delete(FirstFeeling firstFeeling) {

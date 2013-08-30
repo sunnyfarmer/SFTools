@@ -18,8 +18,9 @@ public class CargoType implements Serializable,Model{
 	private String mCargoTypeName = null;
 	private SettingGroup mSettingGroup = null;
 
-	public CargoType(String cargoTypeName) {
+	public CargoType(String cargoTypeName, SettingGroup settingGroup) {
 		this.setmCargoTypeName(cargoTypeName);
+		this.setmSettingGroup(settingGroup);
 	}
 
 	public int getmCargoTypeId() {

@@ -22,8 +22,9 @@ public class Characteristic implements Serializable,Model{
 
 	private CharacteristicItem mSelectedCharacteristicItem = null;
 
-	public Characteristic(String title) {
+	public Characteristic(String title, SettingGroup settingGroup) {
 		this.setmCharacteristicName(title);
+		this.setmSettingGroup(settingGroup);
 	}
 
 	public int getmCharacteristicId() {
@@ -69,6 +70,14 @@ public class Characteristic implements Serializable,Model{
 			}
 		}
 	}
+	public SettingGroup getmSettingGroup() {
+		return mSettingGroup;
+	}
+
+	public void setmSettingGroup(SettingGroup mSettingGroup) {
+		this.mSettingGroup = mSettingGroup;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s:%s", this.mCharacteristicName, this.mSelectedCharacteristicItem.getmCharacteristicItemName());

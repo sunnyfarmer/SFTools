@@ -58,11 +58,11 @@ public class ActivityShopping extends TopActivity {
 		super.initData();
 
 		CargoType[] cargoTypeArray = {
-				new CargoType("连衣裙"),
-				new CargoType("短裙"),
-				new CargoType("女体恤"),
-				new CargoType("牛仔裤"),
-				new CargoType("热裤")
+				new CargoType("连衣裙", null),
+				new CargoType("短裙", null),
+				new CargoType("女体恤", null),
+				new CargoType("牛仔裤", null),
+				new CargoType("热裤", null)
 		};
 		for (CargoType cargoType : cargoTypeArray) {
 			for (int cot = 0; cot < 10; cot++) {
