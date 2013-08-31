@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import sf.tools.peddlers.adapter.AdapterFirstFeeling;
 import sf.tools.peddlers.model.FirstFeeling;
+import sf.tools.peddlers.test.TestApp;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -99,7 +99,7 @@ public class DataStructure {
 		};
 		public static final String SQL_CREATE = String.format(
 				"create table %s ("+
-				"%s text primary key autoincrement,"+
+				"%s text primary key,"+
 				"%s integer,"+
 				"%s text);",
 				TB_NAME,
@@ -124,6 +124,7 @@ public class DataStructure {
 				"%s integer primary key autoincrement,"+
 				"%s text,"+
 				"%s text);",
+				TB_NAME,
 				COL_CARGO_TYPE_ID,
 				COL_CARGO_TYPE_NAME,
 				COL_SETTING_GROUP_ID

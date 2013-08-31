@@ -1,6 +1,7 @@
 package sf.tools.peddlers.db;
 
 import sf.tools.peddlers.db.DataStructure.DSCargo;
+import sf.tools.peddlers.db.DataStructure.DSCargoInList;
 import sf.tools.peddlers.db.DataStructure.DSCargoType;
 import sf.tools.peddlers.db.DataStructure.DSCharacteristic;
 import sf.tools.peddlers.db.DataStructure.DSCharacteristicItem;
@@ -39,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			db.execSQL(DSShoppingList.SQL_DROP);
 			db.execSQL(DSCargoType.SQL_DROP);
 			db.execSQL(DSCargo.SQL_DROP);
+			db.execSQL(DSCargoInList.SQL_DROP);
 			db.execSQL(DSCharacteristicItemInList.SQL_DROP);
 
 			db.execSQL(DSSettingGroup.SQL_CREATE);
@@ -48,6 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			db.execSQL(DSShoppingList.SQL_CREATE);
 			db.execSQL(DSCargoType.SQL_CREATE);
 			db.execSQL(DSCargo.SQL_CREATE);
+			db.execSQL(DSCargoInList.SQL_CREATE);
 			db.execSQL(DSCharacteristicItemInList.SQL_CREATE);
 		}
 	}

@@ -1,9 +1,19 @@
 package sf.tools.peddlers.test;
 
-public class TestApp {
-	public static final String TAG = "TestApp";
+import sf.tools.peddlers.db.DBController;
+import android.content.Context;
 
-	public static void test() {
-		
+public abstract class TestApp {
+	public static final String TAG = "TestApp";
+	protected Context mContext = null;
+	protected DBController mDBController = null;
+
+	public TestApp(Context context) {
+		this.mContext = context;
+	}
+	public abstract void test();
+
+	public static void testAll(Context context) {
+		new DBSettingGroupTest(context).test();
 	}
 }
