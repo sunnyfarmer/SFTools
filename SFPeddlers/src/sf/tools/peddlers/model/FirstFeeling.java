@@ -50,7 +50,9 @@ public class FirstFeeling implements Serializable,Model{
 	@Override
 	public ContentValues getContentValues() {
 		ContentValues values = new ContentValues();
-		values.put(DSFirstFeeling.COL_FIRST_FEELING_ID, this.mFirstFeelingId);
+		if (this.mFirstFeelingId != Model.ID_UNDEFINED) {
+			values.put(DSFirstFeeling.COL_FIRST_FEELING_ID, this.mFirstFeelingId);
+		}
 		values.put(DSFirstFeeling.COL_FIRST_FEELING_NAME, this.mFirstFeelingName);
 		values.put(DSFirstFeeling.COL_SETTING_GROUP_ID, this.mSettingGroup.getmSettingGroupId());
 		return values;

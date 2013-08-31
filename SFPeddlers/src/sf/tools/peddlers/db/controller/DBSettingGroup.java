@@ -55,6 +55,19 @@ public class DBSettingGroup extends DBController {
 		return rowAffected>0 ? true : false;
 	}
 
+	public SettingGroup queryById(String settingGroupId) {
+		SettingGroup settingGroup = null;
+		Cursor cursor = this.query(
+				DSSettingGroup.COLUMNS,
+				String.format("%s=?", DSSettingGroup.COL_SETTING_GROUP_ID),
+				new String[] {settingGroupId},
+				"1");
+		if (cursor!=null && cursor.moveToNext()) {
+			settingGroup = this.parseCursor(cursor);
+		}
+		return settingGroup;
+	}
+
 	/**
 	 * 查询单个
 	 * @param settingGroupName
@@ -68,10 +81,7 @@ public class DBSettingGroup extends DBController {
 				new String[] {settingGroupName},
 				"1");
 		if (cursor!=null && cursor.moveToNext()) {
-			String id = cursor.getString(cursor.getColumnIndex(DSSettingGroup.COL_SETTING_GROUP_ID));
-			String name = cursor.getString(cursor.getColumnIndex(DSSettingGroup.COL_SETTING_GROUP_NAME));
-			settingGroup = new SettingGroup(name);
-			settingGroup.setmSettingGroupId(id);
+			settingGroup = this.parseCursor(cursor);
 		}
 		return settingGroup;
 	}
@@ -88,13 +98,21 @@ public class DBSettingGroup extends DBController {
 				null,
 				null);
 		while (cursor!=null && cursor.moveToNext()) {
-			String id = cursor.getString(cursor.getColumnIndex(DSSettingGroup.COL_SETTING_GROUP_ID));
-			String name = cursor.getString(cursor.getColumnIndex(DSSettingGroup.COL_SETTING_GROUP_NAME));
-			SettingGroup settingGroup = new SettingGroup(name);
-			settingGroup.setmSettingGroupId(id);
+			SettingGroup settingGroup = this.parseCursor(cursor);
 
 			settingGroupArray.add(settingGroup);
 		}
 		return settingGroupArray;
+	}
+
+	private SettingGroup parseCursor(Cursor cursor) {
+		SettingGroup settingGroup = null;
+
+		String id = cursor.getString(cursor.getColumnIndex(DSSettingGroup.COL_SETTING_GROUP_ID));
+		String name = cursor.getString(cursor.getColumnIndex(DSSettingGroup.COL_SETTING_GROUP_NAME));
+		settingGroup = new SettingGroup(name);
+		settingGroup.setmSettingGroupId(id);
+
+		return settingGroup;
 	}
 }

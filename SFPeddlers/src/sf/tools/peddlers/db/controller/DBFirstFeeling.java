@@ -70,6 +70,17 @@ public class DBFirstFeeling extends DBController {
 		return rowAffected>0 ? true : false;
 	}
 
+	public FirstFeeling query(int firstFeelingId) {
+		FirstFeeling firstFeeling = null;
+		Cursor cursor = this.query(
+				DSFirstFeeling.COLUMNS,
+				String.format("%s=?", DSFirstFeeling.COL_FIRST_FEELING_ID),
+				new String[] {String.valueOf(firstFeelingId)},
+				"1");
+		firstFeeling = this.parseCursor(cursor, null);
+		return firstFeeling;
+	}
+
 	public FirstFeeling query(SettingGroup settingGroup, String firstFeelingName) {
 		if (firstFeelingName==null ||
 			settingGroup==null ||
@@ -90,9 +101,7 @@ public class DBFirstFeeling extends DBController {
 				"1"
 				);
 		if (cursor!=null && cursor.moveToNext()) {
-			int id = cursor.getInt(cursor.getColumnIndex(DSFirstFeeling.COL_FIRST_FEELING_ID));
-			firstFeeling = new FirstFeeling(firstFeelingName, settingGroup);
-			firstFeeling.setmFirstFeelingId(id);
+			firstFeeling = this.parseCursor(cursor, settingGroup);
 		}
 		return firstFeeling;
 	}
@@ -110,13 +119,27 @@ public class DBFirstFeeling extends DBController {
 				null
 				);
 		while (cursor!=null && cursor.moveToNext()) {
-			int id = cursor.getInt(cursor.getColumnIndex(DSFirstFeeling.COL_FIRST_FEELING_ID));
-			String name = cursor.getString(cursor.getColumnIndex(DSFirstFeeling.COL_FIRST_FEELING_NAME));
-			FirstFeeling firstFeeling = new FirstFeeling(name, settingGroup);
-			firstFeeling.setmFirstFeelingId(id);
+			FirstFeeling firstFeeling = this.parseCursor(cursor, settingGroup);
 
 			firstFeelingArray.add(firstFeeling);
 		}
 		return firstFeelingArray;
+	}
+
+	private FirstFeeling parseCursor(Cursor cursor, SettingGroup settingGroup) {
+		FirstFeeling firstFeeling = null;
+		if (cursor!=null) {
+			int id = cursor.getInt(cursor.getColumnIndex(DSFirstFeeling.COL_FIRST_FEELING_ID));
+			String name = cursor.getString(cursor.getColumnIndex(DSFirstFeeling.COL_FIRST_FEELING_NAME));
+
+			if (settingGroup==null) {
+				String settingGroupId = cursor.getString(cursor.getColumnIndex(DSFirstFeeling.COL_SETTING_GROUP_ID));
+				settingGroup = this.getDbSettingGroup().queryById(settingGroupId);
+			}
+
+			firstFeeling = new FirstFeeling(name, settingGroup);
+			firstFeeling.setmFirstFeelingId(id);
+		}
+		return firstFeeling;
 	}
 }

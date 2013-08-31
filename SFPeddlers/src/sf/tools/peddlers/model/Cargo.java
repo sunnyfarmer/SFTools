@@ -2,6 +2,7 @@ package sf.tools.peddlers.model;
 
 import java.io.Serializable;
 
+import sf.log.SFLog;
 import sf.tools.peddlers.db.DataStructure.DSCargo;
 
 import android.content.ContentValues;
@@ -22,17 +23,17 @@ public class Cargo implements Serializable,Model{
 	private int mCargoId = ID_UNDEFINED;
 	private String mCargoName = null;
 	private CargoType mCargoType = null;
-	private SettingGroup mSettingGroup = null;
 
 	private CUSTOMER_BEHAVIOR mBehavior = CUSTOMER_BEHAVIOR.CB_NONE;
 
 	@Override
 	public ContentValues getContentValues() {
 		ContentValues values = new ContentValues();
-		values.put(DSCargo.COL_CARGO_ID, this.mCargoId);
+		if (this.mCargoId != Model.ID_UNDEFINED) {
+			values.put(DSCargo.COL_CARGO_ID, this.mCargoId);
+		}
 		values.put(DSCargo.COL_CARGO_NAME, this.mCargoName);
 		values.put(DSCargo.COL_CARGO_TYPE_ID, this.mCargoType.getmCargoTypeId());
-		values.put(DSCargo.COL_SETTING_GROUP_ID, this.mSettingGroup.getmSettingGroupId());
 		return values;
 	}
 
@@ -70,11 +71,13 @@ public class Cargo implements Serializable,Model{
 		this.mBehavior = mBehavior;
 	}
 
-	public SettingGroup getmSettingGroup() {
-		return mSettingGroup;
-	}
-
-	public void setmSettingGroup(SettingGroup mSettingGroup) {
-		this.mSettingGroup = mSettingGroup;
+	public static CUSTOMER_BEHAVIOR getBehaviorByOriginValue(int originValue) {
+		CUSTOMER_BEHAVIOR rs = CUSTOMER_BEHAVIOR.CB_NONE;
+		if (originValue >= CUSTOMER_BEHAVIOR.values().length) {
+			SFLog.e(TAG, "超出CUSTOMER_BEHAVIOR范围:"+originValue);
+		} else {
+			rs = CUSTOMER_BEHAVIOR.values()[originValue];
+		}
+		return rs;
 	}
 }

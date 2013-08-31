@@ -86,7 +86,9 @@ public class Characteristic implements Serializable,Model{
 	@Override
 	public ContentValues getContentValues() {
 		ContentValues values = new ContentValues();
-		values.put(DSCharacteristic.COL_CHARACTERISTIC_ID, this.mCharacteristicId);
+		if (this.mCharacteristicId != Model.ID_UNDEFINED) {
+			values.put(DSCharacteristic.COL_CHARACTERISTIC_ID, this.mCharacteristicId);
+		}
 		values.put(DSCharacteristic.COL_CHARACTERISTIC_NAME, this.mCharacteristicName);
 		values.put(DSCharacteristic.COL_SETTING_GROUP_ID, this.mSettingGroup.getmSettingGroupId());
 		return values;

@@ -79,6 +79,21 @@ public class DBCharacteristicItem extends DBController {
 		return rowAffected>0 ? true : false;
 	}
 
+	public CharacteristicItem query(int characteristicItemId) {
+		CharacteristicItem characteristicItem = null;
+		Cursor cursor = this.query(
+				DSCharacteristicItem.COLUMNS,
+				String.format(
+						"%s=?",
+						DSCharacteristicItem.COL_CHARACTERISTIC_ITEM_ID),
+				new String[] {
+					String.valueOf(characteristicItemId)
+				},
+				"1");
+		characteristicItem = this.parseCursor(cursor, null);
+		return characteristicItem;
+	}
+
 	public CharacteristicItem query(Characteristic characteristic, String characteristicItemName) {
 		if (characteristicItemName==null ||
 			characteristic==null ||
@@ -98,9 +113,7 @@ public class DBCharacteristicItem extends DBController {
 				},
 				"1");
 		if (cursor!=null && cursor.moveToNext()) {
-			int id = cursor.getInt(cursor.getColumnIndex(DSCharacteristicItem.COL_CHARACTERISTIC_ITEM_ID));
-			characteristicItem = new CharacteristicItem(characteristicItemName, characteristic);
-			characteristicItem.setmCharacteristicItemId(id);
+			characteristicItem = this.parseCursor(cursor, characteristic);
 		}
 		return characteristicItem;
 	}
@@ -123,12 +136,24 @@ public class DBCharacteristicItem extends DBController {
 				},
 				null);
 		while (cursor!=null && cursor.moveToNext()) {
-			int id = cursor.getInt(cursor.getColumnIndex(DSCharacteristicItem.COL_CHARACTERISTIC_ITEM_ID));
-			String name = cursor.getString(cursor.getColumnIndex(DSCharacteristicItem.COL_CHARACTERISTIC_ITEM_NAME));
-			CharacteristicItem item = new CharacteristicItem(name, characteristic);
-			item.setmCharacteristicItemId(id);
+			CharacteristicItem item = this.parseCursor(cursor, characteristic);
 			itemArray.add(item);
 		}
 		return itemArray;
+	}
+
+	private CharacteristicItem parseCursor(Cursor cursor, Characteristic characteristic) {
+		CharacteristicItem characteristicItem = null;
+		if (cursor!=null) {
+			int id = cursor.getInt(cursor.getColumnIndex(DSCharacteristicItem.COL_CHARACTERISTIC_ITEM_ID));
+			String name = cursor.getString(cursor.getColumnIndex(DSCharacteristicItem.COL_CHARACTERISTIC_ITEM_NAME));
+			if (characteristic==null) {
+				int characteristicId = cursor.getInt(cursor.getColumnIndex(DSCharacteristicItem.COL_CHARACTERISTIC_ID));
+				characteristic = this.getDbCharacteristic().query(characteristicId);
+			}
+			CharacteristicItem item = new CharacteristicItem(name, characteristic);
+			item.setmCharacteristicItemId(id);
+		}
+		return characteristicItem;
 	}
 }

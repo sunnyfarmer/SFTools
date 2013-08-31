@@ -78,7 +78,7 @@ public class AdapterFirstFeeling extends BaseAdapter implements OnItemClickListe
 		Intent intent = new Intent(this.mContext, ActivityCustomerCharacteristic.class);
 
 		FirstFeeling firstFeeling = this.getItem(arg2);
-		ShoppingList shoppingList = new ShoppingList();
+		ShoppingList shoppingList = new ShoppingList(firstFeeling, null, null);
 		shoppingList.setmFirstFeeling(firstFeeling);
 
 		intent.putExtra(SFGlobal.EXTRA_SHOPPINGLIST, shoppingList);

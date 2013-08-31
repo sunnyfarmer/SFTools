@@ -48,7 +48,9 @@ public class CharacteristicItem implements Serializable, Model {
 	@Override
 	public ContentValues getContentValues() {
 		ContentValues values = new ContentValues();
-		values.put(DSCharacteristicItem.COL_CHARACTERISTIC_ITEM_ID, this.mCharacteristicItemId);
+		if (this.mCharacteristicItemId != Model.ID_UNDEFINED) {
+			values.put(DSCharacteristicItem.COL_CHARACTERISTIC_ITEM_ID, this.mCharacteristicItemId);
+		}
 		values.put(DSCharacteristicItem.COL_CHARACTERISTIC_ITEM_NAME, this.mCharacteristicItemName);
 		values.put(DSCharacteristicItem.COL_CHARACTERISTIC_ID, this.mCharacteristic.getmCharacteristicId());
 		return values;

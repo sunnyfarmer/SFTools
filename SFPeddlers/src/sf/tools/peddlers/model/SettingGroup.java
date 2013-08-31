@@ -35,7 +35,9 @@ public class SettingGroup implements Serializable,Model{
 	@Override
 	public ContentValues getContentValues() {
 		ContentValues values = new ContentValues();
-		values.put(DSSettingGroup.COL_SETTING_GROUP_ID, this.mSettingGroupId);
+		if (this.mSettingGroupId != null) {
+			values.put(DSSettingGroup.COL_SETTING_GROUP_ID, this.mSettingGroupId);
+		}
 		values.put(DSSettingGroup.COL_SETTING_GROUP_NAME, this.mSettingGroupName);
 		return values;
 	}

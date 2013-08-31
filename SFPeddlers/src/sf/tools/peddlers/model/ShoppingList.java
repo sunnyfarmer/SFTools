@@ -3,6 +3,7 @@ package sf.tools.peddlers.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import sf.log.SFLog;
 import sf.tools.peddlers.db.DataStructure.DSShoppingList;
 
 import android.content.ContentValues;
@@ -23,6 +24,12 @@ public class ShoppingList implements Serializable, Model{
 	private ArrayList<Cargo> mBuyCargo = null;
 	private ArrayList<Cargo> mRelatedCargo = null;
 
+	public ShoppingList(FirstFeeling firstFeeling, SettingGroup settingGroup, ArrayList<Characteristic> characteristicArray) {
+		this.setmFirstFeeling(firstFeeling);
+		this.setmSettingGroup(settingGroup);
+		this.setmCharacteristic(characteristicArray);
+	}
+	
 	public String getmShoppingListId() {
 		return mShoppingListId;
 	}
@@ -40,6 +47,17 @@ public class ShoppingList implements Serializable, Model{
 	}
 	public void setmSettingGroup(SettingGroup mSettingGroup) {
 		this.mSettingGroup = mSettingGroup;
+	}
+	public ArrayList<CharacteristicItem> getmSelectedCharacteristicItem() {
+		ArrayList<CharacteristicItem> itemArray = new ArrayList<CharacteristicItem>();
+		for (Characteristic characteristic : this.getmCharacteristic()) {
+			if (characteristic.getmSelectedCharacteristicItem()!=null) {
+				itemArray.add(characteristic.getmSelectedCharacteristicItem());
+			} else {
+				SFLog.e(TAG, "有特征选项未填");
+			}
+		}
+		return itemArray;
 	}
 	public ArrayList<Characteristic> getmCharacteristic() {
 		return mCharacteristic;
@@ -68,7 +86,9 @@ public class ShoppingList implements Serializable, Model{
 	@Override
 	public ContentValues getContentValues() {
 		ContentValues values = new ContentValues();
-		values.put(DSShoppingList.COL_SHOPPING_LIST_ID, this.mShoppingListId);
+		if (this.mShoppingListId != null) {
+			values.put(DSShoppingList.COL_SHOPPING_LIST_ID, this.mShoppingListId);
+		}
 		values.put(DSShoppingList.COL_FIRST_FEELING_ID, this.mFirstFeeling.getmFirstFeelingId());
 		values.put(DSShoppingList.COL_SETTING_GROUP_ID, this.mSettingGroup.getmSettingGroupId());
 		return values;

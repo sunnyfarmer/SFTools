@@ -62,7 +62,9 @@ public class CargoType implements Serializable,Model{
 	@Override
 	public ContentValues getContentValues() {
 		ContentValues values = new ContentValues();
-		values.put(DSCargoType.COL_CARGO_TYPE_ID, this.mCargoTypeId);
+		if (this.mCargoTypeId != Model.ID_UNDEFINED) {
+			values.put(DSCargoType.COL_CARGO_TYPE_ID, this.mCargoTypeId);
+		}
 		values.put(DSCargoType.COL_CARGO_TYPE_NAME, this.mCargoTypeName);
 		values.put(DSCargoType.COL_SETTING_GROUP_ID, this.mSettingGroup.getmSettingGroupId());
 		return values;

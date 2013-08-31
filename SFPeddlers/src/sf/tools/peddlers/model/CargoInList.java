@@ -18,6 +18,12 @@ public class CargoInList implements Model, Serializable{
 	private ShoppingList mShoppingList = null;
 	private CUSTOMER_BEHAVIOR mUserBehavior = CUSTOMER_BEHAVIOR.CB_NONE;
 
+	public CargoInList(Cargo cargo, ShoppingList shoppingList, CUSTOMER_BEHAVIOR userBehavior) {
+		this.setmCargo(cargo);
+		this.setmShoppingList(shoppingList);
+		this.setmUserBehavior(userBehavior);
+	}
+
 	@Override
 	public ContentValues getContentValues() {
 		ContentValues values = new ContentValues();

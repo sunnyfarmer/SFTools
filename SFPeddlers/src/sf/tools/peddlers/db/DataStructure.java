@@ -135,24 +135,20 @@ public class DataStructure {
 		public static final String COL_CARGO_ID = "cargo_id";
 		public static final String COL_CARGO_NAME = "cargo_name";
 		public static final String COL_CARGO_TYPE_ID = "cargo_type_id";
-		public static final String COL_SETTING_GROUP_ID = "setting_group_id";
 		public static final String[] COLUMNS = {
 			COL_CARGO_ID,
 			COL_CARGO_NAME,
-			COL_CARGO_TYPE_ID,
-			COL_SETTING_GROUP_ID
+			COL_CARGO_TYPE_ID
 		};
 		public static final String SQL_CREATE = String.format(
 				"create table %s ("+
 				"%s integer primary key autoincrement,"+
 				"%s text,"+
-				"%s integer,"+
-				"%s text);",
+				"%s integer);",
 				TB_NAME,
 				COL_CARGO_ID,
 				COL_CARGO_NAME,
-				COL_CARGO_TYPE_ID,
-				COL_SETTING_GROUP_ID
+				COL_CARGO_TYPE_ID
 				);
 		public static final String SQL_DROP = String.format("DROP TABLE IF EXISTS %s", TB_NAME);
 	}
@@ -180,21 +176,17 @@ public class DataStructure {
 	}
 	public static class DSCharacteristicItemInList {
 		public static final String TB_NAME = "tb_characteristic_item_in_list";
-		public static final String COL_CHARACTERISTIC_ID = "characteristic_id";
 		public static final String COL_CHARACTERISTIC_ITEM_ID = "characteristic_item_id";
 		public static final String COL_SHOPPING_LIST_ID = "shopping_list_id";
 		public static final String[] COLUMNS = {
-			COL_CHARACTERISTIC_ID,
 			COL_CHARACTERISTIC_ITEM_ID,
 			COL_SHOPPING_LIST_ID
 		};
 		public static final String SQL_CREATE = String.format(
 				"create table %s ("+
 				"%s integer,"+
-				"%s integer,"+
 				"%s text);",
 				TB_NAME,
-				COL_CHARACTERISTIC_ID,
 				COL_CHARACTERISTIC_ITEM_ID,
 				COL_SHOPPING_LIST_ID
 				);

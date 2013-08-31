@@ -14,12 +14,9 @@ import sf.tools.peddlers.model.SettingGroup;
 public class DBCharacteristic extends DBController {
 	public static final String TAG = "DBCharacteristic";
 
-	private DBCharacteristicItem mDbCharacteristicItem = null;
-
 	public DBCharacteristic(Context context) {
 		super(context);
 		this.mTableName = DSCharacteristic.TB_NAME;
-		this.mDbCharacteristicItem = new DBCharacteristicItem(mContext);
 	}
 
 	public boolean insert(Characteristic characteristic) {
@@ -27,6 +24,15 @@ public class DBCharacteristic extends DBController {
 			characteristic.getmSettingGroup()==null ||
 			characteristic.getmSettingGroup().getmSettingGroupId()==null) {
 			return false;
+		}
+		//先插入特征
+		super.insert(characteristic);
+		characteristic = this.query(characteristic.getmSettingGroup(), characteristic.getmCharacteristicName());
+
+		//后插入选项
+		for (CharacteristicItem characteristicItem : characteristic.getmCharacteristicItemArray()) {
+			characteristicItem.setmCharacteristic(characteristic);
+			this.getDbCharacteristicItem().insert(characteristicItem);
 		}
 		return super.insert(characteristic);
 	}
@@ -40,7 +46,7 @@ public class DBCharacteristic extends DBController {
 		}
 
 		//先删除选项
-		this.mDbCharacteristicItem.delete(characteristic);
+		this.getDbCharacteristicItem().delete(characteristic);
 
 		//再删除特征
 		int rowDeleted = this.delete(
@@ -81,6 +87,17 @@ public class DBCharacteristic extends DBController {
 		return rowAffected>0 ? true : false;
 	}
 
+	public Characteristic query(int characteristicid) {
+		Characteristic characteristic = null;
+		Cursor cursor = this.query(
+				DSCharacteristic.COLUMNS,
+				String.format("%s=?", DSCharacteristic.COL_CHARACTERISTIC_ID),
+				new String[] {String.valueOf(characteristicid)},
+				"1");
+		characteristic = this.parseCursor(cursor, null);
+		return characteristic;
+	}
+
 	public Characteristic query(SettingGroup settingGroup, String characteristicName) {
 		if (settingGroup==null ||
 			settingGroup.getmSettingGroupId()==null ||
@@ -100,13 +117,7 @@ public class DBCharacteristic extends DBController {
 				},
 				"1");
 		if (cursor!=null && cursor.moveToNext()) {
-			int id = cursor.getInt(cursor.getColumnIndex(DSCharacteristic.COL_CHARACTERISTIC_ID));
-			characteristic = new Characteristic(characteristicName, settingGroup);
-			characteristic.setmCharacteristicId(id);
-
-			//查询选项
-			ArrayList<CharacteristicItem> itemArray = this.mDbCharacteristicItem.queryAll(characteristic);
-			characteristic.setmCharacteristicItemArray(itemArray);
+			characteristic = this.parseCursor(cursor, settingGroup);
 		}
 		return characteristic;
 	}
@@ -124,18 +135,33 @@ public class DBCharacteristic extends DBController {
 				null);
 
 		while (cursor!=null && cursor.moveToNext()) {
-			int id = cursor.getInt(cursor.getColumnIndex(DSCharacteristic.COL_CHARACTERISTIC_ID));
-			String name = cursor.getString(cursor.getColumnIndex(DSCharacteristic.COL_CHARACTERISTIC_NAME));
-			Characteristic characteristic = new Characteristic(name, settingGroup);
-			characteristic.setmCharacteristicId(id);
-
-			//查询选项
-			ArrayList<CharacteristicItem> itemArray = this.mDbCharacteristicItem.queryAll(characteristic);
-			characteristic.setmCharacteristicItemArray(itemArray);
+			Characteristic characteristic = this.parseCursor(cursor, settingGroup);
 
 			characteristicArray.add(characteristic);
 		}
 
 		return characteristicArray;
+	}
+
+	private Characteristic parseCursor(Cursor cursor, SettingGroup settingGroup) {
+		Characteristic characteristic = null;
+		if (cursor!=null) {
+			int id = cursor.getInt(cursor.getColumnIndex(DSCharacteristic.COL_CHARACTERISTIC_ID));
+			String name = cursor.getString(cursor.getColumnIndex(DSCharacteristic.COL_CHARACTERISTIC_NAME));
+			
+			if (settingGroup==null) {
+				String settingGroupId = cursor.getString(cursor.getColumnIndex(DSCharacteristic.COL_SETTING_GROUP_ID));
+				settingGroup = this.getDbSettingGroup().queryById(settingGroupId);
+			}
+
+			characteristic = new Characteristic(name, settingGroup);
+			characteristic.setmCharacteristicId(id);
+
+			//查询选项
+			ArrayList<CharacteristicItem> itemArray = this.getDbCharacteristicItem().queryAll(characteristic);
+			characteristic.setmCharacteristicItemArray(itemArray);
+
+		}
+		return characteristic;
 	}
 }
