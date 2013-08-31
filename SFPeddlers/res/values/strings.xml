@@ -3,6 +3,11 @@
 
     <string name="app_name">SFPeddlers</string>
 
+    <!-- common -->
+    <string name="warning">警告</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+
     <!-- string for footer -->
     <string name="in_selling">销售中</string>
     <string name="statistics">数据统计</string>
@@ -18,4 +23,10 @@
 	<string name="looked">已看</string>
 	<string name="buy">买</string>
 	<string name="buyed">已买</string>
+
+	<!-- string for SETTING_GROUP -->	
+	<string name="setting_group">铺位摆设</string>
+	<string name="add_setting_group">添加铺位</string>
+	<string name="delete">删除</string>
+	<string name="whether_delete_setting_group">是否要删除该铺位?</string>
 </resources>

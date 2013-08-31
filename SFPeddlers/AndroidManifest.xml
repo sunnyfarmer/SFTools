@@ -26,6 +26,8 @@
         <activity android:name="ActivityCustomerCharacteristic"></activity>
         <activity android:name="ActivityStatistic"></activity>
         <activity android:name="ActivityShopping"></activity>
+        <activity android:name="ActivitySettingGroup"></activity>
+        <activity android:name="ActivityAddSettingGroup"></activity>
     </application>
 
 </manifest>

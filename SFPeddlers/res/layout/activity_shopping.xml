@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textSize="@dimen/content_size"
             android:text="@string/customer_characteristic" />
 
         <TextView
@@ -25,6 +26,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/cargo_list"
+            android:textSize="@dimen/title_size"
             android:textColor="@android:color/black" />
 
         <Button
@@ -32,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:textSize="@dimen/content_size"
             android:text="@string/shopping_end" />
     </LinearLayout>
 
@@ -48,11 +51,6 @@
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
 				android:orientation="horizontal">
-                <RadioButton android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:background="@drawable/tab_checkbox_selector"
-					android:button="@android:color/transparent"
-					android:text="女装1"/>
             </RadioGroup>
         </HorizontalScrollView>
 

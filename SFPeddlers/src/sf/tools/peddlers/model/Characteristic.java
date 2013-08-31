@@ -80,7 +80,13 @@ public class Characteristic implements Serializable,Model{
 
 	@Override
 	public String toString() {
-		return String.format("%s:%s", this.mCharacteristicName, this.mSelectedCharacteristicItem.getmCharacteristicItemName());
+		String toString = null;
+		if (this.getmSelectedCharacteristicItem()==null) {
+			toString = String.format("%s:null", this.mCharacteristicName);
+		} else {
+			toString = String.format("%s:%s", this.mCharacteristicName, this.mSelectedCharacteristicItem.getmCharacteristicItemName());
+		}
+		return toString;
 	}
 
 	@Override

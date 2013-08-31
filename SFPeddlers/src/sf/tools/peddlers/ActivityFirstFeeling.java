@@ -75,8 +75,8 @@ public class ActivityFirstFeeling extends TopActivity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				Intent intent = new Intent(ActivityFirstFeeling.this, ActivitySettingGroup.class);
+				ActivityFirstFeeling.this.startActivity(intent);
 			}
 		});
 		this.lvFirstFeeling.setOnItemClickListener(this.mFirstFeelingAdapter);

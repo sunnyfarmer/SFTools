@@ -2,53 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/deep_dark_gray"
     android:orientation="vertical" >
 
-    <LinearLayout android:id="@+id/header"
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/activity_header_height"
         android:layout_marginBottom="1dp"
         android:background="@color/light_gray"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/btnBack"
+            android:id="@+id/btnAddSettingGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="@dimen/content_size"
-            android:text="@string/first_feeling" />
+            android:text="@string/add_setting_group" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/customer_characteristic"
             android:gravity="center"
+            android:text="@string/setting_group"
             android:textSize="@dimen/title_size"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black" />
 
         <Button
-            android:id="@+id/btnBeginShopping"
-            android:layout_width="wrap_content"
+			android:visibility="invisible"     
+ 		    android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-			android:layout_gravity="center_vertical"
-			android:textSize="@dimen/content_size"
-            android:text="@string/shopping_begin" />
-
+            android:layout_gravity="center"
+            android:textSize="@dimen/content_size"
+            android:text="@string/add_setting_group" />
     </LinearLayout>
 
     <ListView
-        android:id="@+id/lvCustomerCharacteristic"
+        android:id="@+id/lvSettingGroup"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-		android:layout_weight="1">
+        android:layout_weight="1" >
     </ListView>
 
     <include
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/activity_footer_height"
-        layout="@layout/footer" />
+        layout="@layout/footer"/>
 </LinearLayout>

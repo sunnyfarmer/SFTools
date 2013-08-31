@@ -11,4 +11,7 @@
 
     <dimen name="activity_shopping_cargo_width">64dp</dimen>
     <dimen name="activity_shopping_cargo_height">64dp</dimen>
+
+    <dimen name="title_size">20sp</dimen>
+    <dimen name="content_size">16sp</dimen>
 </resources>

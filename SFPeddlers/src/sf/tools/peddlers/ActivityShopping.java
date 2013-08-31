@@ -166,7 +166,10 @@ public class ActivityShopping extends TopActivity {
 
 		SFLog.d(TAG, "FirstFeeling: "+shoppingList.getmFirstFeeling().getmFirstFeelingName());
 		for (Characteristic characteristic : shoppingList.getmCharacteristic()) {
-			SFLog.d(TAG, "Chara: " + characteristic.getmCharacteristicName()+","+characteristic.getmSelectedCharacteristicItem());
+			SFLog.d(TAG,
+					"Chara: " +
+					characteristic.getmCharacteristicName()+","+
+					characteristic.getmSelectedCharacteristicItem());
 		}
 	}
 
