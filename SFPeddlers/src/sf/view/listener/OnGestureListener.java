@@ -1,6 +1,8 @@
 package sf.view.listener;
 
+import sf.log.SFLog;
 import android.content.Context;
+import android.graphics.PointF;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -45,7 +47,7 @@ public class OnGestureListener implements OnTouchListener {
 	public boolean onSwipeRight() {
 		return false;
 	}
-	public boolean onPinch(float scale) {
+	public boolean onPinch(float scale, PointF focusPoint) {
 		return false;
 	}
 
@@ -92,7 +94,8 @@ public class OnGestureListener implements OnTouchListener {
 		@Override
 		public boolean onScale(ScaleGestureDetector detector) {
 			float scaleFactor = detector.getScaleFactor();
-			return onPinch(scaleFactor);
+			PointF focusPoint = new PointF(detector.getFocusX(), detector.getFocusY());
+			return onPinch(scaleFactor, focusPoint);
 		}
 		@Override
 		public boolean onScaleBegin(ScaleGestureDetector detector) {

@@ -2,6 +2,7 @@ package sf.tools.chart;
 
 import java.util.ArrayList;
 
+import sf.log.SFLog;
 import sf.math.SFMath;
 import sf.tools.chart.entity.SFLineChartEntity;
 import sf.tools.chart.listener.SFLineChartOnGestureListener;
@@ -22,10 +23,11 @@ public class SFLineChart extends SFYValueChart {
 
 	private float mSizeOfLine = 2.0f;
 	private int mColorOfLine = Color.BLACK;
-	private float mSizeOfPointInLine = 5.0f;
+	private float mSizeOfPointInLine = 15.0f;
 	private int mColorOfPointInLine = Color.RED;
 
 	private int mNumOfDisplayingEntity = 0;
+	private int mIndexOfBeginDisplayingEntity = 0;
 
 	public SFLineChart(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -44,10 +46,11 @@ public class SFLineChart extends SFYValueChart {
 		this.addLineChartEntity(new SFLineChartEntity("拖鞋8", 75.0f));
 		this.addLineChartEntity(new SFLineChartEntity("拖鞋9", 85.0f));
 		this.addLineChartEntity(new SFLineChartEntity("拖鞋10", 15.0f));
-		this.setEntityRange(20.0f, 85.0f);
+		this.setEntityRange(10.0f, 85.0f);
 		this.setmStepsOfValue(10);
-		this.setmNumOfDisplayingEntity(10);
-		this.setOnTouchListener(new SFLineChartOnGestureListener(context));
+		this.setmNumOfDisplayingEntity(4);
+		this.setmIndexOfBeginDisplayingEntity(0);
+		this.setOnTouchListener(new SFLineChartOnGestureListener(context, this));
 	}
 
 	@Override
@@ -67,8 +70,8 @@ public class SFLineChart extends SFYValueChart {
 		this.mPaint.setColor(this.mStrokeColorOfAxis);
 
 		//draw step
-		float pixelsOfEachStep = this.mPixelsOfXAxis / (this.getmLinentityList().size()+1);
-		for (int cot = 0; cot < this.getmLinentityList().size(); cot++) {
+		float pixelsOfEachStep = this.mPixelsOfXAxis / (this.getmNumOfDisplayingEntity()+1);
+		for (int cot = 0; cot < this.getmNumOfDisplayingEntity(); cot++) {
 			float xBeginOfStep = this.mBeginPointOfXAxis.x + pixelsOfEachStep * (cot+1);
 			float yBeginOfStep = this.mBeginPointOfXAxis.y;
 			float xEndOfStep = xBeginOfStep;
@@ -87,11 +90,12 @@ public class SFLineChart extends SFYValueChart {
 		this.mPaint.setColor(this.mTextColorOfAxis);
 
 		//draw step
-		float pixelsOfEachStep = this.mPixelsOfXAxis / (this.getmLinentityList().size()+1);
+		float pixelsOfEachStep = this.mPixelsOfXAxis / (this.getmNumOfDisplayingEntity()+1);
 		float maxHeightOfTitle = 0.0f;
-		for (int cot = 0; cot < this.getmLinentityList().size(); cot++) {
+		for (int cot = 0; cot < this.getmNumOfDisplayingEntity(); cot++) {
 			//calculate the size of Title
-			String title = this.getmLinentityList().get(cot).title;
+			int indexOfEntity = this.getmIndexOfBeginDisplayingEntity()+cot;
+			String title = this.getmLinentityList().get(indexOfEntity).title;
 			Rect rectOfTitle = new Rect();
 			this.mPaint.getTextBounds(title, 0, title.length(), rectOfTitle);
 
@@ -120,9 +124,10 @@ public class SFLineChart extends SFYValueChart {
 		//draw point
 		this.mPaint.setStrokeWidth(this.mSizeOfPointInLine);
 		this.mPaint.setColor(this.mColorOfPointInLine);
-		float pixelsOfEachStep = this.mPixelsOfXAxis / (this.getmLinentityList().size()+1);
-		for (int cot = 0; cot < this.mLinentityList.size(); cot++) {
-			SFLineChartEntity lineChartEntity = this.mLinentityList.get(cot);
+		float pixelsOfEachStep = this.mPixelsOfXAxis / (this.getmNumOfDisplayingEntity()+1);
+		for (int cot = 0; cot < this.getmNumOfDisplayingEntity(); cot++) {
+			int indexOfEntity = this.getmIndexOfBeginDisplayingEntity()+cot;
+			SFLineChartEntity lineChartEntity = this.mLinentityList.get(indexOfEntity);
 			float xOfPoint = this.mBeginPointOfXAxis.x + pixelsOfEachStep * (cot+1);
 			float yOfPoint = 
 					this.mBeginPointOfYAxis.y - 
@@ -190,8 +195,23 @@ public class SFLineChart extends SFYValueChart {
 	public int getmNumOfDisplayingEntity() {
 		return mNumOfDisplayingEntity;
 	}
-
+	public int getmIndexOfBeginDisplayingEntity() {
+		return mIndexOfBeginDisplayingEntity;
+	}
 	public void setmNumOfDisplayingEntity(int mNumOfDisplayingEntity) {
+		if (mNumOfDisplayingEntity > this.getmLinentityList().size()) {
+			mNumOfDisplayingEntity = this.getmLinentityList().size();
+		} else if (mNumOfDisplayingEntity < 1) {
+			mNumOfDisplayingEntity = 1;
+		}
 		this.mNumOfDisplayingEntity = mNumOfDisplayingEntity;
+		this.invalidate();
+	}
+	public void setmIndexOfBeginDisplayingEntity(int mIndexOfBeginDisplayingEntity) {
+		SFLog.d(TAG, "index:"+mIndexOfBeginDisplayingEntity+", size:"+this.mLinentityList.size());
+		if (mIndexOfBeginDisplayingEntity >= 0 && mIndexOfBeginDisplayingEntity < this.mLinentityList.size()-this.getmNumOfDisplayingEntity()) {
+			this.mIndexOfBeginDisplayingEntity = mIndexOfBeginDisplayingEntity;
+		}
+		this.invalidate();
 	}
 }
