@@ -24,9 +24,15 @@
 	<string name="buy">买</string>
 	<string name="buyed">已买</string>
 
-	<!-- string for SETTING_GROUP -->	
+	<!-- string for SETTING_GROUP -->
+	<string name="cargo_type">货物种类</string>	
 	<string name="setting_group">铺位摆设</string>
 	<string name="add_setting_group">添加铺位</string>
 	<string name="delete">删除</string>
 	<string name="whether_delete_setting_group">是否要删除该铺位?</string>
+	<string name="add_first_feeling">添加感觉</string>
+	<string name="add_customer_characteristic">添加特征</string>
+	<string name="unfold">展开</string>
+	<string name="add_characteristic_item">添加新的选项</string>
+	<string name="add_cargo_type">添加种类</string>
 </resources>

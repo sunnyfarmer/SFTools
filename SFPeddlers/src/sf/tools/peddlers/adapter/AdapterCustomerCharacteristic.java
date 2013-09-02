@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.model.Characteristic;
-import sf.tools.peddlers.viewholder.VHCustomerCharacteristic;
+import sf.tools.peddlers.viewholder.adapter.VHCustomerCharacteristic;
 import sf.view.RadioButtonGroup;
 import sf.view.RadioButtonGroup.OnCheckedChangeListener;
 

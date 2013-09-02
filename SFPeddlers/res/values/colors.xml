@@ -4,4 +4,7 @@
 	<color name="dark_1_gray">#AAAAAA</color>
 	<color name="dark_gray">#999999</color>
 	<color name="deep_dark_gray">#666666</color>
+
+	<color name="light_blue">#99CCFF</color>
+	<color name="lighter_blue">#99FFFF</color>
 </resources>

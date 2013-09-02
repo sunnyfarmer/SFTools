@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.model.SettingGroup;
-import sf.tools.peddlers.viewholder.VHSettingGroup;
+import sf.tools.peddlers.viewholder.adapter.VHSettingGroup;
 
 import android.app.AlertDialog;
 import android.content.Context;

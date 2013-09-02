@@ -1,4 +1,4 @@
-package sf.tools.peddlers.viewholder;
+package sf.tools.peddlers.viewholder.adapter;
 
 import android.widget.TextView;
 

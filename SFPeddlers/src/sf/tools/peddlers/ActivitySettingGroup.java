@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import sf.tools.peddlers.adapter.AdapterSettingGroup;
 import sf.tools.peddlers.model.SettingGroup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -57,7 +58,8 @@ public class ActivitySettingGroup extends TopActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				Intent intent = new Intent(ActivitySettingGroup.this, ActivityAddSettingGroup.class);
+				ActivitySettingGroup.this.startActivity(intent);
 			}
 		});
 	}

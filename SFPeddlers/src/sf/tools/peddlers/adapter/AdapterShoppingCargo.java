@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.Cargo.CUSTOMER_BEHAVIOR;
-import sf.tools.peddlers.viewholder.VHShoppingCargo;
+import sf.tools.peddlers.viewholder.adapter.VHShoppingCargo;
 
 import android.content.Context;
 import android.view.LayoutInflater;

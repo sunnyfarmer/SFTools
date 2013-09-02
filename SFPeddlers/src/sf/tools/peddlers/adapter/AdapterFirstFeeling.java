@@ -7,7 +7,7 @@ import sf.tools.peddlers.R;
 import sf.tools.peddlers.model.FirstFeeling;
 import sf.tools.peddlers.model.ShoppingList;
 import sf.tools.peddlers.utils.SFGlobal;
-import sf.tools.peddlers.viewholder.VHFirstFeeling;
+import sf.tools.peddlers.viewholder.adapter.VHFirstFeeling;
 
 import android.content.Context;
 import android.content.Intent;
