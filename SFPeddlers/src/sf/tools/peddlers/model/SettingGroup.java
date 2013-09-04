@@ -19,10 +19,10 @@ public class SettingGroup implements Serializable,Model{
 	private String mSettingGroupName = null;
 
 	//init null
-	private ArrayList<FirstFeeling> mFirstFeelingArray = null;
-	private ArrayList<Characteristic> mCharacteristicArray = null;
-	private ArrayList<CargoType> mCargoTypeArray = null;
-	private HashMap<CargoType, ArrayList<Cargo>> mCargoArray = null;
+	private ArrayList<FirstFeeling> mFirstFeelingArray = new ArrayList<FirstFeeling>();
+	private ArrayList<Characteristic> mCharacteristicArray = new ArrayList<Characteristic>();
+	private ArrayList<CargoType> mCargoTypeArray = new ArrayList<CargoType>();
+	private HashMap<CargoType, ArrayList<Cargo>> mCargoArray = new HashMap<CargoType, ArrayList<Cargo>>();
 
 	public SettingGroup(String settingGroupName) {
 		this.setmSettingGroupName(settingGroupName);

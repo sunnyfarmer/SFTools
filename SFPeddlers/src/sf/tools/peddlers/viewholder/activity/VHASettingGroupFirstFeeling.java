@@ -37,7 +37,6 @@ public class VHASettingGroupFirstFeeling {
 	}
 
 	private void initData() {
-		this.mSettingGroup.setmFirstFeelingArray(new ArrayList<FirstFeeling>());
 		this.mSettingGroup.getmFirstFeelingArray().add(new FirstFeeling("年轻女性1", this.mSettingGroup));
 		this.mSettingGroup.getmFirstFeelingArray().add(new FirstFeeling("年轻女性2", this.mSettingGroup));
 		this.mSettingGroup.getmFirstFeelingArray().add(new FirstFeeling("年轻女性3", this.mSettingGroup));

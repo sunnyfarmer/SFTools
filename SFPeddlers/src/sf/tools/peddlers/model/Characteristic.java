@@ -18,7 +18,7 @@ public class Characteristic implements Serializable,Model{
 	private int mCharacteristicId = ID_UNDEFINED;
 	private String mCharacteristicName = null;
 	private SettingGroup mSettingGroup = null;
-	private ArrayList<CharacteristicItem> mCharacteristicItemArray = null;
+	private ArrayList<CharacteristicItem> mCharacteristicItemArray = new ArrayList<CharacteristicItem>();
 
 	private CharacteristicItem mSelectedCharacteristicItem = null;
 

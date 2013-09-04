@@ -36,7 +36,6 @@ public class VHASettingGroupCargoType {
 	}
 
 	private void initData() {
-		this.mSettingGroup.setmCargoTypeArray(new ArrayList<CargoType>());
 		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("拖鞋1", this.mSettingGroup));
 		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("拖鞋2", this.mSettingGroup));
 		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("拖鞋3", this.mSettingGroup));
