@@ -7,6 +7,8 @@
     <string name="warning">警告</string>
     <string name="yes">是</string>
     <string name="no">否</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
 
     <!-- string for footer -->
     <string name="in_selling">销售中</string>
@@ -35,4 +37,7 @@
 	<string name="unfold">展开</string>
 	<string name="add_characteristic_item">添加新的选项</string>
 	<string name="add_cargo_type">添加种类</string>
+	<string name="click_to_chage_title">点击修改标题</string>
+	<string name="please_input_setting_group_name">请输入铺位名称</string>
+	<string name="please_input_new_first_feeling">请输入新感觉</string>
 </resources>

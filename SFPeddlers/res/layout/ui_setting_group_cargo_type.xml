@@ -31,4 +31,11 @@
             android:textSize="@dimen/content_size" />
     </LinearLayout>
 
+    <ListView
+        android:id="@+id/lvCargoType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible" >
+    </ListView>
+
 </LinearLayout>
