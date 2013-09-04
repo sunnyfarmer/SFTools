@@ -40,4 +40,5 @@
 	<string name="click_to_chage_title">点击修改标题</string>
 	<string name="please_input_setting_group_name">请输入铺位名称</string>
 	<string name="please_input_new_first_feeling">请输入新感觉</string>
+	<string name="please_input_new_cargo_type_name">请输入新商品种类</string>
 </resources>
