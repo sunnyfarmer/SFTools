@@ -12,7 +12,6 @@ import sf.tools.peddlers.adapter.AdapterSettingGroupCharacteristic;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.model.SettingGroup;
-import sf.tools.peddlers.utils.SFGlobal;
 
 public class VHASettingGroupCharacteristic {
 	public static final String TAG = "VHASettingGroupCharacteristic";
@@ -97,5 +96,6 @@ public class VHASettingGroupCharacteristic {
 						});
 			}
 		});
+		this.lvCharacteristic.setOnItemClickListener(mAdapterSettingGroupCharacteristic);
 	}
 }

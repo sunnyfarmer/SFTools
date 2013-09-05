@@ -4,8 +4,9 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@android:color/white"
+   android:paddingLeft="10dp"
+    android:paddingRight="5dp" 
     android:orientation="horizontal" >
-    
     <TextView
 		android:id="@+id/tvCharacteristicItemName"
 		android:layout_width="0dp"

@@ -1,8 +1,8 @@
 package sf.tools.peddlers.adapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+import sf.log.SFLog;
 import sf.tools.peddlers.ActivitySettingGroupCharacteristicItem;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.model.Characteristic;
@@ -18,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class AdapterSettingGroupCharacteristic extends BaseAdapter implements
@@ -63,6 +62,12 @@ public class AdapterSettingGroupCharacteristic extends BaseAdapter implements
 		}
 		final Characteristic characteristic = this.getItem(position);
 		vhSettingGroupCharacteristic.tvCharacteristicName.setText(characteristic.getmCharacteristicName());
+		vhSettingGroupCharacteristic.tvCharacteristicName.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				toCharacteristicItemView(characteristic);
+			}
+		});
 		vhSettingGroupCharacteristic.btnUnfold.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
