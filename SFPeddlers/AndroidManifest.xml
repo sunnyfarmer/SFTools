@@ -29,6 +29,7 @@
         <activity android:name="ActivityShopping"></activity>
         <activity android:name="ActivitySettingGroup"></activity>
         <activity android:name="ActivityAddSettingGroup"></activity>
+        <activity android:name="ActivitySettingGroupCharacteristicItem"></activity>
     </application>
 
 </manifest>

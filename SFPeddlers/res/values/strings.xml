@@ -9,6 +9,8 @@
     <string name="no">否</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
+    <string name="back">返回</string>
+    <string name="add">添加</string>
 
     <!-- string for footer -->
     <string name="in_selling">销售中</string>
@@ -43,4 +45,5 @@
 	<string name="please_input_new_first_feeling">请输入新感觉</string>
 	<string name="please_input_new_cargo_type_name">请输入新商品种类</string>
 	<string name="please_input_new_characteristic">请输入新的特征</string>
+	<string name="characteristic_item">特征项</string>
 </resources>

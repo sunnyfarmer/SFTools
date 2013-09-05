@@ -3,10 +3,13 @@ package sf.tools.peddlers.adapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import sf.tools.peddlers.ActivitySettingGroupCharacteristicItem;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.model.Characteristic;
+import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHSettingGroupCharacteristic;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -63,7 +66,7 @@ public class AdapterSettingGroupCharacteristic extends BaseAdapter implements
 		vhSettingGroupCharacteristic.btnUnfold.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//TODO
+				toCharacteristicItemView(characteristic);
 			}
 		});
 		vhSettingGroupCharacteristic.btnDelete.setOnClickListener(new OnClickListener() {
@@ -79,8 +82,13 @@ public class AdapterSettingGroupCharacteristic extends BaseAdapter implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO Auto-generated method stub
-
+		Characteristic characteristic = this.getItem(position);
+		this.toCharacteristicItemView(characteristic);
 	}
 
+	private void toCharacteristicItemView(Characteristic characteristic) {
+		Intent intent = new Intent(this.mContext, ActivitySettingGroupCharacteristicItem.class);
+		intent.putExtra(SFGlobal.EXTRA_CHARACTERISTIC, characteristic);
+		this.mContext.startActivity(intent);
+	}
 }
