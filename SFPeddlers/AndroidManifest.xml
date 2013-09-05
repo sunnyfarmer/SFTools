@@ -30,6 +30,9 @@
         <activity android:name="ActivitySettingGroup"></activity>
         <activity android:name="ActivityAddSettingGroup"></activity>
         <activity android:name="ActivitySettingGroupCharacteristicItem"></activity>
+        <activity android:name="ActivitySettingGroupCargoList"></activity>
+        <activity android:name="ActivitySettingGroupAddCargo"></activity>
+        <activity android:name="ActivitySettingGroupCargoDetail"></activity>
     </application>
 
 </manifest>
