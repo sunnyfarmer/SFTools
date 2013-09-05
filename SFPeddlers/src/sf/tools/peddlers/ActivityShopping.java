@@ -11,6 +11,8 @@ import sf.tools.peddlers.model.CargoType;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.ShoppingList;
 import sf.tools.peddlers.utils.SFGlobal;
+import sf.tools.peddlers.viewholder.activity.VHACargoType;
+import sf.tools.peddlers.viewholder.activity.VHACargoType.OnCargoTypeChangedListener;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,11 +30,11 @@ public class ActivityShopping extends TopActivity {
 	public static final String TAG = "ActivityShopping";
 
 	private HashMap<CargoType, ArrayList<Cargo>> mCargoHashMap = null;
-	private CargoType mSelectedCargo = null;
+	private CargoType mSelectedCargoType = null;
 
-	private RadioGroup rgCargoType = null;
 	private ListView lvCargo = null;
 	private Button btnFinishShopping = null;
+	private VHACargoType mVHACargoType = null;
 
 	private AdapterShoppingCargo mAdapterShoppingCargo = null;
 
@@ -79,20 +81,17 @@ public class ActivityShopping extends TopActivity {
 
 		this.lvCargo = (ListView) this.findViewById(R.id.lvCargo);
 
-		this.rgCargoType = (RadioGroup) this.findViewById(R.id.rgCargoType);
-		this.refreshCargoType();
+		this.mVHACargoType = new VHACargoType(this, this.getCargoTypeArray());
 
 		this.btnFinishShopping = (Button) this.findViewById(R.id.btnFinishShopping);
 	}
 	@Override
 	protected void setListener() {
 		super.setListener();
-		this.rgCargoType.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		this.mVHACargoType.setmOnCargoTypeChangedListener(new OnCargoTypeChangedListener() {
 			@Override
-			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				RadioButton rb = (RadioButton)group.findViewById(checkedId);
-				CargoType cargoType = (CargoType) rb.getTag();
-				ActivityShopping.this.setmSelectedCargo(cargoType);
+			public void onCargoTypeChanged(CargoType cargoType) {
+				ActivityShopping.this.setmSelectedCargoType(cargoType);
 			}
 		});
 		this.btnFinishShopping.setOnClickListener(new OnClickListener() {
@@ -114,25 +113,8 @@ public class ActivityShopping extends TopActivity {
 		this.mCargoHashMap.get(cargo.getmCargoType()).add(cargo);
 	}
 
-	private void refreshCargoType() {
-		this.rgCargoType.removeAllViews();
-
-		Set<CargoType> cargoTypeSet = this.mCargoHashMap.keySet();
-		for (CargoType cargoType : cargoTypeSet) {
-			RadioButton rb = new RadioButton(this);
-			LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-			rb.setLayoutParams(params);
-			rb.setGravity(Gravity.CENTER);
-			rb.setBackgroundResource(R.drawable.tab_checkbox_selector);
-			rb.setButtonDrawable(android.R.color.transparent);
-			rb.setText(cargoType.getmCargoTypeName());
-			rb.setTag(cargoType);
-
-			this.rgCargoType.addView(rb);
-		}
-	}
 	private void refreshCargo() {
-		ArrayList<Cargo> cargoList = this.mCargoHashMap.get(this.getmSelectedCargo());
+		ArrayList<Cargo> cargoList = this.mCargoHashMap.get(this.getmSelectedCargoType());
 
 		if (this.mAdapterShoppingCargo==null) {
 			this.mAdapterShoppingCargo = new AdapterShoppingCargo(this, cargoList);
@@ -143,12 +125,23 @@ public class ActivityShopping extends TopActivity {
 		}
 	}
 
-	public CargoType getmSelectedCargo() {
-		return mSelectedCargo;
+	public ArrayList<CargoType> getCargoTypeArray() {
+		ArrayList<CargoType> cargoTypeArray = new ArrayList<CargoType>();
+
+		Set<CargoType> cargoTypeSet = this.mCargoHashMap.keySet();
+		for (CargoType cargoType : cargoTypeSet) {
+			cargoTypeArray.add(cargoType);
+		}
+
+		return cargoTypeArray;
 	}
 
-	public void setmSelectedCargo(CargoType mSelectedCargo) {
-		this.mSelectedCargo = mSelectedCargo;
+	public CargoType getmSelectedCargoType() {
+		return mSelectedCargoType;
+	}
+
+	public void setmSelectedCargoType(CargoType mSelectedCargoType) {
+		this.mSelectedCargoType = mSelectedCargoType;
 		this.refreshCargo();
 	}
 
