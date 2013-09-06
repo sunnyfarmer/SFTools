@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@android:color/white"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/ivCargo"
+        android:layout_width="@dimen/activity_shopping_cargo_width"
+        android:layout_height="@dimen/activity_shopping_cargo_height"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvCargo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:textSize="@dimen/content_size"
+        android:textColor="@android:color/black"/>
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/content_size"
+        android:text="@string/delete" />
+
+</LinearLayout>

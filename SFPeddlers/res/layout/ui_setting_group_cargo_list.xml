@@ -22,13 +22,6 @@
             android:text="@string/cargo_list"
             android:textColor="@android:color/black"
             android:textSize="@dimen/content_size" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_cargo_type"
-            android:textSize="@dimen/content_size"
-            android:visibility="invisible" />
     </LinearLayout>
 
 </LinearLayout>

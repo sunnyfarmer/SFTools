@@ -1,6 +1,7 @@
 package sf.tools.peddlers;
 
 import sf.tools.peddlers.model.SettingGroup;
+import sf.tools.peddlers.viewholder.activity.VHASettingGroupCargoList;
 import sf.tools.peddlers.viewholder.activity.VHASettingGroupCargoType;
 import sf.tools.peddlers.viewholder.activity.VHASettingGroupCharacteristic;
 import sf.tools.peddlers.viewholder.activity.VHASettingGroupFirstFeeling;
@@ -15,9 +16,10 @@ public class ActivityAddSettingGroup extends TopActivity {
 
 	private TextView tvSettingGroupName = null;
 	private Button btnBack = null;
-	private VHASettingGroupFirstFeeling mVHASettingGroupFirstFeeling = null;
-	private VHASettingGroupCargoType mVHASettingGroupCargoType = null;
-	private VHASettingGroupCharacteristic mVHASettingGroupCharacteristic = null;
+	protected VHASettingGroupFirstFeeling mVHASettingGroupFirstFeeling = null;
+	protected VHASettingGroupCargoType mVHASettingGroupCargoType = null;
+	protected VHASettingGroupCharacteristic mVHASettingGroupCharacteristic = null;
+	protected VHASettingGroupCargoList mVHASettingGroupCargoList = null;
 
 	private SettingGroup mSettingGroup = null;
 
@@ -47,6 +49,7 @@ public class ActivityAddSettingGroup extends TopActivity {
 		this.mVHASettingGroupFirstFeeling = new VHASettingGroupFirstFeeling(this, this.mSettingGroup);
 		this.mVHASettingGroupCargoType = new VHASettingGroupCargoType(this, this.mSettingGroup);
 		this.mVHASettingGroupCharacteristic = new VHASettingGroupCharacteristic(this, mSettingGroup);
+		this.mVHASettingGroupCargoList = new VHASettingGroupCargoList(this, mSettingGroup);
 	}
 
 	private void setSettingGroupName(String settingGroupName) {
