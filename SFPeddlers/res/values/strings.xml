@@ -13,6 +13,7 @@
     <string name="add">添加</string>
     <string name="finish">完成</string>
 
+    <string name="default_content_description">default_content_description</string>
     <!-- string for footer -->
     <string name="in_selling">销售中</string>
     <string name="statistics">数据统计</string>
@@ -49,4 +50,10 @@
 	<string name="characteristic_item">特征项</string>
 	<string name="add_cargo">添加货物</string>
 	<string name="name">名称</string>
+
+	<!-- string for statistics -->	
+	<string name="more_statistics_will_be_publish">更多统计方式，将会发布，敬请期待！</string>
+	<string name="cargo_rank_list">货物排行榜</string>
+	<string name="characteristic_line">特征曲线</string>
+	<string name="data_statistics">数据统计</string>
 </resources>

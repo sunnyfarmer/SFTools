@@ -33,6 +33,9 @@
         <activity android:name="ActivitySettingGroupCargoList"></activity>
         <activity android:name="ActivitySettingGroupAddCargo"></activity>
         <activity android:name="ActivitySettingGroupCargoDetail"></activity>
+        <activity android:name="ActivityStatisticsOverView"></activity>
+        <activity android:name="ActivityStatisticsCargoRankList"></activity>
+        <activity android:name="ActivityStatisticsCharacteristicLine"></activity>
     </application>
 
 </manifest>

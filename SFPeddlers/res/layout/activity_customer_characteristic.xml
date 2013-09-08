@@ -50,5 +50,5 @@
     <include
         android:layout_width="fill_parent"
         android:layout_height="@dimen/activity_footer_height"
-        layout="@layout/footer" />
+        layout="@layout/ui_footer" />
 </LinearLayout>

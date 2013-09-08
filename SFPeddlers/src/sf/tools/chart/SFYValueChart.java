@@ -35,6 +35,9 @@ public class SFYValueChart extends SFChart {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+		if (this.isInEditMode()) {
+			return;
+		}
 
 		this.drawSteps(canvas);
 

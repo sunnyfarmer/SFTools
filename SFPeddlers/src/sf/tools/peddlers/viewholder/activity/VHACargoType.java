@@ -1,9 +1,6 @@
 package sf.tools.peddlers.viewholder.activity;
 
 import java.util.ArrayList;
-import java.util.Set;
-
-import sf.tools.peddlers.ActivityShopping;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.CargoType;

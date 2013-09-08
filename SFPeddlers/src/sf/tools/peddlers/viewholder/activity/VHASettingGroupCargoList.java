@@ -13,7 +13,7 @@ public class VHASettingGroupCargoList {
 	public static final String TAG = "VHASettingGroupCargoList";
 
 	private TopActivity mActivity = null;
-	private SettingGroup mSettingGroup = null;
+	protected SettingGroup mSettingGroup = null;
 
 	private LinearLayout llCargoList = null;
 

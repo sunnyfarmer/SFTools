@@ -1,7 +1,5 @@
 package sf.tools.peddlers.viewholder.activity;
 
-import java.util.ArrayList;
-
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;

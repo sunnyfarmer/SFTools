@@ -32,7 +32,7 @@
         android:layout_weight="1"
         android:padding="5dp"/>
 
-    <include layout="@layout/footer"
+    <include layout="@layout/ui_footer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_footer_height"/>
 </LinearLayout>

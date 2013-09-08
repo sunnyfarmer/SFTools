@@ -57,12 +57,13 @@
             android:id="@+id/ivCargo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/no_pic" />
+            android:src="@drawable/no_pic"
+			android:contentDescription="@string/default_content_description"/>
     </LinearLayout>
 
     <include
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_footer_height"
-        layout="@layout/footer" />
+        layout="@layout/ui_footer" />
 
 </LinearLayout>

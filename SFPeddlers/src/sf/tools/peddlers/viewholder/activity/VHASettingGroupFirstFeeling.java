@@ -1,14 +1,11 @@
 package sf.tools.peddlers.viewholder.activity;
 
-import java.util.ArrayList;
-
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.TopActivity.OnInputConfirmedListener;
 import sf.tools.peddlers.adapter.AdapterSettingGroupFirstFeeling;
 import sf.tools.peddlers.model.FirstFeeling;
 import sf.tools.peddlers.model.SettingGroup;
-import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;

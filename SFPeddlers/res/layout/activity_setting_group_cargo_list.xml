@@ -57,7 +57,7 @@
         </ListView>
     </LinearLayout>
 
-    <include layout="@layout/footer"
+    <include layout="@layout/ui_footer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_footer_height"/>
 </LinearLayout>
