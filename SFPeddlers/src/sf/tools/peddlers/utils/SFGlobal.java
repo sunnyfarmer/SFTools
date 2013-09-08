@@ -1,10 +1,5 @@
 package sf.tools.peddlers.utils;
 
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-
 public class SFGlobal {
 	public static final String TAG = "SFGlobal";
 
@@ -16,4 +11,6 @@ public class SFGlobal {
 	public static final String EXTRA_CARGOTYPE = "extra_cargo_type";
 	public static final String EXTRA_CHARACTERISTIC = "extra_characteristic";
 	public static final String EXTRA_SHOPPINGLIST = "extra_shopping_list";
+
+	public static final int RS_CODE_LOAD_IMAGE = 1001;
 }

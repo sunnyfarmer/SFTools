@@ -56,18 +56,32 @@ public class AdapterSettingGroupCargo extends BaseAdapter implements
 			vhSettingGroupCargo.ivCargo = (ImageView) convertView.findViewById(R.id.ivCargo);
 			vhSettingGroupCargo.tvCargo = (TextView) convertView.findViewById(R.id.tvCargo);
 			vhSettingGroupCargo.btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
+
+			convertView.setTag(vhSettingGroupCargo);
 		} else {
 			vhSettingGroupCargo = (VHSettingGroupCargo) convertView.getTag();
 		}
 
 		final Cargo cargo = this.getItem(position);
-		SFLog.d(TAG, cargo.getmCargoName());
+		SFLog.d(TAG, vhSettingGroupCargo + ":" + vhSettingGroupCargo.tvCargo + ":" + cargo + ":" + cargo.getmCargoName());
 		vhSettingGroupCargo.tvCargo.setText(cargo.getmCargoName());
 		vhSettingGroupCargo.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				mCargoArray.remove(cargo);
 				AdapterSettingGroupCargo.this.notifyDataSetChanged();
+			}
+		});
+		vhSettingGroupCargo.ivCargo.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				gotoCargoDetailView(cargo);
+			}
+		});
+		vhSettingGroupCargo.tvCargo.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				gotoCargoDetailView(cargo);
 			}
 		});
 
@@ -89,4 +103,9 @@ public class AdapterSettingGroupCargo extends BaseAdapter implements
 		this.mCargoArray = mCargoArray;
 	}
 
+	private void gotoCargoDetailView(Cargo cargo) {
+		Intent intent = new Intent(this.mContext, ActivitySettingGroupCargoDetail.class);
+		intent.putExtra(SFGlobal.EXTRA_CARGO, cargo);
+		this.mContext.startActivity(intent);
+	}
 }
