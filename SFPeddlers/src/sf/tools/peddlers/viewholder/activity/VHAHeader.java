@@ -23,7 +23,7 @@ public class VHAHeader {
 	private void initView() {
 		this.btnLeft = (Button) this.mActivity.findViewById(R.id.btnLeft);
 		this.btnRight = (Button) this.mActivity.findViewById(R.id.btnRight);
-		this.tvTitle = (Button) this.mActivity.findViewById(R.id.tvTitle);
+		this.tvTitle = (TextView) this.mActivity.findViewById(R.id.tvTitle);
 	}
 
 	public void showLeft() {
@@ -34,6 +34,9 @@ public class VHAHeader {
 	}
 	public void setLeftText(String text) {
 		this.btnLeft.setText(text);
+	}
+	public void setLeftText(int resId) {
+		this.setLeftText(this.mActivity.getText(resId).toString());
 	}
 	public void setLeftOnClickListener(OnClickListener onClickListener) {
 		this.btnLeft.setOnClickListener(onClickListener);
@@ -47,10 +50,16 @@ public class VHAHeader {
 	public void setRightText(String text) {
 		this.btnRight.setText(text);
 	}
+	public void setRightText(int resId) {
+		this.setRightText(this.mActivity.getText(resId).toString());
+	}
 	public void setRightOnClickListener(OnClickListener onClickListener) {
 		this.btnRight.setOnClickListener(onClickListener);
 	}
 	public void setTitleText(String title) {
 		this.tvTitle.setText(title);
+	}
+	public void setTitleText(int resId) {
+		this.setTitleText(this.mActivity.getText(resId).toString());
 	}
 }
