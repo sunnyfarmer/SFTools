@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import sf.tools.peddlers.adapter.AdapterFirstFeeling;
 import sf.tools.peddlers.model.FirstFeeling;
-import sf.tools.peddlers.test.TestApp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,6 +39,7 @@ public class ActivityFirstFeeling extends TopActivity {
 		this.mFirstFeelingArray.add(new FirstFeeling("老龄男人", null));
 
 		this.mFirstFeelingAdapter = new AdapterFirstFeeling(this, this.mFirstFeelingArray);
+		super.initData();
 	}
 
 	@Override
@@ -52,6 +52,8 @@ public class ActivityFirstFeeling extends TopActivity {
 		this.btnInSelling = (Button) this.findViewById(R.id.btnInSelling);
 		this.btnStatistics = (Button) this.findViewById(R.id.btnStatistics);
 		this.btnOrganizing = (Button) this.findViewById(R.id.btnOrganizing);
+
+		super.initView();
 	}
 
 	@Override
@@ -80,6 +82,8 @@ public class ActivityFirstFeeling extends TopActivity {
 			}
 		});
 		this.lvFirstFeeling.setOnItemClickListener(this.mFirstFeelingAdapter);
+
+		super.setListener();
 	}
 
 }

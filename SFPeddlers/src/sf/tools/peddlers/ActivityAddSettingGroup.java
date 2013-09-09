@@ -31,14 +31,13 @@ public class ActivityAddSettingGroup extends TopActivity {
 	@Override
 	protected void initData() {
 		// TODO Auto-generated method stub
-		super.initData();
 		this.mSettingGroup = new SettingGroup(this.getText(R.string.click_to_chage_title).toString());
+		super.initData();
 	}
 
 	@Override
 	protected void initView() {
 		// TODO Auto-generated method stub
-		super.initView();
 		this.setContentView(R.layout.activity_add_setting_group);
 
 		this.tvSettingGroupName = (TextView) this.findViewById(R.id.tvSettingGroupName);
@@ -50,6 +49,7 @@ public class ActivityAddSettingGroup extends TopActivity {
 		this.mVHASettingGroupCargoType = new VHASettingGroupCargoType(this, this.mSettingGroup);
 		this.mVHASettingGroupCharacteristic = new VHASettingGroupCharacteristic(this, mSettingGroup);
 		this.mVHASettingGroupCargoList = new VHASettingGroupCargoList(this, mSettingGroup);
+		super.initView();
 	}
 
 	private void setSettingGroupName(String settingGroupName) {
@@ -60,8 +60,6 @@ public class ActivityAddSettingGroup extends TopActivity {
 	@Override
 	protected void setListener() {
 		// TODO Auto-generated method stub
-		super.setListener();
-
 		this.btnBack.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -82,5 +80,6 @@ public class ActivityAddSettingGroup extends TopActivity {
 						});
 			}
 		});
+		super.setListener();
 	}
 }

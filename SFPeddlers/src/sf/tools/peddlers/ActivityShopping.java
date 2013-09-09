@@ -16,15 +16,10 @@ import sf.tools.peddlers.viewholder.activity.VHACargoType.OnCargoTypeChangedList
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class ActivityShopping extends TopActivity {
 	public static final String TAG = "ActivityShopping";
@@ -57,8 +52,6 @@ public class ActivityShopping extends TopActivity {
 
 	@Override
 	protected void initData() {
-		super.initData();
-
 		CargoType[] cargoTypeArray = {
 				new CargoType("连衣裙", null),
 				new CargoType("短裙", null),
@@ -73,10 +66,10 @@ public class ActivityShopping extends TopActivity {
 				this.putCargo(cargo);
 			}
 		}
+		super.initData();
 	}
 	@Override
 	protected void initView() {
-		super.initView();
 		this.setContentView(R.layout.activity_shopping);
 
 		this.lvCargo = (ListView) this.findViewById(R.id.lvCargo);
@@ -84,10 +77,10 @@ public class ActivityShopping extends TopActivity {
 		this.mVHACargoType = new VHACargoType(this, this.getCargoTypeArray());
 
 		this.btnFinishShopping = (Button) this.findViewById(R.id.btnFinishShopping);
+		super.initView();
 	}
 	@Override
 	protected void setListener() {
-		super.setListener();
 		this.mVHACargoType.setmOnCargoTypeChangedListener(new OnCargoTypeChangedListener() {
 			@Override
 			public void onCargoTypeChanged(CargoType cargoType) {
@@ -101,6 +94,7 @@ public class ActivityShopping extends TopActivity {
 				//TODO: 入database
 			}
 		});
+		super.setListener();
 	}
 
 	public void putCargo(Cargo cargo) {

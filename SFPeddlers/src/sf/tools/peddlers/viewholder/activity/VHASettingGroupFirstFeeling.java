@@ -1,8 +1,8 @@
 package sf.tools.peddlers.viewholder.activity;
 
+import sf.tools.peddlers.BaseActivity.OnInputConfirmedListener;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
-import sf.tools.peddlers.TopActivity.OnInputConfirmedListener;
 import sf.tools.peddlers.adapter.AdapterSettingGroupFirstFeeling;
 import sf.tools.peddlers.model.FirstFeeling;
 import sf.tools.peddlers.model.SettingGroup;

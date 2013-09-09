@@ -34,16 +34,14 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 
 	@Override
 	protected void initData() {
-		super.initData();
-
 		Intent intent = this.getIntent();
 		this.mCargoType = (CargoType) intent
 				.getSerializableExtra(SFGlobal.EXTRA_CARGOTYPE);
+		super.initData();
 	}
 
 	@Override
 	protected void initView() {
-		super.initView();
 		this.setContentView(R.layout.activity_setting_group_add_cargo);
 
 		this.btnBack = (Button) this.findViewById(R.id.btnBack);
@@ -52,12 +50,11 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 		this.btnFinish = (Button) this.findViewById(R.id.btnFinish);
 		this.etCargoName = (EditText) this.findViewById(R.id.etCargoName);
 		this.ivCargo = (ImageView) this.findViewById(R.id.ivCargo);
+		super.initView();
 	}
 
 	@Override
 	protected void setListener() {
-		super.setListener();
-
 		this.btnBack.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -80,6 +77,7 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 				startActivityForResult(i, SFGlobal.RS_CODE_LOAD_IMAGE);
 			}
 		});
+		super.setListener();
 	}
 
 	@Override

@@ -36,8 +36,6 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 
 	@Override
 	protected void initData() {
-		super.initData();
-
 		CargoType[] cargoTypeArray = {
 				new CargoType("连衣裙", null),
 				new CargoType("短裙", null),
@@ -52,20 +50,20 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 				this.putCargo(cargo);
 			}
 		}
+		super.initData();
 	}
 	@Override
 	protected void initView() {
-		super.initView();
 		this.setContentView(R.layout.activity_setting_group_cargo_list);
 
 		this.btnBack = (Button) this.findViewById(R.id.btnBack);
 		this.btnAddCargo = (Button) this.findViewById(R.id.btnAddCargo);
 		this.lvCargoList = (ListView) this.findViewById(R.id.lvCargoList);
 		this.mVHACargoType = new VHACargoType(this, this.getCargoTypeArray());
+		super.initView();
 	}
 	@Override
 	protected void setListener() {
-		super.setListener();
 		this.btnBack.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -85,6 +83,7 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 				setmSelectedCargoType(cargoType);
 			}
 		});
+		super.setListener();
 	}
 
 	private void refreshCargo() {

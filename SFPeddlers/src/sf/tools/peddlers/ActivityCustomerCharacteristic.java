@@ -49,7 +49,6 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 
 	@Override
 	protected void initData() {
-		super.initData();
 		this.mCharacteristicArray.clear();
 		Characteristic sizeCharacter = new Characteristic("鞋码", null);
 		sizeCharacter.addCharacteristicItem(new CharacteristicItem("35", sizeCharacter));
@@ -69,10 +68,10 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 		this.mCharacteristicArray.add(voiceCharacter);
 
 		this.mAdapterCustomerCharacteristic = new AdapterCustomerCharacteristic(this, this.mCharacteristicArray);
+		super.initData();
 	}
 	@Override
 	protected void initView() {
-		super.initView();
 		this.setContentView(R.layout.activity_customer_characteristic);
 
 		this.lvCustomerCharacteristic = (ListView) this.findViewById(R.id.lvCustomerCharacteristic);
@@ -83,11 +82,10 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 		this.btnInSelling = (Button) this.findViewById(R.id.btnInSelling);
 		this.btnStatistics = (Button) this.findViewById(R.id.btnStatistics);
 		this.btnOrganizing = (Button) this.findViewById(R.id.btnOrganizing);
+		super.initView();
 	}
 	@Override
 	protected void setListener() {
-		super.setListener();
-
 		this.btnBack.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -128,6 +126,7 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 				
 			}
 		});
+		super.setListener();
 	}
 
 	private void parseShoppingList(ShoppingList shoppingList) {

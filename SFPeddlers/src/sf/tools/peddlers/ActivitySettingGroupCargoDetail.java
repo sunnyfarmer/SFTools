@@ -25,13 +25,11 @@ public class ActivitySettingGroupCargoDetail extends TopActivity {
 
 	@Override
 	protected void initData() {
-		super.initData();
-
 		this.mCargo = (Cargo) this.getIntent().getSerializableExtra(SFGlobal.EXTRA_CARGO);
+		super.initData();
 	}
 	@Override
 	protected void initView() {
-		super.initView();
 		this.setContentView(R.layout.activity_setting_group_cargo_detail);
 
 		this.btnBack = (Button) this.findViewById(R.id.btnBack);
@@ -39,11 +37,10 @@ public class ActivitySettingGroupCargoDetail extends TopActivity {
 		this.ivCargo = (ImageView) this.findViewById(R.id.ivCargo);
 
 		this.tvCargoName.setText(this.mCargo.getmCargoName());
+		super.initView();
 	}
 	@Override
 	protected void setListener() {
-		super.setListener();
-
 		this.btnBack.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -51,6 +48,7 @@ public class ActivitySettingGroupCargoDetail extends TopActivity {
 				
 			}
 		});
-		
+
+		super.setListener();
 	}
 }

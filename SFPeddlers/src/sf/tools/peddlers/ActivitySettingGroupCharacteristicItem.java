@@ -31,16 +31,14 @@ public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 
 	@Override
 	protected void initData() {
-		super.initData();
-
 	    Intent intent = this.getIntent();
 	    this.mCharacteristic = (Characteristic) intent.getSerializableExtra(SFGlobal.EXTRA_CHARACTERISTIC);
 		this.mAdapterSettingGroupCharacteristicItem = new AdapterSettingGroupCharacteristicItem(this, this.mCharacteristic.getmCharacteristicItemArray());
+		super.initData();
 	}
 
 	@Override
 	protected void initView() {
-		super.initView();
 		this.setContentView(R.layout.activity_setting_group_characteristic_item);
 
 		this.btnBack = (Button) this.findViewById(R.id.btnBack);
@@ -50,12 +48,11 @@ public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 
 		this.setCharacteristicName();
 		this.lvCharacteristicItem.setAdapter(mAdapterSettingGroupCharacteristicItem);
+		super.initView();
 	}
 
 	@Override
 	protected void setListener() {
-		super.setListener();
-
 		this.btnBack.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -78,6 +75,7 @@ public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 						});
 			}
 		});
+		super.setListener();
 	}
 
 	private void setCharacteristicName () {

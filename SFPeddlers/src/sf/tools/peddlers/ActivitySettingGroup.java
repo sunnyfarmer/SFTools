@@ -28,7 +28,6 @@ public class ActivitySettingGroup extends TopActivity {
 
 	@Override
 	protected void initData() {
-		super.initData();
 		this.mSettingGroupArray = new ArrayList<SettingGroup>();
 		SettingGroup sg1 = new SettingGroup("group 1");
 		SettingGroup sg2 = new SettingGroup("group 2");
@@ -38,16 +37,19 @@ public class ActivitySettingGroup extends TopActivity {
 		this.mSettingGroupArray.add(sg3);
 
 		this.mAdapterSettingGroup = new AdapterSettingGroup(this, mSettingGroupArray);
+
+		super.initData();
 	}
 
 	@Override
 	protected void initView() {
-		super.initView();
 		this.setContentView(R.layout.activity_setting_group);
 
 		this.lvSettingGroup = (ListView) this.findViewById(R.id.lvSettingGroup);
 		this.lvSettingGroup.setAdapter(mAdapterSettingGroup);
 		this.btnAddSettingGroup = (Button) this.findViewById(R.id.btnAddSettingGroup);
+
+		super.initView();
 	}
 
 	@Override
@@ -62,5 +64,7 @@ public class ActivitySettingGroup extends TopActivity {
 				ActivitySettingGroup.this.startActivity(intent);
 			}
 		});
+
+		super.setListener();
 	}
 }

@@ -17,8 +17,8 @@ public class ActivityStatisticsOverView extends TopActivity {
 	}
 	@Override
 	protected void initView() {
-		super.initView();
 		this.setContentView(R.layout.activity_statistics_overview);
+		super.initView();
 	}
 	@Override
 	protected void setListener() {
