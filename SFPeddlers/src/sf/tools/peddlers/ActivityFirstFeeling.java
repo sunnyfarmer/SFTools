@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import sf.tools.peddlers.adapter.AdapterFirstFeeling;
 import sf.tools.peddlers.model.FirstFeeling;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -19,6 +20,16 @@ public class ActivityFirstFeeling extends TopActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		this.setContentView(R.layout.activity_first_feeling);
 		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		if (this.mApp.getSettingGroup()==null) {
+			Intent intent = new Intent(this, ActivitySettingGroup.class);
+			this.startActivity(intent);
+		}
 	}
 
 	@Override

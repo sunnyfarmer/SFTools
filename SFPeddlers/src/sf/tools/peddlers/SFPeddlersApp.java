@@ -35,6 +35,9 @@ public class SFPeddlersApp extends Application {
 	private DBFirstFeeling mDBFirstFeeling = null;
 	private DBShoppingList mDBShoppingList = null;
 
+	private String mSettingGroupId = null;
+	private SettingGroup mSettingGroup = null;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -45,32 +48,35 @@ public class SFPeddlersApp extends Application {
 	}
 
 	public String getSettingGroupId() {
-		SharedPreferences sp = this.getSharedPreferences();
-		String settingGroupId = sp.getString(SFGlobal.SP_SETTING_GROUP_ID, null);
+		if (this.mSettingGroupId==null) {
+			SharedPreferences sp = this.getSharedPreferences();
+			this.mSettingGroupId = sp.getString(SFGlobal.SP_SETTING_GROUP_ID, null);
+		}
 
-		return settingGroupId;
+		return this.mSettingGroupId;
 	}
 
 	public SettingGroup getSettingGroup() {
-		String settingGroupId = this.getSettingGroupId();
-		SettingGroup settingGroup = null;
-		if (settingGroupId!=null) {
-			settingGroup = this.mDBSettingGroup.queryById(settingGroupId);
+		if (this.mSettingGroup==null || !this.mSettingGroup.getmSettingGroupId().equals(this.getSettingGroupId())) {
+			String settingGroupId = this.getSettingGroupId();
+			if (settingGroupId!=null) {
+				this.mSettingGroup = this.mDBSettingGroup.queryById(settingGroupId);
 
-			ArrayList<FirstFeeling> firstFeelingArray = this.mDBFirstFeeling.queryAll(settingGroup);
-			ArrayList<Characteristic> characteristicArray = this.mDBCharacteristic.queryAll(settingGroup);
-			ArrayList<CargoType> cargoTypeArray = this.mDBCargoType.queryAll(settingGroup);
-			HashMap<CargoType, ArrayList<Cargo>> cargoHashMap = new HashMap<CargoType, ArrayList<Cargo>>();
-			for (CargoType cargoType : cargoTypeArray) {
-				ArrayList<Cargo> cargoArray = this.mDBCargo.queryAll(cargoType);
-				cargoHashMap.put(cargoType, cargoArray);
+				ArrayList<FirstFeeling> firstFeelingArray = this.mDBFirstFeeling.queryAll(this.mSettingGroup);
+				ArrayList<Characteristic> characteristicArray = this.mDBCharacteristic.queryAll(this.mSettingGroup);
+				ArrayList<CargoType> cargoTypeArray = this.mDBCargoType.queryAll(this.mSettingGroup);
+				HashMap<CargoType, ArrayList<Cargo>> cargoHashMap = new HashMap<CargoType, ArrayList<Cargo>>();
+				for (CargoType cargoType : cargoTypeArray) {
+					ArrayList<Cargo> cargoArray = this.mDBCargo.queryAll(cargoType);
+					cargoHashMap.put(cargoType, cargoArray);
+				}
+				this.mSettingGroup.setmFirstFeelingArray(firstFeelingArray);
+				this.mSettingGroup.setmCharacteristicArray(characteristicArray);
+				this.mSettingGroup.setmCargoTypeArray(cargoTypeArray);
+				this.mSettingGroup.setmCargoArray(cargoHashMap);
 			}
-			settingGroup.setmFirstFeelingArray(firstFeelingArray);
-			settingGroup.setmCharacteristicArray(characteristicArray);
-			settingGroup.setmCargoTypeArray(cargoTypeArray);
-			settingGroup.setmCargoArray(cargoHashMap);
 		}
-		return settingGroup;
+		return this.mSettingGroup;
 	}
 
 	public DBSettingGroup getmDBSettingGroup() {

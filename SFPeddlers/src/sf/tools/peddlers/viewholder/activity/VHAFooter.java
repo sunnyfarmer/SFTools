@@ -5,6 +5,7 @@ import sf.tools.peddlers.ActivitySettingGroup;
 import sf.tools.peddlers.ActivityStatisticsOverView;
 import sf.tools.peddlers.R;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,8 +53,11 @@ public class VHAFooter {
 		});
 	}
 	protected void gotoActivity(Class<?> activityClass) {
-		Intent intent = new Intent(this.mActivity, activityClass);
-		this.mActivity.startActivity(intent);
+		if (!this.mActivity.getClass().equals(activityClass)) {
+			Intent intent = new Intent(this.mActivity, activityClass);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			this.mActivity.startActivity(intent);
+		}
 	}
 
 	public void setCheckedButton(Button btn) {

@@ -17,7 +17,8 @@
         android:name="sf.tools.peddlers.SFPeddlersApp"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="sf.tools.peddlers.ActivityFirstFeeling">
+            android:name="sf.tools.peddlers.ActivityFirstFeeling"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,13 +28,15 @@
         <activity android:name="ActivityCustomerCharacteristic"></activity>
         <activity android:name="ActivityStatistic"></activity>
         <activity android:name="ActivityShopping"></activity>
-        <activity android:name="ActivitySettingGroup"></activity>
+        <activity android:name="ActivitySettingGroup"
+            android:launchMode="singleTask"></activity>
         <activity android:name="ActivityAddSettingGroup"></activity>
         <activity android:name="ActivitySettingGroupCharacteristicItem"></activity>
         <activity android:name="ActivitySettingGroupCargoList"></activity>
         <activity android:name="ActivitySettingGroupAddCargo"></activity>
         <activity android:name="ActivitySettingGroupCargoDetail"></activity>
-        <activity android:name="ActivityStatisticsOverView"></activity>
+        <activity android:name="ActivityStatisticsOverView"
+            android:launchMode="singleTask"></activity>
         <activity android:name="ActivityStatisticsCargoRankList"></activity>
         <activity android:name="ActivityStatisticsCharacteristicLine"></activity>
     </application>
