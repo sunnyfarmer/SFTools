@@ -23,7 +23,15 @@ public class DBCharacteristicItem extends DBController {
 			characteristicItem.getmCharacteristicItemId()==Model.ID_UNDEFINED) {
 			return false;
 		}
-		return super.insert(characteristicItem);
+		boolean insertRs = super.insert(characteristicItem);
+		if (insertRs) {
+			CharacteristicItem characteristicItemInDB = this.query(
+					characteristicItem.getmCharacteristic(),
+					characteristicItem.getmCharacteristicItemName());
+			characteristicItem.setmCharacteristicItemId(characteristicItemInDB.getmCharacteristicItemId());
+			return true;
+		}
+		return false;
 	}
 
 	public boolean delete(Characteristic characteristic) {

@@ -7,6 +7,7 @@ public class ActivityStatistic extends TopActivity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		this.setContentView(R.layout.activity_statistic);
 	    super.onCreate(savedInstanceState);
 	}
 
@@ -17,7 +18,6 @@ public class ActivityStatistic extends TopActivity {
 	}
 	@Override
 	protected void initView() {
-		this.setContentView(R.layout.activity_statistic);
 		super.initView();
 	}
 	@Override

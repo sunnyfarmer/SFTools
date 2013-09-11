@@ -5,41 +5,10 @@
     android:background="@android:color/white"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="fill_parent"
+    <include
+        android:layout_width="match_parent"
         android:layout_height="@dimen/activity_header_height"
-        android:layout_marginBottom="1dp"
-        android:background="@color/light_gray"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/organizing"
-            android:textSize="@dimen/content_size" />
-
-        <TextView
-            android:id="@+id/tvSettingGroupName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/click_to_chage_title"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/title_size" />
-
-        <Button
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/organizing"
-            android:textSize="@dimen/content_size" />
-    </LinearLayout>
+        layout="@layout/ui_header" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,29 +17,25 @@
         android:background="@android:color/white"
         android:orientation="vertical" >
 
-		<include
-			layout="@layout/ui_setting_group_first_feeling"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"/>
-		<include
-			layout="@layout/ui_setting_group_customer_characteristic"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-		    />
-		<include
-			layout="@layout/ui_setting_group_cargo_type"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-		    />
-		<include
-			layout="@layout/ui_setting_group_cargo_list"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-		    />
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/ui_setting_group_first_feeling" />
 
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/ui_setting_group_customer_characteristic" />
 
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/ui_setting_group_cargo_type" />
 
-
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/ui_setting_group_cargo_list" />
     </LinearLayout>
 
     <include

@@ -26,6 +26,8 @@ public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		this.setContentView(R.layout.activity_setting_group_characteristic_item);
+
 	    super.onCreate(savedInstanceState);
 	}
 
@@ -39,8 +41,6 @@ public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 
 	@Override
 	protected void initView() {
-		this.setContentView(R.layout.activity_setting_group_characteristic_item);
-
 		this.btnBack = (Button) this.findViewById(R.id.btnBack);
 		this.tvCharacteristicName = (TextView) this.findViewById(R.id.tvCharaceristicName);
 		this.btnAdd = (Button) this.findViewById(R.id.btnAdd);

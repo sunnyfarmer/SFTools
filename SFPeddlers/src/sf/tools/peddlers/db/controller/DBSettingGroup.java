@@ -21,10 +21,15 @@ public class DBSettingGroup extends DBController {
 	 * @param settingGroupName
 	 * @return
 	 */
-	public boolean insert(String settingGroupName) {
+	public String insert(String settingGroupName) {
 		SettingGroup settingGroup = new SettingGroup(settingGroupName);
 		settingGroup.setmSettingGroupId(SFUtils.produceUniqueId());
-		return this.insert(settingGroup);
+		boolean insertRS = this.insert(settingGroup);
+		if (insertRS) {
+			return settingGroup.getmSettingGroupId();
+		} else {
+			return null;
+		}
 	}
 
 	/**

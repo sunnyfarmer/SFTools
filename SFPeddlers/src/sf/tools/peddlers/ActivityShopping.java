@@ -37,6 +37,8 @@ public class ActivityShopping extends TopActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		this.setContentView(R.layout.activity_shopping);
+
 	    super.onCreate(savedInstanceState);
 	}
 
@@ -70,8 +72,6 @@ public class ActivityShopping extends TopActivity {
 	}
 	@Override
 	protected void initView() {
-		this.setContentView(R.layout.activity_shopping);
-
 		this.lvCargo = (ListView) this.findViewById(R.id.lvCargo);
 
 		this.mVHACargoType = new VHACargoType(this, this.getCargoTypeArray());

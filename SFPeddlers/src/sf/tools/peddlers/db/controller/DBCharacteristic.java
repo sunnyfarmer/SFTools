@@ -26,15 +26,19 @@ public class DBCharacteristic extends DBController {
 			return false;
 		}
 		//先插入特征
-		super.insert(characteristic);
-		characteristic = this.query(characteristic.getmSettingGroup(), characteristic.getmCharacteristicName());
+		boolean insertRs = super.insert(characteristic);
+		if (insertRs) {
+			Characteristic characteristicInDB = this.query(characteristic.getmSettingGroup(), characteristic.getmCharacteristicName());
+			characteristic.setmCharacteristicId(characteristicInDB.getmCharacteristicId());
 
-		//后插入选项
-		for (CharacteristicItem characteristicItem : characteristic.getmCharacteristicItemArray()) {
-			characteristicItem.setmCharacteristic(characteristic);
-			this.getDbCharacteristicItem().insert(characteristicItem);
+			//后插入选项
+			for (CharacteristicItem characteristicItem : characteristic.getmCharacteristicItemArray()) {
+				characteristicItem.setmCharacteristic(characteristic);
+				this.getDbCharacteristicItem().insert(characteristicItem);
+			}
+			return true;
 		}
-		return super.insert(characteristic);
+		return false;
 	}
 
 	public boolean delete(Characteristic characteristic) {

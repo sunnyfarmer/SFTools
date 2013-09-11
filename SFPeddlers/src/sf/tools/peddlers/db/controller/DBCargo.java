@@ -25,7 +25,13 @@ public class DBCargo extends DBController {
 			cargo.getmCargoType().getmCargoTypeId()==Model.ID_UNDEFINED) {
 			return false;
 		}
-		return super.insert(cargo);
+		boolean insertRs = super.insert(cargo);
+		if (insertRs) {
+			Cargo cargoInDB = this.query(cargo.getmCargoType(), cargo.getmCargoName());
+			cargo.setmCargoId(cargoInDB.getmCargoId());
+			return true;
+		}
+		return false;
 	}
 
 	public boolean delete(Cargo cargo) {

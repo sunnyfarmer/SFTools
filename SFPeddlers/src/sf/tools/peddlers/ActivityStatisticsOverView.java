@@ -7,6 +7,7 @@ public class ActivityStatisticsOverView extends TopActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		this.setContentView(R.layout.activity_statistics_overview);
 	    super.onCreate(savedInstanceState);
 	}
 
@@ -17,7 +18,6 @@ public class ActivityStatisticsOverView extends TopActivity {
 	}
 	@Override
 	protected void initView() {
-		this.setContentView(R.layout.activity_statistics_overview);
 		super.initView();
 	}
 	@Override

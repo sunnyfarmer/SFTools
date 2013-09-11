@@ -38,6 +38,8 @@ public class SFPeddlersApp extends Application {
 	private String mSettingGroupId = null;
 	private SettingGroup mSettingGroup = null;
 
+	private SettingGroup mEditingSettingGroup = null;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -77,6 +79,53 @@ public class SFPeddlersApp extends Application {
 			}
 		}
 		return this.mSettingGroup;
+	}
+
+	public boolean saveEdittingSettingGroup() {
+		String settingGroupId = this.getmDBSettingGroup().insert(this.mEditingSettingGroup.getmSettingGroupName());
+		if (settingGroupId!=null) {
+			this.mEditingSettingGroup.setmSettingGroupId(settingGroupId);
+			//insert first feeling array
+			ArrayList<FirstFeeling> firstFeelingArray = this.mEditingSettingGroup.getmFirstFeelingArray();
+			for (FirstFeeling firstFeeling : firstFeelingArray) {
+				this.getmDBFirstFeeling().insert(firstFeeling);
+			}
+			//insert characteristic
+			ArrayList<Characteristic> characteristicArray = this.mEditingSettingGroup.getmCharacteristicArray();
+			for (Characteristic characteristic : characteristicArray) {
+				this.getmDBCharacteristic().insert(characteristic);
+			}
+			//insert CargoType
+			ArrayList<CargoType> cargoTypeArray = this.mEditingSettingGroup.getmCargoTypeArray();
+			for (CargoType cargoType : cargoTypeArray) {
+				this.getmDBCargoType().insert(cargoType);
+			}
+			//insert cargo
+			HashMap<CargoType, ArrayList<Cargo>> cargoMap = this.mEditingSettingGroup.getmCargoArray();
+			for (CargoType cargoType : cargoTypeArray) {
+				ArrayList<Cargo> cargoArray = cargoMap.get(cargoType);
+				for (Cargo cargo : cargoArray) {
+					cargo.setmCargoType(cargoType);
+					this.getmDBCargo().insert(cargo);
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	public void clearEdittingSettingGroup() {
+		this.mEditingSettingGroup = new SettingGroup(this.getText(R.string.click_to_chage_title).toString());
+	}
+
+	public SettingGroup getmEditingSettingGroup() {
+		if (this.mEditingSettingGroup==null) {
+			this.clearEdittingSettingGroup();
+		}
+		return mEditingSettingGroup;
+	}
+
+	public void setmEditingSettingGroup(SettingGroup mEditingSettingGroup) {
+		this.mEditingSettingGroup = mEditingSettingGroup;
 	}
 
 	public DBSettingGroup getmDBSettingGroup() {

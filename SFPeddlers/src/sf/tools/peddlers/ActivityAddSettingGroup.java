@@ -14,8 +14,6 @@ import android.widget.TextView;
 public class ActivityAddSettingGroup extends TopActivity {
 	public static final String TAG = "ActivityAddSettingGroup";
 
-	private TextView tvSettingGroupName = null;
-	private Button btnBack = null;
 	protected VHASettingGroupFirstFeeling mVHASettingGroupFirstFeeling = null;
 	protected VHASettingGroupCargoType mVHASettingGroupCargoType = null;
 	protected VHASettingGroupCharacteristic mVHASettingGroupCharacteristic = null;
@@ -25,48 +23,47 @@ public class ActivityAddSettingGroup extends TopActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		this.setContentView(R.layout.activity_add_setting_group);
 	    super.onCreate(savedInstanceState);
 	}
 
 	@Override
 	protected void initData() {
-		// TODO Auto-generated method stub
-		this.mSettingGroup = new SettingGroup(this.getText(R.string.click_to_chage_title).toString());
 		super.initData();
+		if (this.mApp.getmEditingSettingGroup()==null) {
+			this.mApp.setmEditingSettingGroup(new SettingGroup(this.getText(R.string.click_to_chage_title).toString()));
+		}
+		this.mSettingGroup = this.mApp.getmEditingSettingGroup();
 	}
 
 	@Override
 	protected void initView() {
-		// TODO Auto-generated method stub
-		this.setContentView(R.layout.activity_add_setting_group);
-
-		this.tvSettingGroupName = (TextView) this.findViewById(R.id.tvSettingGroupName);
+		super.initView();
+		this.mVHAHeader.setLeftText(R.string.setting_group);
+		this.mVHAHeader.setRightText(R.string.finish);
 		this.setSettingGroupName(this.mSettingGroup.getmSettingGroupName());
-
-		this.btnBack = (Button) this.findViewById(R.id.btnBack);
 
 		this.mVHASettingGroupFirstFeeling = new VHASettingGroupFirstFeeling(this, this.mSettingGroup);
 		this.mVHASettingGroupCargoType = new VHASettingGroupCargoType(this, this.mSettingGroup);
 		this.mVHASettingGroupCharacteristic = new VHASettingGroupCharacteristic(this, mSettingGroup);
 		this.mVHASettingGroupCargoList = new VHASettingGroupCargoList(this, mSettingGroup);
-		super.initView();
 	}
 
 	private void setSettingGroupName(String settingGroupName) {
 		this.mSettingGroup.setmSettingGroupName(settingGroupName);
-		this.tvSettingGroupName.setText(settingGroupName);
+		this.mVHAHeader.setTitleText(settingGroupName);
 	}
 
 	@Override
 	protected void setListener() {
-		// TODO Auto-generated method stub
-		this.btnBack.setOnClickListener(new OnClickListener() {
+		super.setListener();
+		this.mVHAHeader.setLeftOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				ActivityAddSettingGroup.this.finish();
 			}
 		});
-		this.tvSettingGroupName.setOnClickListener(new OnClickListener() {
+		this.mVHAHeader.getTvTitle().setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				ActivityAddSettingGroup.this.showInputDialog(
@@ -80,6 +77,12 @@ public class ActivityAddSettingGroup extends TopActivity {
 						});
 			}
 		});
-		super.setListener();
+		this.mVHAHeader.setRightOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mApp.saveEdittingSettingGroup();
+				finish();
+			}
+		});
 	}
 }

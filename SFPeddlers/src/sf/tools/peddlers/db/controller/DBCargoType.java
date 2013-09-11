@@ -24,7 +24,13 @@ public class DBCargoType extends DBController {
 			cargoType.getmSettingGroup().getmSettingGroupId()==null) {
 			return false;
 		}
-		return super.insert(cargoType);
+		boolean insertRs = super.insert(cargoType);
+		if (insertRs) {
+			CargoType cargoTypeInDB = this.query(cargoType.getmSettingGroup(), cargoType.getmCargoTypeName());
+			cargoType.setmCargoTypeId(cargoTypeInDB.getmCargoTypeId());
+			return true;
+		}
+		return false;
 	}
 
 	public boolean delete(CargoType cargoType) {

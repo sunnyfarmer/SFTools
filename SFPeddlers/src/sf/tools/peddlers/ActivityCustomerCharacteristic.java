@@ -35,6 +35,7 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		this.setContentView(R.layout.activity_customer_characteristic);
 	    super.onCreate(savedInstanceState);
 	}
 
@@ -72,8 +73,6 @@ public class ActivityCustomerCharacteristic extends TopActivity {
 	}
 	@Override
 	protected void initView() {
-		this.setContentView(R.layout.activity_customer_characteristic);
-
 		this.lvCustomerCharacteristic = (ListView) this.findViewById(R.id.lvCustomerCharacteristic);
 		this.lvCustomerCharacteristic.setAdapter(this.mAdapterCustomerCharacteristic);
 

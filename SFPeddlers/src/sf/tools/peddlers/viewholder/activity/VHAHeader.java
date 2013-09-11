@@ -62,4 +62,13 @@ public class VHAHeader {
 	public void setTitleText(int resId) {
 		this.setTitleText(this.mActivity.getText(resId).toString());
 	}
+	public Button getBtnLeft() {
+		return btnLeft;
+	}
+	public TextView getTvTitle() {
+		return tvTitle;
+	}
+	public Button getBtnRight() {
+		return btnRight;
+	}
 }

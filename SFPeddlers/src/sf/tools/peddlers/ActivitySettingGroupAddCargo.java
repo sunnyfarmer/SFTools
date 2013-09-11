@@ -29,6 +29,7 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		this.setContentView(R.layout.activity_setting_group_add_cargo);
 		super.onCreate(savedInstanceState);
 	}
 
@@ -42,8 +43,6 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 
 	@Override
 	protected void initView() {
-		this.setContentView(R.layout.activity_setting_group_add_cargo);
-
 		this.btnBack = (Button) this.findViewById(R.id.btnBack);
 		this.tvCargoTypeName = (TextView) this
 				.findViewById(R.id.tvCargoTypeName);
