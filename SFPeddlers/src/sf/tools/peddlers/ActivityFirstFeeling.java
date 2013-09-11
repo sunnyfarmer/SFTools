@@ -29,6 +29,7 @@ public class ActivityFirstFeeling extends TopActivity {
 		if (this.mApp.getSettingGroup()==null) {
 			Intent intent = new Intent(this, ActivitySettingGroup.class);
 			this.startActivity(intent);
+			this.finish();
 		}
 	}
 

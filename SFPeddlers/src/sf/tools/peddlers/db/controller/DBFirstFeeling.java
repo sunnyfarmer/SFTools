@@ -9,6 +9,7 @@ import sf.tools.peddlers.db.DataStructure.DSFirstFeeling;
 import sf.tools.peddlers.model.FirstFeeling;
 import sf.tools.peddlers.model.Model;
 import sf.tools.peddlers.model.SettingGroup;
+import sf.tools.peddlers.utils.SFGlobal;
 
 public class DBFirstFeeling extends DBController {
 	public static final String TAG = "DBFirstFeeling";
@@ -16,6 +17,24 @@ public class DBFirstFeeling extends DBController {
 	public DBFirstFeeling(Context context) {
 		super(context);
 		this.mTableName = DSFirstFeeling.TB_NAME;
+	}
+
+	public int upsert(FirstFeeling firstFeeling) {
+		if (firstFeeling==null) {
+			return SFGlobal.DB_MSG_UNKNOWN_OBJECT;
+		}
+		if (firstFeeling.getmSettingGroup()==null || firstFeeling.getmSettingGroup().getmSettingGroupId()==null) {
+			return SFGlobal.DB_MSG_UNKNOWN_SETTING_GROUP;
+		}
+		FirstFeeling firstFeelingInDB = this.query(firstFeeling.getmSettingGroup(), firstFeeling.getmFirstFeelingName());
+		if (firstFeelingInDB!=null) {
+			return SFGlobal.DB_MSG_SAME_COLUMN;
+		}
+		if (this.insert(firstFeeling)) {
+			return SFGlobal.DB_MSG_OK;
+		} else {
+			return SFGlobal.DB_MSG_ERROR;
+		}
 	}
 
 	public boolean insert(FirstFeeling firstFeeling) {
@@ -35,6 +54,18 @@ public class DBFirstFeeling extends DBController {
 		return false;
 	}
 
+	public boolean deleteAll(SettingGroup settingGroup) {
+		if (settingGroup==null ||
+				settingGroup.getmSettingGroupId()==null) {
+			return false;
+		}
+		int rowDeleted = this.delete(
+				String.format("%s=?", DSFirstFeeling.COL_SETTING_GROUP_ID),
+				new String[] {
+					settingGroup.getmSettingGroupId()
+				});
+		return rowDeleted>0 ? true : false;
+	}
 	public boolean delete(FirstFeeling firstFeeling) {
 		if (firstFeeling==null ||
 				firstFeeling.getmFirstFeelingId()==Model.ID_UNDEFINED ||

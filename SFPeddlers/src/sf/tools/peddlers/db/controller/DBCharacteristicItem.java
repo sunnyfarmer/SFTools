@@ -15,6 +15,7 @@ public class DBCharacteristicItem extends DBController {
 
 	public DBCharacteristicItem(Context context) {
 		super(context);
+		this.mTableName = DSCharacteristicItem.TB_NAME;
 	}
 
 	public boolean insert(CharacteristicItem characteristicItem) {

@@ -2,6 +2,9 @@ package sf.tools.peddlers.adapter;
 
 import java.util.ArrayList;
 
+import sf.tools.peddlers.ActivityAddSettingGroup;
+import sf.tools.peddlers.ActivitySettingGroup;
+import sf.tools.peddlers.BaseActivity;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.model.SettingGroup;
 import sf.tools.peddlers.viewholder.adapter.VHSettingGroup;
@@ -9,6 +12,7 @@ import sf.tools.peddlers.viewholder.adapter.VHSettingGroup;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +31,10 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 
 	public AdapterSettingGroup(Context context, ArrayList<SettingGroup> settingGroupArray) {
 		this.mContext = context;
+		this.mSettingGroupArray = settingGroupArray;
+	}
+
+	public void setmSettingGroupArray(ArrayList<SettingGroup> settingGroupArray) {
 		this.mSettingGroupArray = settingGroupArray;
 	}
 
@@ -62,6 +70,14 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 
 		final SettingGroup settingGroup = this.getItem(position);
 		vhSettingGroup.tvSettingGroupName.setText(settingGroup.getmSettingGroupName());
+		vhSettingGroup.tvSettingGroupName.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mContext, ActivityAddSettingGroup.class);
+				((BaseActivity)mContext).getmApp().setmEditingSettingGroup(settingGroup);
+				mContext.startActivity(intent);
+			}
+		});
 		vhSettingGroup.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -72,7 +88,7 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 		return convertView;
 	}
 
-	private void delete(SettingGroup settigGroup) {
+	private void delete(final SettingGroup settigGroup) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 		builder.setTitle(R.string.warning)
 		.setMessage(R.string.whether_delete_setting_group)
@@ -80,6 +96,9 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				//删除购物单
+				((BaseActivity)mContext).getmApp().getmDBSettingGroup().delete(settigGroup.getmSettingGroupName());
+				mSettingGroupArray = ((BaseActivity)mContext).getmApp().getmDBSettingGroup().queryAll();
+				AdapterSettingGroup.this.notifyDataSetChanged();
 			}
 		})
 		.setNegativeButton(R.string.no,null)
@@ -89,8 +108,6 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

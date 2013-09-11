@@ -8,18 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 	public static final String TAG = "ActivitySettingGroupCharacteristicItem";
 
 	private Characteristic mCharacteristic = null;
 
-	private Button btnBack = null;
-	private TextView tvCharacteristicName = null;
-	private Button btnAdd = null;
 	private ListView lvCharacteristicItem = null;
 
 	private AdapterSettingGroupCharacteristicItem mAdapterSettingGroupCharacteristicItem = null;
@@ -41,9 +36,8 @@ public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 
 	@Override
 	protected void initView() {
-		this.btnBack = (Button) this.findViewById(R.id.btnBack);
-		this.tvCharacteristicName = (TextView) this.findViewById(R.id.tvCharaceristicName);
-		this.btnAdd = (Button) this.findViewById(R.id.btnAdd);
+		this.mVHAHeader.setLeftText(R.string.back);
+		this.mVHAHeader.setRightText(R.string.add_characteristic_item);
 		this.lvCharacteristicItem = (ListView) this.findViewById(R.id.lvCharacteristicItem);
 
 		this.setCharacteristicName();
@@ -53,13 +47,13 @@ public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 
 	@Override
 	protected void setListener() {
-		this.btnBack.setOnClickListener(new OnClickListener() {
+		this.mVHAHeader.setLeftOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				ActivitySettingGroupCharacteristicItem.this.finish();
 			}
 		});
-		this.btnAdd.setOnClickListener(new OnClickListener() {
+		this.mVHAHeader.setRightOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				ActivitySettingGroupCharacteristicItem.this.showInputDialog(
@@ -79,6 +73,6 @@ public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 	}
 
 	private void setCharacteristicName () {
-		this.tvCharacteristicName.setText(this.mCharacteristic.getmCharacteristicName());
+		this.mVHAHeader.setTitleText(this.mCharacteristic.getmCharacteristicName());
 	}
 }

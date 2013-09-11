@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import sf.tools.peddlers.adapter.AdapterSettingGroup;
 import sf.tools.peddlers.model.SettingGroup;
+import sf.tools.peddlers.utils.SFGlobal;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,12 +27,16 @@ public class ActivitySettingGroup extends TopActivity {
 	}
 
 	@Override
+	protected void onStart() {
+		super.onStart();
+
+		this.refreshSettingGroupArray();
+	}
+
+	@Override
 	protected void initData() {
 		super.initData();
-		this.mSettingGroupArray = new ArrayList<SettingGroup>();
-		this.mSettingGroupArray.addAll(this.mApp.getmDBSettingGroup().queryAll());
-
-		this.mAdapterSettingGroup = new AdapterSettingGroup(this, mSettingGroupArray);
+		this.refreshSettingGroupArray();
 	}
 
 	@Override
@@ -52,9 +57,38 @@ public class ActivitySettingGroup extends TopActivity {
 		this.mVHAHeader.setLeftOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(ActivitySettingGroup.this, ActivityAddSettingGroup.class);
-				ActivitySettingGroup.this.startActivity(intent);
+				ActivitySettingGroup.this.showInputDialog(
+						getText(R.string.please_input_setting_group_name).toString(),
+						"",
+						new OnInputConfirmedListener() {
+							@Override
+							public void onInputConfirmed(String inputMsg) {
+								if (inputMsg.trim().equals("")) {
+									ActivitySettingGroup.this.showToast(R.string.must_be_filled);
+									return;
+								}
+								SettingGroup sg = new SettingGroup(inputMsg);
+								int msg = mApp.getmDBSettingGroup().upsert(sg);
+								if (msg==SFGlobal.DB_MSG_OK) {
+									Intent intent = new Intent(ActivitySettingGroup.this, ActivityAddSettingGroup.class);
+									mApp.setmEditingSettingGroup(sg);
+									ActivitySettingGroup.this.startActivity(intent);
+								} else {
+									ActivitySettingGroup.this.showToast(R.string.same_setting_group_name);
+								}
+							}
+						});
 			}
 		});
+	}
+
+	public void refreshSettingGroupArray() {
+		this.mSettingGroupArray = this.mApp.getmDBSettingGroup().queryAll();
+		if (this.mAdapterSettingGroup==null) {
+			this.mAdapterSettingGroup = new AdapterSettingGroup(this, mSettingGroupArray);
+		} else {
+			this.mAdapterSettingGroup.setmSettingGroupArray(mSettingGroupArray);
+			this.mAdapterSettingGroup.notifyDataSetChanged();
+		}
 	}
 }

@@ -2,8 +2,10 @@ package sf.tools.peddlers.adapter;
 
 import java.util.ArrayList;
 
+import sf.tools.peddlers.BaseActivity;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.model.FirstFeeling;
+import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHSettingGroupFirstFeeling;
 
 import android.content.Context;
@@ -64,8 +66,13 @@ public class AdapterSettingGroupFirstFeeling extends BaseAdapter implements
 		vhSettingGroupFirstFeeling.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				AdapterSettingGroupFirstFeeling.this.mFirstFeelingArray.remove(firstFeeling);
-				AdapterSettingGroupFirstFeeling.this.notifyDataSetChanged();
+				int dbRs = ((BaseActivity)mContext).getmApp().removeFirstFeeling(firstFeeling);
+				if (dbRs==SFGlobal.DB_MSG_OK) {
+					AdapterSettingGroupFirstFeeling.this.mFirstFeelingArray.remove(firstFeeling);
+					AdapterSettingGroupFirstFeeling.this.notifyDataSetChanged();
+				} else {
+					((BaseActivity)mContext).showToast(R.string.system_error);
+				}
 			}
 		});
 

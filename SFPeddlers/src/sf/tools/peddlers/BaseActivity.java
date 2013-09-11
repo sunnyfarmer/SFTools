@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class BaseActivity extends Activity {
 	public static final String TAG = "TopActivity";
@@ -54,6 +55,7 @@ public class BaseActivity extends Activity {
 				public void onClick(DialogInterface dialog, int which) {
 					String input = BaseActivity.this.mEditText.getText().toString();
 					if (onInputConfirmedListener!=null) {
+						input = input.trim();
 						onInputConfirmedListener.onInputConfirmed(input);
 					}
 				}
@@ -68,5 +70,20 @@ public class BaseActivity extends Activity {
 	}
 	public interface OnInputConfirmedListener {
 		public void onInputConfirmed(String inputMsg);
+	}
+	public void showToast(String msg) {
+		showToast(msg, Toast.LENGTH_SHORT);
+	}
+	public void showToast(int resId) {
+		showToast(resId, Toast.LENGTH_SHORT);
+	}
+	public void showToast(String msg, int length) {
+		Toast.makeText(this, msg, length).show();
+	}
+	public void showToast(int resId, int length) {
+		showToast(this.getText(resId).toString(), length);
+	}
+	public SFPeddlersApp getmApp() {
+		return mApp;
 	}
 }

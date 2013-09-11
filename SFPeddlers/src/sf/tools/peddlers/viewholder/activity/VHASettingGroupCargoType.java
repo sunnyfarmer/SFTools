@@ -1,5 +1,7 @@
 package sf.tools.peddlers.viewholder.activity;
 
+import java.util.ArrayList;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -9,6 +11,7 @@ import sf.tools.peddlers.BaseActivity.OnInputConfirmedListener;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.adapter.AdapterSettingGroupCargoType;
+import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
 import sf.tools.peddlers.model.SettingGroup;
 
@@ -34,12 +37,20 @@ public class VHASettingGroupCargoType {
 	}
 
 	private void initData() {
-		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("拖鞋1", this.mSettingGroup));
-		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("拖鞋2", this.mSettingGroup));
-		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("拖鞋3", this.mSettingGroup));
-		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("拖鞋4", this.mSettingGroup));
-		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("拖鞋5", this.mSettingGroup));
-
+		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("连衣裙", this.mSettingGroup));
+		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("短裙", this.mSettingGroup));
+		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("女体恤", this.mSettingGroup));
+		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("牛仔裤", this.mSettingGroup));
+		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("热裤", this.mSettingGroup));
+		for (CargoType cargoType : this.mSettingGroup.getmCargoTypeArray()) {
+			ArrayList<Cargo> cargoArray = new ArrayList<Cargo>();
+			for (int cot = 0; cot < 10; cot++) {
+				String cargoName = cargoType.getmCargoTypeName() + cot;
+				Cargo cargo = new Cargo(cargoName, cargoType);
+				cargoArray.add(cargo);
+			}
+			this.mSettingGroup.getmCargoArray().put(cargoType, cargoArray);
+		}
 		this.mAdapterSettingGroupCargoType = new AdapterSettingGroupCargoType(this.mActivity, this.mSettingGroup.getmCargoTypeArray());
 	}
 	private void initView() {

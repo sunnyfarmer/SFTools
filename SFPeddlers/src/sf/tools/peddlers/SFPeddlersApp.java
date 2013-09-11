@@ -81,53 +81,6 @@ public class SFPeddlersApp extends Application {
 		return this.mSettingGroup;
 	}
 
-	public boolean saveEdittingSettingGroup() {
-		String settingGroupId = this.getmDBSettingGroup().insert(this.mEditingSettingGroup.getmSettingGroupName());
-		if (settingGroupId!=null) {
-			this.mEditingSettingGroup.setmSettingGroupId(settingGroupId);
-			//insert first feeling array
-			ArrayList<FirstFeeling> firstFeelingArray = this.mEditingSettingGroup.getmFirstFeelingArray();
-			for (FirstFeeling firstFeeling : firstFeelingArray) {
-				this.getmDBFirstFeeling().insert(firstFeeling);
-			}
-			//insert characteristic
-			ArrayList<Characteristic> characteristicArray = this.mEditingSettingGroup.getmCharacteristicArray();
-			for (Characteristic characteristic : characteristicArray) {
-				this.getmDBCharacteristic().insert(characteristic);
-			}
-			//insert CargoType
-			ArrayList<CargoType> cargoTypeArray = this.mEditingSettingGroup.getmCargoTypeArray();
-			for (CargoType cargoType : cargoTypeArray) {
-				this.getmDBCargoType().insert(cargoType);
-			}
-			//insert cargo
-			HashMap<CargoType, ArrayList<Cargo>> cargoMap = this.mEditingSettingGroup.getmCargoArray();
-			for (CargoType cargoType : cargoTypeArray) {
-				ArrayList<Cargo> cargoArray = cargoMap.get(cargoType);
-				for (Cargo cargo : cargoArray) {
-					cargo.setmCargoType(cargoType);
-					this.getmDBCargo().insert(cargo);
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-	public void clearEdittingSettingGroup() {
-		this.mEditingSettingGroup = new SettingGroup(this.getText(R.string.click_to_chage_title).toString());
-	}
-
-	public SettingGroup getmEditingSettingGroup() {
-		if (this.mEditingSettingGroup==null) {
-			this.clearEdittingSettingGroup();
-		}
-		return mEditingSettingGroup;
-	}
-
-	public void setmEditingSettingGroup(SettingGroup mEditingSettingGroup) {
-		this.mEditingSettingGroup = mEditingSettingGroup;
-	}
-
 	public DBSettingGroup getmDBSettingGroup() {
 		if (this.mDBSettingGroup==null) {
 			this.mDBSettingGroup = new DBSettingGroup(this);
@@ -181,5 +134,37 @@ public class SFPeddlersApp extends Application {
 			this.mDBShoppingList = new DBShoppingList(this);
 		}
 		return mDBShoppingList;
+	}
+
+	public SettingGroup getmEditingSettingGroup() {
+		return mEditingSettingGroup;
+	}
+
+	public void setmEditingSettingGroup(SettingGroup mEditingSettingGroup) {
+		this.mEditingSettingGroup = mEditingSettingGroup;
+	}
+
+	public int addFirstFeeling(FirstFeeling firstFeeling) {
+		if (this.getmEditingSettingGroup()==null) {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+		return this.getmDBFirstFeeling().upsert(firstFeeling);
+	}
+	public int removeFirstFeeling(FirstFeeling firstFeeling) {
+		if (this.getmEditingSettingGroup()==null) {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+		boolean dbRs = this.getmDBFirstFeeling().delete(firstFeeling);
+		if (dbRs) {
+			return SFGlobal.DB_MSG_OK;
+		} else {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+	}
+	public int addCharacteristic(Characteristic characteristic) {
+		if (this.getmEditingSettingGroup()==null) {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+		return this.getmDBCharacteristic().upsert(characteristic);
 	}
 }

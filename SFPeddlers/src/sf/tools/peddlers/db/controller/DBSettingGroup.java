@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import sf.tools.peddlers.db.DBController;
 import sf.tools.peddlers.db.DataStructure.DSSettingGroup;
 import sf.tools.peddlers.model.SettingGroup;
+import sf.tools.peddlers.utils.SFGlobal;
 import sf.utils.SFUtils;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,12 +17,30 @@ public class DBSettingGroup extends DBController {
 		this.mTableName = DSSettingGroup.TB_NAME;
 	}
 
+	public int upsert(SettingGroup settingGroup) {
+		//先检查是否存在的settinggroup
+		SettingGroup settingGroupInDB = this.query(settingGroup.getmSettingGroupName());
+		if (settingGroupInDB!=null) {
+			return SFGlobal.DB_MSG_SAME_COLUMN;
+		}
+		if (settingGroup.getmSettingGroupId()!=null) {
+			this.update(settingGroup);
+		} else {
+			String id = this.insert(settingGroup.getmSettingGroupName());
+			settingGroup.setmSettingGroupId(id);
+		}
+		return SFGlobal.DB_MSG_OK;
+	}
+
 	/**
 	 * 插入单个
 	 * @param settingGroupName
 	 * @return
 	 */
 	public String insert(String settingGroupName) {
+		if (settingGroupName==null || settingGroupName.trim().equals("")) {
+			return null;
+		}
 		SettingGroup settingGroup = new SettingGroup(settingGroupName);
 		settingGroup.setmSettingGroupId(SFUtils.produceUniqueId());
 		boolean insertRS = this.insert(settingGroup);
@@ -38,6 +57,13 @@ public class DBSettingGroup extends DBController {
 	 * @return
 	 */
 	public boolean delete(String settingGroupName) {
+		SettingGroup settingGroup = this.query(settingGroupName);
+		if (settingGroup!=null) {
+			this.getDbFirstFeeling().deleteAll(settingGroup);
+			this.getDbCharacteristic().deleteAll(settingGroup);
+			this.getDbCargoType().deleteAll(settingGroup);
+		}
+		
 		int rowDeleted = this.delete(
 				String.format("%s=?", DSSettingGroup.COL_SETTING_GROUP_NAME),
 				new String[] {settingGroupName});

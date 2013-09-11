@@ -34,6 +34,17 @@ public class DBCargo extends DBController {
 		return false;
 	}
 
+	public boolean delete(CargoType cargoType) {
+		if (cargoType==null || cargoType.getmCargoTypeId()==Model.ID_UNDEFINED) {
+			return false;
+		}
+		int rowDeleted = this.delete(
+				String.format("%s=?", DSCargo.COL_CARGO_TYPE_ID),
+				new String[] {
+					String.valueOf(cargoType.getmCargoTypeId())
+					});
+		return rowDeleted>0 ? true : false;
+	}
 	public boolean delete(Cargo cargo) {
 		if (cargo==null ||
 			cargo.getmCargoId()==Model.ID_UNDEFINED ||

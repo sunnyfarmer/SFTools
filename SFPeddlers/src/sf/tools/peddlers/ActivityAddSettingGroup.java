@@ -8,8 +8,6 @@ import sf.tools.peddlers.viewholder.activity.VHASettingGroupFirstFeeling;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
 
 public class ActivityAddSettingGroup extends TopActivity {
 	public static final String TAG = "ActivityAddSettingGroup";
@@ -40,7 +38,7 @@ public class ActivityAddSettingGroup extends TopActivity {
 	protected void initView() {
 		super.initView();
 		this.mVHAHeader.setLeftText(R.string.setting_group);
-		this.mVHAHeader.setRightText(R.string.finish);
+		this.mVHAHeader.hideRight();
 		this.setSettingGroupName(this.mSettingGroup.getmSettingGroupName());
 
 		this.mVHASettingGroupFirstFeeling = new VHASettingGroupFirstFeeling(this, this.mSettingGroup);
@@ -75,13 +73,6 @@ public class ActivityAddSettingGroup extends TopActivity {
 								ActivityAddSettingGroup.this.setSettingGroupName(inputMsg);
 							}
 						});
-			}
-		});
-		this.mVHAHeader.setRightOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mApp.saveEdittingSettingGroup();
-				finish();
 			}
 		});
 	}

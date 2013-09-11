@@ -1,5 +1,7 @@
 package sf.tools.peddlers.viewholder.activity;
 
+import java.util.ArrayList;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,25 +37,8 @@ public class VHASettingGroupCharacteristic {
 	}
 
 	private void initData() {
-		Characteristic characteristic1 = new Characteristic("鞋码", this.mSettingGroup);
-		characteristic1.addCharacteristicItem(new CharacteristicItem("35", characteristic1));
-		characteristic1.addCharacteristicItem(new CharacteristicItem("36", characteristic1));
-		characteristic1.addCharacteristicItem(new CharacteristicItem("37", characteristic1));
-		characteristic1.addCharacteristicItem(new CharacteristicItem("38", characteristic1));
-		characteristic1.addCharacteristicItem(new CharacteristicItem("39", characteristic1));
-		characteristic1.addCharacteristicItem(new CharacteristicItem("40", characteristic1));
-		characteristic1.addCharacteristicItem(new CharacteristicItem("41", characteristic1));
-		Characteristic characteristic2 = new Characteristic("性别", this.mSettingGroup);
-		characteristic2.addCharacteristicItem(new CharacteristicItem("男", characteristic2));
-		characteristic2.addCharacteristicItem(new CharacteristicItem("女", characteristic2));
-		Characteristic characteristic3 = new Characteristic("口音", this.mSettingGroup);
-		characteristic3.addCharacteristicItem(new CharacteristicItem("粤语", characteristic3));
-		characteristic3.addCharacteristicItem(new CharacteristicItem("普通话", characteristic3));
-
-		this.mSettingGroup.getmCharacteristicArray().add(characteristic1);
-		this.mSettingGroup.getmCharacteristicArray().add(characteristic2);
-		this.mSettingGroup.getmCharacteristicArray().add(characteristic3);
-
+		ArrayList<Characteristic> characteristicArray = this.mActivity.getmApp().getmDBCharacteristic().queryAll(mSettingGroup);
+		this.mSettingGroup.setmCharacteristicArray(characteristicArray);
 		this.mAdapterSettingGroupCharacteristic = new AdapterSettingGroupCharacteristic(mActivity, this.mSettingGroup.getmCharacteristicArray());
 	}
 	private void initView() {

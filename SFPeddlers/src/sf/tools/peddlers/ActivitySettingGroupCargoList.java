@@ -28,7 +28,7 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 
 	private HashMap<CargoType, ArrayList<Cargo>> mCargoHashMap = null;
 	private CargoType mSelectedCargoType = null;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		this.setContentView(R.layout.activity_setting_group_cargo_list);

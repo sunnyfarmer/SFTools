@@ -33,6 +33,16 @@ public class DBCargoType extends DBController {
 		return false;
 	}
 
+	public boolean deleteAll(SettingGroup settingGroup) {
+		if (settingGroup==null || settingGroup.getmSettingGroupId()==null) {
+			return false;
+		}
+		ArrayList<CargoType> cargoArray = this.queryAll(settingGroup);
+		for (CargoType cargoType : cargoArray) {
+			this.delete(cargoType);
+		}
+		return true;
+	}
 	public boolean delete(CargoType cargoType) {
 		if (cargoType==null ||
 			cargoType.getmCargoTypeId()==Model.ID_UNDEFINED ||
@@ -40,6 +50,9 @@ public class DBCargoType extends DBController {
 			cargoType.getmSettingGroup().getmSettingGroupId()==null) {
 			return false;
 		}
+		//delete cargo
+		this.getDbCargo().delete(cargoType);
+		//delete cargo type
 		int rowDeleted = this.delete(
 				String.format(
 						"%s=? and %s=?",

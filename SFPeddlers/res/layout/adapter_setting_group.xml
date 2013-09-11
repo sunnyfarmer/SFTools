@@ -3,15 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:padding="10dp"
+    android:gravity="center"
 	android:background="@android:color/white">
 
     <TextView
         android:id="@+id/tvSettingGroupName"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:textColor="@android:color/black"
         android:textSize="@dimen/content_size"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
         android:text="" />
 
     <Button

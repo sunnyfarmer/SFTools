@@ -19,6 +19,10 @@ public class DBCharacteristic extends DBController {
 		this.mTableName = DSCharacteristic.TB_NAME;
 	}
 
+	public int upsert(Characteristic characteristic) {
+		
+	}
+
 	public boolean insert(Characteristic characteristic) {
 		if (characteristic==null ||
 			characteristic.getmSettingGroup()==null ||
@@ -41,6 +45,16 @@ public class DBCharacteristic extends DBController {
 		return false;
 	}
 
+	public boolean deleteAll(SettingGroup settingGroup) {
+		if (settingGroup==null || settingGroup.getmSettingGroupId()==null) {
+			return false;
+		}
+		ArrayList<Characteristic> characteristicArray = this.queryAll(settingGroup);
+		for (Characteristic characteristic : characteristicArray) {
+			this.delete(characteristic);
+		}
+		return true;
+	}
 	public boolean delete(Characteristic characteristic) {
 		if (characteristic==null ||
 			characteristic.getmCharacteristicId()==Model.ID_UNDEFINED ||

@@ -1,11 +1,14 @@
 package sf.tools.peddlers.viewholder.activity;
 
+import java.util.ArrayList;
+
 import sf.tools.peddlers.BaseActivity.OnInputConfirmedListener;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.adapter.AdapterSettingGroupFirstFeeling;
 import sf.tools.peddlers.model.FirstFeeling;
 import sf.tools.peddlers.model.SettingGroup;
+import sf.tools.peddlers.utils.SFGlobal;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,10 +37,8 @@ public class VHASettingGroupFirstFeeling {
 	}
 
 	private void initData() {
-		this.mSettingGroup.getmFirstFeelingArray().add(new FirstFeeling("年轻女性1", this.mSettingGroup));
-		this.mSettingGroup.getmFirstFeelingArray().add(new FirstFeeling("年轻女性2", this.mSettingGroup));
-		this.mSettingGroup.getmFirstFeelingArray().add(new FirstFeeling("年轻女性3", this.mSettingGroup));
-		this.mSettingGroup.getmFirstFeelingArray().add(new FirstFeeling("年轻女性4", this.mSettingGroup));
+		ArrayList<FirstFeeling> firstFeelingArray = this.mActivity.getmApp().getmDBFirstFeeling().queryAll(mSettingGroup);
+		this.mSettingGroup.setmFirstFeelingArray(firstFeelingArray);
 		this.mAdapterSettingGroupFirstFeeling = new AdapterSettingGroupFirstFeeling(this.mActivity, this.mSettingGroup.getmFirstFeelingArray());
 	}
 
@@ -58,8 +59,21 @@ public class VHASettingGroupFirstFeeling {
 						new OnInputConfirmedListener() {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
-								mSettingGroup.getmFirstFeelingArray().add(new FirstFeeling(inputMsg, mSettingGroup));
-								mAdapterSettingGroupFirstFeeling.notifyDataSetChanged();
+								if (inputMsg==null || inputMsg.equals("")) {
+									mActivity.showToast(R.string.must_be_filled);
+									return;
+								}
+								FirstFeeling firstFeeling = new FirstFeeling(inputMsg, mSettingGroup);
+								int dbRs = mActivity.getmApp().addFirstFeeling(firstFeeling);
+								if (dbRs==SFGlobal.DB_MSG_OK) {
+									mSettingGroup.getmFirstFeelingArray().add(firstFeeling);
+									mAdapterSettingGroupFirstFeeling.notifyDataSetChanged();
+									VHASettingGroupFirstFeeling.this.lvFirstFeelingConfig.setVisibility(View.VISIBLE);
+								} else if (dbRs==SFGlobal.DB_MSG_SAME_COLUMN) {
+									mActivity.showToast(R.string.same_first_feeling);
+								} else {
+									mActivity.showToast(R.string.system_error);
+								}
 							}
 						});
 			}
