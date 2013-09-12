@@ -30,7 +30,13 @@ public class DBFirstFeeling extends DBController {
 		if (firstFeelingInDB!=null) {
 			return SFGlobal.DB_MSG_SAME_COLUMN;
 		}
-		if (this.insert(firstFeeling)) {
+		boolean dbRs = false;
+		if (firstFeeling.getmFirstFeelingId() != Model.ID_UNDEFINED) {
+			dbRs = this.update(firstFeeling);
+		} else {
+			dbRs = this.insert(firstFeeling);
+		}
+		if (dbRs) {
 			return SFGlobal.DB_MSG_OK;
 		} else {
 			return SFGlobal.DB_MSG_ERROR;

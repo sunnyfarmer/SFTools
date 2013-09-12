@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import sf.log.SFLog;
 import sf.tools.peddlers.ActivitySettingGroupCharacteristicItem;
+import sf.tools.peddlers.BaseActivity;
 import sf.tools.peddlers.R;
+import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHSettingGroupCharacteristic;
@@ -77,8 +79,13 @@ public class AdapterSettingGroupCharacteristic extends BaseAdapter implements
 		vhSettingGroupCharacteristic.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mCharacteristicArray.remove(characteristic);
-				AdapterSettingGroupCharacteristic.this.notifyDataSetChanged();
+				int dbRs = ((TopActivity)mContext).getmApp().removeCharacteristic(characteristic);
+				if (dbRs==SFGlobal.DB_MSG_OK) {
+					mCharacteristicArray.remove(characteristic);
+					AdapterSettingGroupCharacteristic.this.notifyDataSetChanged();
+				} else {
+					((BaseActivity)mContext).showToast(R.string.system_error);
+				}
 			}
 		});
 		return convertView;

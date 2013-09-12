@@ -10,6 +10,7 @@ import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.model.Model;
 import sf.tools.peddlers.model.SettingGroup;
+import sf.tools.peddlers.utils.SFGlobal;
 
 public class DBCharacteristic extends DBController {
 	public static final String TAG = "DBCharacteristic";
@@ -20,7 +21,27 @@ public class DBCharacteristic extends DBController {
 	}
 
 	public int upsert(Characteristic characteristic) {
-		
+		if (characteristic==null) {
+			return SFGlobal.DB_MSG_UNKNOWN_OBJECT;
+		}
+		if (characteristic.getmSettingGroup()==null || characteristic.getmSettingGroup().getmSettingGroupId()==null) {
+			return SFGlobal.DB_MSG_UNKNOWN_SETTING_GROUP;
+		}
+		Characteristic characteristicInDB = this.query(characteristic.getmSettingGroup(), characteristic.getmCharacteristicName());
+		if (characteristicInDB!=null) {
+			return SFGlobal.DB_MSG_SAME_COLUMN;
+		}
+		boolean dbRs = false;
+		if (characteristic.getmCharacteristicId()!=Model.ID_UNDEFINED) {
+			dbRs = this.update(characteristic);
+		} else {
+			dbRs = this.insert(characteristic);
+		}
+		if (dbRs) {
+			return SFGlobal.DB_MSG_OK;
+		} else {
+			return SFGlobal.DB_MSG_ERROR;
+		}
 	}
 
 	public boolean insert(Characteristic characteristic) {

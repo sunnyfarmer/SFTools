@@ -5,45 +5,18 @@
     android:background="@android:color/white"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/activity_header_height"
-        android:layout_marginBottom="1dp"
-        android:background="@color/light_gray"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/back"
-            android:textSize="@dimen/content_size" />
-
-        <TextView
-            android:id="@+id/tvCharaceristicName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/characteristic_item"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/title_size" />
-
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/add"
-            android:textSize="@dimen/content_size"/>
-    </LinearLayout>
+    <include layout="@layout/ui_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_header_height"/>
 
     <ListView
         android:id="@+id/lvCharacteristicItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1">
     </ListView>
+
+    <include layout="@layout/ui_footer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_footer_height"/>
 </LinearLayout>

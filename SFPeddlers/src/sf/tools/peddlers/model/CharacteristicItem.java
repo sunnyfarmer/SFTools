@@ -24,7 +24,7 @@ public class CharacteristicItem implements Serializable, Model {
 		this.setmCharacteristic(characteristic);
 	}
 	public CharacteristicItem(String name, Characteristic characteristic) {
-		this(0, name, characteristic);
+		this(ID_UNDEFINED, name, characteristic);
 	}
 	
 	public int getmCharacteristicItemId() {

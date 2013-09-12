@@ -3,7 +3,9 @@ package sf.tools.peddlers.adapter;
 import java.util.ArrayList;
 
 import sf.tools.peddlers.R;
+import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.CharacteristicItem;
+import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHSettingGroupCharacteristicItem;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -60,8 +62,13 @@ public class AdapterSettingGroupCharacteristicItem extends BaseAdapter
 		vhSettingGroupCharacteristicItem.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				AdapterSettingGroupCharacteristicItem.this.mCharacteristicItemArray.remove(characteristicItem);
-				AdapterSettingGroupCharacteristicItem.this.notifyDataSetChanged();
+				int dbRs = ((TopActivity)mContext).getmApp().removeCharacteristicItem(characteristicItem);
+				if (dbRs==SFGlobal.DB_MSG_OK) {
+					AdapterSettingGroupCharacteristicItem.this.mCharacteristicItemArray.remove(characteristicItem);
+					AdapterSettingGroupCharacteristicItem.this.notifyDataSetChanged();
+				} else {
+					((TopActivity)mContext).showToast(R.string.system_error);
+				}
 			}
 		});
 

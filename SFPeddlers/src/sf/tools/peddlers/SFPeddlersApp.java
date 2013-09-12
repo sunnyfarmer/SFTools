@@ -15,6 +15,7 @@ import sf.tools.peddlers.db.controller.DBShoppingList;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
 import sf.tools.peddlers.model.Characteristic;
+import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.model.FirstFeeling;
 import sf.tools.peddlers.model.SettingGroup;
 import sf.tools.peddlers.utils.SFGlobal;
@@ -166,5 +167,33 @@ public class SFPeddlersApp extends Application {
 			return SFGlobal.DB_MSG_ERROR;
 		}
 		return this.getmDBCharacteristic().upsert(characteristic);
+	}
+	public int removeCharacteristic(Characteristic characteristic) {
+		if (this.getmEditingSettingGroup()==null) {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+		boolean dbRs = this.getmDBCharacteristic().delete(characteristic);
+		if (dbRs) {
+			return SFGlobal.DB_MSG_OK;
+		} else {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+	}
+	public int addCharacteristicItem(CharacteristicItem characteristicItem) {
+		if (this.getmEditingSettingGroup()==null) {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+		return this.getmDBCharacteristicItem().upsert(characteristicItem);
+	}
+	public int removeCharacteristicItem(CharacteristicItem characteristicItem) {
+		if (this.getmEditingSettingGroup()==null) {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+		boolean dbRs = this.getmDBCharacteristicItem().delete(characteristicItem);
+		if (dbRs) {
+			return SFGlobal.DB_MSG_OK;
+		} else {
+			return SFGlobal.DB_MSG_ERROR;
+		}
 	}
 }

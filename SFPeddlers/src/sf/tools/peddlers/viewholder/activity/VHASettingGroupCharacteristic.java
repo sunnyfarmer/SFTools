@@ -14,6 +14,7 @@ import sf.tools.peddlers.adapter.AdapterSettingGroupCharacteristic;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.model.SettingGroup;
+import sf.tools.peddlers.utils.SFGlobal;
 
 public class VHASettingGroupCharacteristic {
 	public static final String TAG = "VHASettingGroupCharacteristic";
@@ -75,8 +76,17 @@ public class VHASettingGroupCharacteristic {
 						new OnInputConfirmedListener() {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
-								mSettingGroup.getmCharacteristicArray().add(new Characteristic(inputMsg, mSettingGroup));
-								mAdapterSettingGroupCharacteristic.notifyDataSetChanged();
+								Characteristic characteristic = new Characteristic(inputMsg, mSettingGroup);
+								int dbRs = mActivity.getmApp().addCharacteristic(characteristic);
+								if (dbRs==SFGlobal.DB_MSG_OK) {
+									mSettingGroup.getmCharacteristicArray().add(characteristic);
+									mAdapterSettingGroupCharacteristic.notifyDataSetChanged();
+									VHASettingGroupCharacteristic.this.llCharacteristic.setVisibility(View.VISIBLE);
+								} else if (dbRs==SFGlobal.DB_MSG_SAME_COLUMN) {
+									mActivity.showToast(R.string.same_characteristic);
+								} else {
+									mActivity.showToast(R.string.system_error);
+								}
 							}
 						});
 			}

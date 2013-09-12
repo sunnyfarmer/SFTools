@@ -9,6 +9,7 @@ import sf.tools.peddlers.db.DataStructure.DSCharacteristicItem;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.model.Model;
+import sf.tools.peddlers.utils.SFGlobal;
 
 public class DBCharacteristicItem extends DBController {
 	public static final String TAG = "DBCharacteristicItem";
@@ -18,10 +19,35 @@ public class DBCharacteristicItem extends DBController {
 		this.mTableName = DSCharacteristicItem.TB_NAME;
 	}
 
+	public int upsert(CharacteristicItem characteristicItem) {
+		if (characteristicItem==null) {
+			return SFGlobal.DB_MSG_UNKNOWN_OBJECT;
+		}
+		if (characteristicItem.getmCharacteristic()==null ||
+				characteristicItem.getmCharacteristic().getmCharacteristicId()==Model.ID_UNDEFINED) {
+			return SFGlobal.DB_MSG_UNKNOWN_CHARACTERISTIC;
+		}
+		CharacteristicItem characteristicItemInDB = this.query(characteristicItem.getmCharacteristic(), characteristicItem.getmCharacteristicItemName());
+		if (characteristicItemInDB!=null) {
+			return SFGlobal.DB_MSG_SAME_COLUMN;
+		}
+		boolean dbRs = false;
+		if (characteristicItem.getmCharacteristicItemId()!=Model.ID_UNDEFINED) {
+			dbRs = this.update(characteristicItem);
+		} else {
+			dbRs = this.insert(characteristicItem);
+		}
+		if (dbRs) {
+			return SFGlobal.DB_MSG_OK;
+		} else {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+	}
+
 	public boolean insert(CharacteristicItem characteristicItem) {
 		if (characteristicItem==null ||
 			characteristicItem.getmCharacteristic()==null ||
-			characteristicItem.getmCharacteristicItemId()==Model.ID_UNDEFINED) {
+			characteristicItem.getmCharacteristic().getmCharacteristicId()==Model.ID_UNDEFINED) {
 			return false;
 		}
 		boolean insertRs = super.insert(characteristicItem);
@@ -160,8 +186,8 @@ public class DBCharacteristicItem extends DBController {
 				int characteristicId = cursor.getInt(cursor.getColumnIndex(DSCharacteristicItem.COL_CHARACTERISTIC_ID));
 				characteristic = this.getDbCharacteristic().query(characteristicId);
 			}
-			CharacteristicItem item = new CharacteristicItem(name, characteristic);
-			item.setmCharacteristicItemId(id);
+			characteristicItem = new CharacteristicItem(name, characteristic);
+			characteristicItem.setmCharacteristicItemId(id);
 		}
 		return characteristicItem;
 	}
