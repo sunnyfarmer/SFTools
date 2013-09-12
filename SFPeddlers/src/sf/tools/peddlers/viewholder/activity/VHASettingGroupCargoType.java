@@ -11,9 +11,9 @@ import sf.tools.peddlers.BaseActivity.OnInputConfirmedListener;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.adapter.AdapterSettingGroupCargoType;
-import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
 import sf.tools.peddlers.model.SettingGroup;
+import sf.tools.peddlers.utils.SFGlobal;
 
 public class VHASettingGroupCargoType {
 	public static final String TAG = "VHASettingGroupCargoType";
@@ -37,20 +37,8 @@ public class VHASettingGroupCargoType {
 	}
 
 	private void initData() {
-		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("连衣裙", this.mSettingGroup));
-		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("短裙", this.mSettingGroup));
-		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("女体恤", this.mSettingGroup));
-		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("牛仔裤", this.mSettingGroup));
-		this.mSettingGroup.getmCargoTypeArray().add(new CargoType("热裤", this.mSettingGroup));
-		for (CargoType cargoType : this.mSettingGroup.getmCargoTypeArray()) {
-			ArrayList<Cargo> cargoArray = new ArrayList<Cargo>();
-			for (int cot = 0; cot < 10; cot++) {
-				String cargoName = cargoType.getmCargoTypeName() + cot;
-				Cargo cargo = new Cargo(cargoName, cargoType);
-				cargoArray.add(cargo);
-			}
-			this.mSettingGroup.getmCargoArray().put(cargoType, cargoArray);
-		}
+		ArrayList<CargoType> cargoTypeArray = this.mActivity.getmApp().getmDBCargoType().queryAll(mSettingGroup);
+		this.mSettingGroup.setmCargoTypeArray(cargoTypeArray);
 		this.mAdapterSettingGroupCargoType = new AdapterSettingGroupCargoType(this.mActivity, this.mSettingGroup.getmCargoTypeArray());
 	}
 	private void initView() {
@@ -80,16 +68,23 @@ public class VHASettingGroupCargoType {
 		this.btnAddCargoType.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				mActivity.showInputDialog(
 						mActivity.getText(R.string.please_input_new_cargo_type_name).toString(),
 						"",
 						new OnInputConfirmedListener() {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
-								// TODO Auto-generated method stub
-								mSettingGroup.getmCargoTypeArray().add(new CargoType(inputMsg, mSettingGroup));
-								mAdapterSettingGroupCargoType.notifyDataSetChanged();
+								CargoType cargoType = new CargoType(inputMsg, mSettingGroup);
+								int dbRs = mActivity.getmApp().addCargoType(cargoType);
+								if (dbRs==SFGlobal.DB_MSG_OK) {
+									mSettingGroup.getmCargoTypeArray().add(cargoType);
+									mAdapterSettingGroupCargoType.notifyDataSetChanged();
+									VHASettingGroupCargoType.this.lvCargoType.setVisibility(View.VISIBLE);
+								} else if (dbRs==SFGlobal.DB_MSG_SAME_COLUMN) {
+									mActivity.showToast(R.string.same_cargo_type);
+								} else {
+									mActivity.showToast(R.string.system_error);
+								}
 							}
 						});
 			}

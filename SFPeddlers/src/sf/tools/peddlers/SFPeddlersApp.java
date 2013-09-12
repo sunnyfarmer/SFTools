@@ -196,4 +196,21 @@ public class SFPeddlersApp extends Application {
 			return SFGlobal.DB_MSG_ERROR;
 		}
 	}
+	public int addCargoType(CargoType cargoType) {
+		if (this.getmEditingSettingGroup()==null) {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+		return this.getmDBCargoType().upsert(cargoType);
+	}
+	public int removeCargoType(CargoType cargoType) {
+		if (this.getmEditingSettingGroup()==null) {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+		boolean dbRs = this.getmDBCargoType().delete(cargoType);
+		if (dbRs) {
+			return SFGlobal.DB_MSG_OK;
+		} else {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+	}
 }

@@ -3,7 +3,9 @@ package sf.tools.peddlers.adapter;
 import java.util.ArrayList;
 
 import sf.tools.peddlers.R;
+import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.CargoType;
+import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHSettingGroupCargoType;
 
 import android.content.Context;
@@ -63,9 +65,13 @@ public class AdapterSettingGroupCargoType extends BaseAdapter implements
 		vhSettingGroupCargoType.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				mCargoTypeArray.remove(cargoType);
-				AdapterSettingGroupCargoType.this.notifyDataSetChanged();
+				int dbRs = ((TopActivity)mContext).getmApp().removeCargoType(cargoType);
+				if (dbRs==SFGlobal.DB_MSG_OK) {
+					mCargoTypeArray.remove(cargoType);
+					AdapterSettingGroupCargoType.this.notifyDataSetChanged();
+				} else {
+					((TopActivity)mContext).showToast(R.string.system_error);
+				}
 			}
 		});
 
