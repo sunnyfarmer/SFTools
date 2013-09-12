@@ -2,31 +2,29 @@ package sf.tools.peddlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 import sf.tools.peddlers.adapter.AdapterSettingGroupCargo;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
+import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.activity.VHACargoType;
 import sf.tools.peddlers.viewholder.activity.VHACargoType.OnCargoTypeChangedListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 
 public class ActivitySettingGroupCargoList extends TopActivity {
 	public static final String TAG = "ActivitySettingGroupCargoList";
 
-	private Button btnBack = null;
-	private Button btnAddCargo = null;
 	private ListView lvCargoList = null;
 	private VHACargoType mVHACargoType = null;
 
 	private AdapterSettingGroupCargo mAdapterSettingGroupCargo = null;
 
 	private HashMap<CargoType, ArrayList<Cargo>> mCargoHashMap = null;
+	private ArrayList<CargoType> mCargoTypeArray = null;
 	private CargoType mSelectedCargoType = null;
 
 	@Override
@@ -38,42 +36,32 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 
 	@Override
 	protected void initData() {
-		CargoType[] cargoTypeArray = {
-				new CargoType("连衣裙", null),
-				new CargoType("短裙", null),
-				new CargoType("女体恤", null),
-				new CargoType("牛仔裤", null),
-				new CargoType("热裤", null)
-		};
-		for (CargoType cargoType : cargoTypeArray) {
-			for (int cot = 0; cot < 10; cot++) {
-				String cargoName = cargoType.getmCargoTypeName() + cot;
-				Cargo cargo = new Cargo(cargoName, cargoType);
-				this.putCargo(cargo);
-			}
-		}
 		super.initData();
+		this.mCargoTypeArray = this.mApp.getmEditingSettingGroup().getmCargoTypeArray();
 	}
 	@Override
 	protected void initView() {
-		this.btnBack = (Button) this.findViewById(R.id.btnBack);
-		this.btnAddCargo = (Button) this.findViewById(R.id.btnAddCargo);
+		super.initView();
+		this.mVHAHeader.setTitleText(R.string.cargo_list);
+		this.mVHAHeader.setLeftText(R.string.back);
+		this.mVHAHeader.setRightText(R.string.add_cargo);
 		this.lvCargoList = (ListView) this.findViewById(R.id.lvCargoList);
 		this.mVHACargoType = new VHACargoType(this, this.getCargoTypeArray());
-		super.initView();
 	}
 	@Override
 	protected void setListener() {
-		this.btnBack.setOnClickListener(new OnClickListener() {
+		super.setListener();
+		this.mVHAHeader.setLeftOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				ActivitySettingGroupCargoList.this.finish();
 			}
 		});
-		this.btnAddCargo.setOnClickListener(new OnClickListener() {
+		this.mVHAHeader.setRightOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(ActivitySettingGroupCargoList.this, ActivitySettingGroupAddCargo.class);
+				ActivitySettingGroupCargoList.this.startActivityForResult(intent, SFGlobal.RS_CODE_ADD_CARGO);
 				ActivitySettingGroupCargoList.this.startActivity(intent);
 			}
 		});
@@ -83,7 +71,6 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 				setmSelectedCargoType(cargoType);
 			}
 		});
-		super.setListener();
 	}
 
 	private void refreshCargo() {
@@ -117,13 +104,6 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 	}
 
 	public ArrayList<CargoType> getCargoTypeArray() {
-		ArrayList<CargoType> cargoTypeArray = new ArrayList<CargoType>();
-
-		Set<CargoType> cargoTypeSet = this.mCargoHashMap.keySet();
-		for (CargoType cargoType : cargoTypeSet) {
-			cargoTypeArray.add(cargoType);
-		}
-
-		return cargoTypeArray;
+		return this.mCargoTypeArray;
 	}
 }

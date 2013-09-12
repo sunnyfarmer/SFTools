@@ -5,44 +5,9 @@
     android:background="@android:color/white"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/header"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/activity_header_height"
-        android:layout_marginBottom="1dp"
-        android:background="@color/light_gray"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:text="@string/back"
-            android:textSize="@dimen/content_size" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/cargo_list"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/title_size" />
-
-        <Button
-            android:id="@+id/btnAddCargo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical"
-            android:text="@string/add_cargo"
-            android:textSize="@dimen/content_size" />
-    </RelativeLayout>
+	<include layout="@layout/ui_header"
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/activity_header_height"/>
 
     <LinearLayout
         android:layout_width="match_parent"
