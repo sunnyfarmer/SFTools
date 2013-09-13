@@ -1,5 +1,11 @@
 package sf.tools.peddlers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+import sf.log.SFLog;
+import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
 import sf.tools.peddlers.utils.SFGlobal;
 import android.content.Intent;
@@ -21,11 +27,10 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 
 	private CargoType mCargoType = null;
 
-	private Button btnBack = null;
-	private TextView tvCargoTypeName = null;
-	private Button btnFinish = null;
 	private EditText etCargoName = null;
 	private ImageView ivCargo = null;
+
+	private Bitmap mBitmap = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,28 +48,27 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 
 	@Override
 	protected void initView() {
-		this.btnBack = (Button) this.findViewById(R.id.btnBack);
-		this.tvCargoTypeName = (TextView) this
-				.findViewById(R.id.tvCargoTypeName);
-		this.btnFinish = (Button) this.findViewById(R.id.btnFinish);
+		super.initView();
+		this.mVHAHeader.setLeftText(R.string.back);
+		this.mVHAHeader.setRightText(R.string.finish);
+		this.mVHAHeader.setTitleText(this.mCargoType.getmCargoTypeName());
 		this.etCargoName = (EditText) this.findViewById(R.id.etCargoName);
 		this.ivCargo = (ImageView) this.findViewById(R.id.ivCargo);
-		super.initView();
 	}
 
 	@Override
 	protected void setListener() {
-		this.btnBack.setOnClickListener(new OnClickListener() {
+		super.setListener();
+		this.mVHAHeader.setLeftOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
+				finish();
 			}
 		});
-		this.btnFinish.setOnClickListener(new OnClickListener() {
+		this.mVHAHeader.setRightOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				produceCargo();
 			}
 		});
 		this.ivCargo.setOnClickListener(new OnClickListener() {
@@ -76,7 +80,6 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 				startActivityForResult(i, SFGlobal.RS_CODE_LOAD_IMAGE);
 			}
 		});
-		super.setListener();
 	}
 
 	@Override
@@ -91,8 +94,35 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
         	String picturePath = cursor.getString(columnIndex);
         	cursor.close();
 
-        	Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
-        	ivCargo.setImageBitmap(bitmap);
+        	if (mBitmap!=null && !mBitmap.isRecycled()) {
+        		mBitmap.recycle();
+        	}
+        	mBitmap = BitmapFactory.decodeFile(picturePath);
+        	ivCargo.setImageBitmap(mBitmap);
         }
+	}
+
+	protected void saveImage() {
+		
+	}
+	protected Cargo produceCargo() {
+		String cargoName = this.etCargoName.getText().toString().trim();
+		if (cargoName.equals("")) {
+			this.showToast(R.string.cargo_name_must_be_filled);
+			return null;
+		}
+		if (this.mBitmap!=null) {
+			try {
+				File file = new File(this.getFilesDir().getAbsolutePath()+"/bitmap.png");
+				FileOutputStream fos = null;
+				fos = new FileOutputStream(file);
+				this.mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+			} catch (FileNotFoundException e) {
+				SFLog.e(TAG, "new FileOutputStream File error");
+			}
+
+		}
+		Cargo cargo = new Cargo(cargoName, mCargoType);
+		return cargo;
 	}
 }

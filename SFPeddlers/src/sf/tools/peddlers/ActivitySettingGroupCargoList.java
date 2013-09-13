@@ -23,7 +23,7 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 
 	private AdapterSettingGroupCargo mAdapterSettingGroupCargo = null;
 
-	private HashMap<CargoType, ArrayList<Cargo>> mCargoHashMap = null;
+	private HashMap<CargoType, ArrayList<Cargo>> mCargoHashMap = new HashMap<CargoType, ArrayList<Cargo>>();
 	private ArrayList<CargoType> mCargoTypeArray = null;
 	private CargoType mSelectedCargoType = null;
 
@@ -47,6 +47,10 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 		this.mVHAHeader.setRightText(R.string.add_cargo);
 		this.lvCargoList = (ListView) this.findViewById(R.id.lvCargoList);
 		this.mVHACargoType = new VHACargoType(this, this.getCargoTypeArray());
+
+		if (this.mCargoTypeArray!=null && this.mCargoTypeArray.size()>0) {
+			this.setmSelectedCargoType(this.mCargoTypeArray.get(0));
+		}
 	}
 	@Override
 	protected void setListener() {
@@ -61,8 +65,8 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(ActivitySettingGroupCargoList.this, ActivitySettingGroupAddCargo.class);
+				intent.putExtra(SFGlobal.EXTRA_CARGOTYPE, ActivitySettingGroupCargoList.this.getmSelectedCargoType());
 				ActivitySettingGroupCargoList.this.startActivityForResult(intent, SFGlobal.RS_CODE_ADD_CARGO);
-				ActivitySettingGroupCargoList.this.startActivity(intent);
 			}
 		});
 		this.mVHACargoType.setmOnCargoTypeChangedListener(new OnCargoTypeChangedListener() {
@@ -90,9 +94,17 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 
 	public void setmSelectedCargoType(CargoType mSelectedCargoType) {
 		this.mSelectedCargoType = mSelectedCargoType;
+		this.initCargoList(this.mSelectedCargoType, false);
 		this.refreshCargo();
 	}
 
+	public void initCargoList(CargoType cargoType, boolean forceReadFromDB) {
+		ArrayList<Cargo> cargoList = this.mCargoHashMap.get(cargoType);
+		if (forceReadFromDB || cargoList==null) {
+			cargoList = this.mApp.getmDBCargo().queryAll(cargoType);
+			this.mCargoHashMap.put(cargoType, cargoList);
+		}
+	}
 	public void putCargo(Cargo cargo) {
 		if (this.mCargoHashMap==null) {
 			this.mCargoHashMap = new HashMap<CargoType, ArrayList<Cargo>>();

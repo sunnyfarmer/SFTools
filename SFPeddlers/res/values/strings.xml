@@ -58,6 +58,7 @@
 	<string name="same_cargo_type">重复商品种类</string>
 	<string name="same_cargo_name">重复商品名称</string>
 	<string name="must_be_filled">不能为空</string>
+	<string name="cargo_name_must_be_filled">商品名不能为空</string>
 
 	<!-- string for statistics -->	
 	<string name="more_statistics_will_be_publish">更多统计方式，将会发布，敬请期待！</string>
