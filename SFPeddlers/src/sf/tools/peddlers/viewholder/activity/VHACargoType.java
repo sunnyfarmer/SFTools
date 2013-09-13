@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.CargoType;
+import sf.utils.SFAndroidSize;
 import android.view.Gravity;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -70,11 +72,13 @@ public class VHACargoType {
 
 		for (CargoType cargoType : this.mCargoTypeArray) {
 			RadioButton rb = new RadioButton(this.mActivity);
-			LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT, 1);
 			rb.setLayoutParams(params);
 			rb.setGravity(Gravity.CENTER);
 			rb.setBackgroundResource(R.drawable.tab_checkbox_selector);
 			rb.setButtonDrawable(android.R.color.transparent);
+			int padding = (int) SFAndroidSize.dp2Px(mActivity, 12);
+			rb.setPadding(padding, 0, padding, 0);
 			rb.setText(cargoType.getmCargoTypeName());
 			rb.setTag(cargoType);
 

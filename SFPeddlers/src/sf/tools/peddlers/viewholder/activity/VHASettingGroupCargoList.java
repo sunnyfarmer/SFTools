@@ -36,6 +36,10 @@ public class VHASettingGroupCargoList {
 		this.llCargoList.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (mSettingGroup.getmCargoTypeArray()==null || mSettingGroup.getmCargoTypeArray().size()==0) {
+					mActivity.showToast(R.string.please_add_cargo_type_first);
+					return;
+				}
 				Intent intent = new Intent(mActivity, ActivitySettingGroupCargoList.class);
 				mActivity.startActivity(intent);
 			}
