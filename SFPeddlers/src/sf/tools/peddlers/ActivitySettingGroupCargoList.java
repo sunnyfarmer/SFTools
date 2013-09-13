@@ -64,6 +64,7 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 
 		if (this.mCargoTypeArray!=null && this.mCargoTypeArray.size()>0) {
 			this.setmSelectedCargoType(this.mCargoTypeArray.get(0));
+			this.mVHACargoType.checkCargoType(this.getmSelectedCargoType());
 		}
 	}
 	@Override

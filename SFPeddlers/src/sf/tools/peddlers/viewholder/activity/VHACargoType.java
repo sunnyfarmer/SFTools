@@ -51,6 +51,20 @@ public class VHACargoType {
 			}
 		});
 	}
+	public void checkCargoType(CargoType cargoType) {
+		if (cargoType==null) {
+			return;
+		}
+		int rbCount = this.rgCargoType.getChildCount();
+		for(int cot = 0; cot < rbCount; cot++) {
+			RadioButton rb = (RadioButton) this.rgCargoType.getChildAt(cot);
+			CargoType cargoTypeAsTag = (CargoType) rb.getTag();
+			if (cargoTypeAsTag!=null && cargoTypeAsTag.getmCargoTypeId()==cargoType.getmCargoTypeId()) {
+				this.rgCargoType.check(rb.getId());
+				break;
+			}
+		}
+	}
 	public void refreshCargoType() {
 		this.rgCargoType.removeAllViews();
 
