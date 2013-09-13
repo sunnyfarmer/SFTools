@@ -48,6 +48,7 @@
 	<string name="please_input_new_first_feeling">请输入新感觉</string>
 	<string name="please_input_new_cargo_type_name">请输入新商品种类</string>
 	<string name="please_input_new_characteristic">请输入新的特征</string>
+	<string name="please_input_new_cargo_name">请输入商品名称</string>
 	<string name="characteristic_item">特征项</string>
 	<string name="add_cargo">添加货物</string>
 	<string name="name">名称</string>
