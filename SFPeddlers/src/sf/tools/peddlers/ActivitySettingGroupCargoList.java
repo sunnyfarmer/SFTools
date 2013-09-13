@@ -23,7 +23,7 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 
 	private AdapterSettingGroupCargo mAdapterSettingGroupCargo = null;
 
-	private HashMap<CargoType, ArrayList<Cargo>> mCargoHashMap = new HashMap<CargoType, ArrayList<Cargo>>();
+	private HashMap<Integer, ArrayList<Cargo>> mCargoHashMap = new HashMap<Integer, ArrayList<Cargo>>();
 	private ArrayList<CargoType> mCargoTypeArray = null;
 	private CargoType mSelectedCargoType = null;
 
@@ -32,6 +32,20 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 		this.setContentView(R.layout.activity_setting_group_cargo_list);
 
 	    super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode==SFGlobal.RS_CODE_ADD_CARGO && resultCode==RESULT_OK) {
+			Cargo cargo = (Cargo) data.getSerializableExtra(SFGlobal.EXTRA_CARGO);
+			this.putCargo(cargo);
+			this.refreshCargo();
+		} else if (requestCode==SFGlobal.RS_CODE_EDIT_CARGO && resultCode==RESULT_OK) {
+			Cargo cargo = (Cargo) data.getSerializableExtra(SFGlobal.EXTRA_CARGO);
+			this.replaceCargo(cargo);
+			this.refreshCargo();
+		}
 	}
 
 	@Override
@@ -78,7 +92,7 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 	}
 
 	private void refreshCargo() {
-		ArrayList<Cargo> cargoList = this.mCargoHashMap.get(this.getmSelectedCargoType());
+		ArrayList<Cargo> cargoList = this.mCargoHashMap.get(this.getmSelectedCargoType().getmCargoTypeId());
 		if (this.mAdapterSettingGroupCargo==null) {
 			this.mAdapterSettingGroupCargo = new AdapterSettingGroupCargo(this, cargoList);
 			this.lvCargoList.setAdapter(mAdapterSettingGroupCargo);
@@ -99,20 +113,36 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 	}
 
 	public void initCargoList(CargoType cargoType, boolean forceReadFromDB) {
-		ArrayList<Cargo> cargoList = this.mCargoHashMap.get(cargoType);
+		ArrayList<Cargo> cargoList = this.mCargoHashMap.get(cargoType.getmCargoTypeId());
 		if (forceReadFromDB || cargoList==null) {
 			cargoList = this.mApp.getmDBCargo().queryAll(cargoType);
-			this.mCargoHashMap.put(cargoType, cargoList);
+			this.mCargoHashMap.put(cargoType.getmCargoTypeId(), cargoList);
 		}
 	}
 	public void putCargo(Cargo cargo) {
 		if (this.mCargoHashMap==null) {
-			this.mCargoHashMap = new HashMap<CargoType, ArrayList<Cargo>>();
+			this.mCargoHashMap = new HashMap<Integer, ArrayList<Cargo>>();
 		}
-		if (!this.mCargoHashMap.containsKey(cargo.getmCargoType())) {
-			this.mCargoHashMap.put(cargo.getmCargoType(), new ArrayList<Cargo>());
+		if (!this.mCargoHashMap.containsKey(cargo.getmCargoType().getmCargoTypeId())) {
+			this.mCargoHashMap.put(cargo.getmCargoType().getmCargoTypeId(), new ArrayList<Cargo>());
 		}
-		this.mCargoHashMap.get(cargo.getmCargoType()).add(cargo);
+		this.mCargoHashMap.get(cargo.getmCargoType().getmCargoTypeId()).add(cargo);
+	}
+
+	public void replaceCargo(Cargo cargo) {
+		if (this.mCargoHashMap==null) {
+			this.mCargoHashMap = new HashMap<Integer, ArrayList<Cargo>>();
+		}
+		if (!this.mCargoHashMap.containsKey(cargo.getmCargoType().getmCargoTypeId())) {
+			this.mCargoHashMap.put(cargo.getmCargoType().getmCargoTypeId(), new ArrayList<Cargo>());
+		}
+		ArrayList<Cargo> cargoList = this.mCargoHashMap.get(cargo.getmCargoType().getmCargoTypeId());
+		for (Cargo cargoInList : cargoList) {
+			if (cargoInList.getmCargoId()==cargo.getmCargoId()) {
+				cargoInList.setmCargoName(cargo.getmCargoName());
+				break;
+			}
+		}
 	}
 
 	public ArrayList<CargoType> getCargoTypeArray() {

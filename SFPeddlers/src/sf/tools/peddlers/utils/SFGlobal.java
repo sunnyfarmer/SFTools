@@ -15,6 +15,7 @@ public class SFGlobal {
 
 	public static final int RS_CODE_LOAD_IMAGE = 1001;
 	public static final int RS_CODE_ADD_CARGO = 1002;
+	public static final int RS_CODE_EDIT_CARGO = 1003;
 
 	public static final String SP_FILE_NAME = "sp_peddlers";
 	public static final String SP_SETTING_GROUP_ID = "sp_setting_group_id";

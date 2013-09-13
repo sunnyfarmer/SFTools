@@ -213,4 +213,21 @@ public class SFPeddlersApp extends Application {
 			return SFGlobal.DB_MSG_ERROR;
 		}
 	}
+	public int addCargo(Cargo cargo) {
+		if (this.getmEditingSettingGroup()==null) {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+		return this.getmDBCargo().upsert(cargo);
+	}
+	public int removeCargo(Cargo cargo) {
+		if (this.getmEditingSettingGroup()==null) {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+		boolean dbRs = this.getmDBCargo().delete(cargo);
+		if (dbRs) {
+			return SFGlobal.DB_MSG_OK;
+		} else {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+	}
 }

@@ -2,6 +2,7 @@ package sf.tools.peddlers;
 
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.utils.SFGlobal;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,8 +15,6 @@ public class ActivitySettingGroupCargoDetail extends TopActivity {
 
 	private Cargo mCargo = null;
 
-	private Button btnBack = null;
-	private TextView tvCargoName = null;
 	private ImageView ivCargo = null;
 
 	@Override
@@ -31,23 +30,37 @@ public class ActivitySettingGroupCargoDetail extends TopActivity {
 	}
 	@Override
 	protected void initView() {
-		this.btnBack = (Button) this.findViewById(R.id.btnBack);
-		this.tvCargoName = (TextView) this.findViewById(R.id.tvCargoName);
-		this.ivCargo = (ImageView) this.findViewById(R.id.ivCargo);
-
-		this.tvCargoName.setText(this.mCargo.getmCargoName());
 		super.initView();
+		this.mVHAHeader.setLeftText(R.string.back);
+		this.mVHAHeader.setRightText(R.string.back);
+		this.mVHAHeader.hideRight();
+		this.mVHAHeader.setTitleText(this.mCargo.getmCargoName());
+		this.ivCargo = (ImageView) this.findViewById(R.id.ivCargo);
 	}
 	@Override
 	protected void setListener() {
-		this.btnBack.setOnClickListener(new OnClickListener() {
+		super.setListener();
+		this.mVHAHeader.setLeftOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
 			}
 		});
-
-		super.setListener();
+		this.ivCargo.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(
+						Intent.ACTION_PICK,
+						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				startActivityForResult(i, SFGlobal.RS_CODE_LOAD_IMAGE);
+			}
+		});
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 }

@@ -1,12 +1,8 @@
 package sf.tools.peddlers;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-
-import sf.log.SFLog;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
+import sf.tools.peddlers.utils.SFBitmapManager;
 import sf.tools.peddlers.utils.SFGlobal;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,10 +13,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 public class ActivitySettingGroupAddCargo extends TopActivity {
 	public static final String TAG = "ActivitySettingGroupAddCargo";
@@ -68,7 +62,20 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 		this.mVHAHeader.setRightOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				produceCargo();
+				Cargo cargo = produceCargo();
+				int dbRs = mApp.addCargo(cargo);
+				if (dbRs==SFGlobal.DB_MSG_OK) {
+					saveImage(cargo.getmCargoId());
+
+					Intent data = new Intent();
+					data.putExtra(SFGlobal.EXTRA_CARGO, cargo);
+					ActivitySettingGroupAddCargo.this.setResult(RESULT_OK, data);
+					finish();
+				} else if (dbRs==SFGlobal.DB_MSG_SAME_COLUMN) {
+					showToast(R.string.same_cargo_name);
+				} else {
+					showToast(R.string.system_error);
+				}
 			}
 		});
 		this.ivCargo.setOnClickListener(new OnClickListener() {
@@ -86,6 +93,7 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SFGlobal.RS_CODE_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+        	//获得选中图片路径
         	Uri selectedImage = data.getData();
         	String[] filePathColumn = { MediaStore.Images.Media.DATA };
         	Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
@@ -102,25 +110,14 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
         }
 	}
 
-	protected void saveImage() {
-		
+	protected void saveImage(int cargoId) {
+		SFBitmapManager.saveBitmap(mApp, mBitmap, cargoId);
 	}
 	protected Cargo produceCargo() {
 		String cargoName = this.etCargoName.getText().toString().trim();
 		if (cargoName.equals("")) {
 			this.showToast(R.string.cargo_name_must_be_filled);
 			return null;
-		}
-		if (this.mBitmap!=null) {
-			try {
-				File file = new File(this.getFilesDir().getAbsolutePath()+"/bitmap.png");
-				FileOutputStream fos = null;
-				fos = new FileOutputStream(file);
-				this.mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-			} catch (FileNotFoundException e) {
-				SFLog.e(TAG, "new FileOutputStream File error");
-			}
-
 		}
 		Cargo cargo = new Cargo(cargoName, mCargoType);
 		return cargo;

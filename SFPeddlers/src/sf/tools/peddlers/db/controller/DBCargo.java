@@ -9,6 +9,7 @@ import sf.tools.peddlers.db.DataStructure.DSCargo;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
 import sf.tools.peddlers.model.Model;
+import sf.tools.peddlers.utils.SFGlobal;
 
 public class DBCargo extends DBController {
 	public static final String TAG = "DBCargo";
@@ -16,6 +17,30 @@ public class DBCargo extends DBController {
 	public DBCargo(Context context) {
 		super(context);
 		this.mTableName = DSCargo.TB_NAME;
+	}
+
+	public int upsert(Cargo cargo) {
+		if (cargo==null) {
+			return SFGlobal.DB_MSG_UNKNOWN_OBJECT;
+		}
+		if (cargo.getmCargoType()==null || cargo.getmCargoType().getmCargoTypeId()==Model.ID_UNDEFINED) {
+			return SFGlobal.DB_MSG_UNKNOWN_CARGO_TYPE;
+		}
+		Cargo cargoInDB = this.query(cargo.getmCargoType(), cargo.getmCargoName());
+		if (cargoInDB!=null) {
+			return SFGlobal.DB_MSG_SAME_COLUMN;
+		}
+		boolean dbRs = false;
+		if (cargo.getmCargoId()!=Model.ID_UNDEFINED) {
+			dbRs = this.update(cargo);
+		} else {
+			dbRs = this.insert(cargo);
+		}
+		if (dbRs) {
+			return SFGlobal.DB_MSG_OK;
+		} else {
+			return SFGlobal.DB_MSG_ERROR;
+		}
 	}
 
 	public boolean insert(Cargo cargo) {

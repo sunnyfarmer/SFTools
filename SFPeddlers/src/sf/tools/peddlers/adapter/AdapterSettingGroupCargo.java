@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import sf.log.SFLog;
 import sf.tools.peddlers.ActivitySettingGroupCargoDetail;
 import sf.tools.peddlers.R;
+import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.Cargo;
+import sf.tools.peddlers.utils.SFBitmapManager;
 import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHSettingGroupCargo;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -65,11 +68,21 @@ public class AdapterSettingGroupCargo extends BaseAdapter implements
 		final Cargo cargo = this.getItem(position);
 		SFLog.d(TAG, vhSettingGroupCargo + ":" + vhSettingGroupCargo.tvCargo + ":" + cargo + ":" + cargo.getmCargoName());
 		vhSettingGroupCargo.tvCargo.setText(cargo.getmCargoName());
+		Bitmap bitmap = SFBitmapManager.getBitmap(cargo.getmCargoId(), ((TopActivity)mContext).getmApp());
+		if (bitmap!=null) {
+			vhSettingGroupCargo.ivCargo.setImageBitmap(bitmap);
+		}
 		vhSettingGroupCargo.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mCargoArray.remove(cargo);
-				AdapterSettingGroupCargo.this.notifyDataSetChanged();
+				int dbRs = ((TopActivity)mContext).getmApp().removeCargo(cargo);
+				if (dbRs==SFGlobal.DB_MSG_OK) {
+					SFBitmapManager.removeBitmap(cargo.getmCargoId(), ((TopActivity)mContext).getmApp());
+					mCargoArray.remove(cargo);
+					AdapterSettingGroupCargo.this.notifyDataSetChanged();
+				} else {
+					((TopActivity)mContext).showToast(R.string.system_error);
+				}
 			}
 		});
 		vhSettingGroupCargo.ivCargo.setOnClickListener(new OnClickListener() {
@@ -106,6 +119,6 @@ public class AdapterSettingGroupCargo extends BaseAdapter implements
 	private void gotoCargoDetailView(Cargo cargo) {
 		Intent intent = new Intent(this.mContext, ActivitySettingGroupCargoDetail.class);
 		intent.putExtra(SFGlobal.EXTRA_CARGO, cargo);
-		this.mContext.startActivity(intent);
+		((TopActivity)this.mContext).startActivityForResult(intent, SFGlobal.RS_CODE_EDIT_CARGO);
 	}
 }
