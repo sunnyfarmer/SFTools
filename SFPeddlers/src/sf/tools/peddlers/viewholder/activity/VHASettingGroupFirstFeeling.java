@@ -37,7 +37,7 @@ public class VHASettingGroupFirstFeeling {
 	}
 
 	private void initData() {
-		ArrayList<FirstFeeling> firstFeelingArray = this.mActivity.getmApp().getmDBFirstFeeling().queryAll(mSettingGroup);
+		ArrayList<FirstFeeling> firstFeelingArray = this.mActivity.getmApp().getmDbManager().getmDBFirstFeeling().queryAll(mSettingGroup);
 		this.mSettingGroup.setmFirstFeelingArray(firstFeelingArray);
 		this.mAdapterSettingGroupFirstFeeling = new AdapterSettingGroupFirstFeeling(this.mActivity, this.mSettingGroup.getmFirstFeelingArray());
 	}
@@ -64,7 +64,7 @@ public class VHASettingGroupFirstFeeling {
 									return;
 								}
 								FirstFeeling firstFeeling = new FirstFeeling(inputMsg, mSettingGroup);
-								int dbRs = mActivity.getmApp().addFirstFeeling(firstFeeling);
+								int dbRs = mActivity.getmApp().getmDbManager().upsertFirstFeeling(firstFeeling);
 								if (dbRs==SFGlobal.DB_MSG_OK) {
 									mSettingGroup.getmFirstFeelingArray().add(firstFeeling);
 									mAdapterSettingGroupFirstFeeling.notifyDataSetChanged();

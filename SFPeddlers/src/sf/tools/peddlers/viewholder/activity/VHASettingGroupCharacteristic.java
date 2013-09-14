@@ -12,7 +12,6 @@ import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.adapter.AdapterSettingGroupCharacteristic;
 import sf.tools.peddlers.model.Characteristic;
-import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.model.SettingGroup;
 import sf.tools.peddlers.utils.SFGlobal;
 
@@ -38,7 +37,7 @@ public class VHASettingGroupCharacteristic {
 	}
 
 	private void initData() {
-		ArrayList<Characteristic> characteristicArray = this.mActivity.getmApp().getmDBCharacteristic().queryAll(mSettingGroup);
+		ArrayList<Characteristic> characteristicArray = this.mActivity.getmApp().getmDbManager().getmDBCharacteristic().queryAll(mSettingGroup);
 		this.mSettingGroup.setmCharacteristicArray(characteristicArray);
 		this.mAdapterSettingGroupCharacteristic = new AdapterSettingGroupCharacteristic(mActivity, this.mSettingGroup.getmCharacteristicArray());
 	}
@@ -77,7 +76,7 @@ public class VHASettingGroupCharacteristic {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
 								Characteristic characteristic = new Characteristic(inputMsg, mSettingGroup);
-								int dbRs = mActivity.getmApp().addCharacteristic(characteristic);
+								int dbRs = mActivity.getmApp().getmDbManager().upsertCharacteristic(characteristic);
 								if (dbRs==SFGlobal.DB_MSG_OK) {
 									mSettingGroup.getmCharacteristicArray().add(characteristic);
 									mAdapterSettingGroupCharacteristic.notifyDataSetChanged();

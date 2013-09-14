@@ -12,9 +12,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 public class ActivitySettingGroupCargoDetail extends TopActivity {
 	public static final String TAG = "ActivitySettingGroupCargoDetail";
@@ -74,7 +72,7 @@ public class ActivitySettingGroupCargoDetail extends TopActivity {
 		this.mVHAHeader.setLeftOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mApp.addCargo(mCargo);
+				mApp.getmDbManager().upsertCargo(mCargo);
 				SFBitmapManager.saveBitmap(mApp, mBitmap, mCargo.getmCargoId());
 
 				Intent data = new Intent();
@@ -92,7 +90,7 @@ public class ActivitySettingGroupCargoDetail extends TopActivity {
 						new OnInputConfirmedListener() {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
-								Cargo cargo = mApp.getmDBCargo().query(mCargo.getmCargoType(), inputMsg);
+								Cargo cargo = mApp.getmDbManager().getmDBCargo().query(mCargo.getmCargoType(), inputMsg);
 								if (cargo!=null) {
 									showToast(R.string.same_cargo_name);
 									return;

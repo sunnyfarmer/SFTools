@@ -65,7 +65,7 @@ public class AdapterSettingGroupCargoType extends BaseAdapter implements
 		vhSettingGroupCargoType.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int dbRs = ((TopActivity)mContext).getmApp().removeCargoType(cargoType);
+				int dbRs = ((TopActivity)mContext).getmApp().getmDbManager().removeCargoType(cargoType);
 				if (dbRs==SFGlobal.DB_MSG_OK) {
 					mCargoTypeArray.remove(cargoType);
 					AdapterSettingGroupCargoType.this.notifyDataSetChanged();

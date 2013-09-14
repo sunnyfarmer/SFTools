@@ -12,6 +12,7 @@
     <string name="back">返回</string>
     <string name="add">添加</string>
     <string name="finish">完成</string>
+    <string name="edit">编辑</string>
     <string name="system_error">系统正在打小差，请稍后再试</string>
 
     <string name="default_content_description">default_content_description</string>

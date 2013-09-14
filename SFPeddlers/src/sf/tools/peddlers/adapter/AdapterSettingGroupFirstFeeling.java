@@ -66,7 +66,7 @@ public class AdapterSettingGroupFirstFeeling extends BaseAdapter implements
 		vhSettingGroupFirstFeeling.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int dbRs = ((BaseActivity)mContext).getmApp().removeFirstFeeling(firstFeeling);
+				int dbRs = ((BaseActivity)mContext).getmApp().getmDbManager().removeFirstFeeling(firstFeeling);
 				if (dbRs==SFGlobal.DB_MSG_OK) {
 					AdapterSettingGroupFirstFeeling.this.mFirstFeelingArray.remove(firstFeeling);
 					AdapterSettingGroupFirstFeeling.this.notifyDataSetChanged();

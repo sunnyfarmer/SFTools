@@ -3,53 +3,68 @@ package sf.tools.peddlers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import sf.tools.peddlers.db.controller.DBCargo;
-import sf.tools.peddlers.db.controller.DBCargoInList;
-import sf.tools.peddlers.db.controller.DBCargoType;
-import sf.tools.peddlers.db.controller.DBCharacteristic;
-import sf.tools.peddlers.db.controller.DBCharacteristicItem;
-import sf.tools.peddlers.db.controller.DBCharacteristicItemInList;
-import sf.tools.peddlers.db.controller.DBFirstFeeling;
-import sf.tools.peddlers.db.controller.DBSettingGroup;
-import sf.tools.peddlers.db.controller.DBShoppingList;
+import sf.tools.peddlers.db.DBManager;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
 import sf.tools.peddlers.model.Characteristic;
-import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.model.FirstFeeling;
 import sf.tools.peddlers.model.SettingGroup;
+import sf.tools.peddlers.model.ShoppingList;
 import sf.tools.peddlers.utils.SFGlobal;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 public class SFPeddlersApp extends Application {
 	public static final String TAG = "SFPeddlersApp";
 
-	private DBSettingGroup mDBSettingGroup = null;
-	private DBCargo mDBCargo = null;
-	private DBCargoInList mDBCargoInList = null;
-	private DBCargoType mDBCargoType = null;
-	private DBCharacteristic mDBCharacteristic = null;
-	private DBCharacteristicItem mDBCharacteristicItem = null;
-	private DBCharacteristicItemInList mDBCharacteristicItemInList = null;
-	private DBFirstFeeling mDBFirstFeeling = null;
-	private DBShoppingList mDBShoppingList = null;
+	public DBManager mDBManager = null;
 
+	/**
+	 * 正在使用的商铺ID
+	 */
 	private String mSettingGroupId = null;
+	/**
+	 * 正在使用的商铺设置
+	 */
 	private SettingGroup mSettingGroup = null;
+	/**
+	 * 商铺设置是否需要重新加载
+	 */
+	private boolean mIsSettingGroupDirty = false;
 
 	private SettingGroup mEditingSettingGroup = null;
+
+	private ShoppingList mShoppingList = null;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 	}
 
+	public DBManager getmDbManager() {
+		if (this.mDBManager==null) {
+			this.mDBManager = new DBManager(this);
+		}
+		return this.mDBManager;
+	}
+
 	public SharedPreferences getSharedPreferences() {
 		return this.getSharedPreferences(SFGlobal.SP_FILE_NAME, Context.MODE_PRIVATE);
 	}
 
+	public void setSettingGroupId(String settingGroupId) {
+		if (settingGroupId!=null) {
+			SettingGroup settingGroup = this.getmDbManager().getmDBSettingGroup().queryById(settingGroupId);
+			if (settingGroup!=null) {
+				SharedPreferences sp = this.getSharedPreferences();
+				Editor editor = sp.edit();
+				editor.putString(SFGlobal.SP_SETTING_GROUP_ID, settingGroupId);
+				editor.commit();
+			}
+		}
+	}
 	public String getSettingGroupId() {
 		if (this.mSettingGroupId==null) {
 			SharedPreferences sp = this.getSharedPreferences();
@@ -60,17 +75,17 @@ public class SFPeddlersApp extends Application {
 	}
 
 	public SettingGroup getSettingGroup() {
-		if (this.mSettingGroup==null || !this.mSettingGroup.getmSettingGroupId().equals(this.getSettingGroupId())) {
+		if (this.mIsSettingGroupDirty || this.mSettingGroup==null || !this.mSettingGroup.getmSettingGroupId().equals(this.getSettingGroupId())) {
 			String settingGroupId = this.getSettingGroupId();
 			if (settingGroupId!=null) {
-				this.mSettingGroup = this.mDBSettingGroup.queryById(settingGroupId);
+				this.mSettingGroup = this.getmDbManager().getmDBSettingGroup().queryById(settingGroupId);
 
-				ArrayList<FirstFeeling> firstFeelingArray = this.mDBFirstFeeling.queryAll(this.mSettingGroup);
-				ArrayList<Characteristic> characteristicArray = this.mDBCharacteristic.queryAll(this.mSettingGroup);
-				ArrayList<CargoType> cargoTypeArray = this.mDBCargoType.queryAll(this.mSettingGroup);
+				ArrayList<FirstFeeling> firstFeelingArray = this.getmDbManager().getmDBFirstFeeling().queryAll(this.mSettingGroup);
+				ArrayList<Characteristic> characteristicArray = this.getmDbManager().getmDBCharacteristic().queryAll(this.mSettingGroup);
+				ArrayList<CargoType> cargoTypeArray = this.getmDbManager().getmDBCargoType().queryAll(this.mSettingGroup);
 				HashMap<CargoType, ArrayList<Cargo>> cargoHashMap = new HashMap<CargoType, ArrayList<Cargo>>();
 				for (CargoType cargoType : cargoTypeArray) {
-					ArrayList<Cargo> cargoArray = this.mDBCargo.queryAll(cargoType);
+					ArrayList<Cargo> cargoArray = this.getmDbManager().getmDBCargo().queryAll(cargoType);
 					cargoHashMap.put(cargoType, cargoArray);
 				}
 				this.mSettingGroup.setmFirstFeelingArray(firstFeelingArray);
@@ -78,63 +93,21 @@ public class SFPeddlersApp extends Application {
 				this.mSettingGroup.setmCargoTypeArray(cargoTypeArray);
 				this.mSettingGroup.setmCargoArray(cargoHashMap);
 			}
+			this.mIsSettingGroupDirty = false;
 		}
 		return this.mSettingGroup;
 	}
 
-	public DBSettingGroup getmDBSettingGroup() {
-		if (this.mDBSettingGroup==null) {
-			this.mDBSettingGroup = new DBSettingGroup(this);
-		}
-		return mDBSettingGroup;
+	public void setmIsSettingGroupDirty(boolean mIsSettingGroupDirty) {
+		this.mIsSettingGroupDirty = mIsSettingGroupDirty;
 	}
-	public DBCargo getmDBCargo() {
-		if (this.mDBCargo==null) {
-			this.mDBCargo = new DBCargo(this);
-		}
-		return mDBCargo;
+
+	public ShoppingList getmShoppingList() {
+		return mShoppingList;
 	}
-	public DBCargoInList getmDBCargoInList() {
-		if (this.mDBCargoInList==null) {
-			this.mDBCargoInList = new DBCargoInList(this);
-		}
-		return mDBCargoInList;
-	}
-	public DBCargoType getmDBCargoType() {
-		if (this.mDBCargoType==null) {
-			this.mDBCargoType = new DBCargoType(this);
-		}
-		return mDBCargoType;
-	}
-	public DBCharacteristic getmDBCharacteristic() {
-		if (this.mDBCharacteristic==null) {
-			this.mDBCharacteristic = new DBCharacteristic(this);
-		}
-		return mDBCharacteristic;
-	}
-	public DBCharacteristicItem getmDBCharacteristicItem() {
-		if (this.mDBCharacteristicItem==null) {
-			this.mDBCharacteristicItem = new DBCharacteristicItem(this);
-		}
-		return mDBCharacteristicItem;
-	}
-	public DBCharacteristicItemInList getmDBCharacteristicItemInList() {
-		if (this.mDBCharacteristicItemInList==null) {
-			this.mDBCharacteristicItemInList = new DBCharacteristicItemInList(this);
-		}
-		return mDBCharacteristicItemInList;
-	}
-	public DBFirstFeeling getmDBFirstFeeling() {
-		if (this.mDBFirstFeeling==null) {
-			this.mDBFirstFeeling = new DBFirstFeeling(this);
-		}
-		return mDBFirstFeeling;
-	}
-	public DBShoppingList getmDBShoppingList() {
-		if (this.mDBShoppingList==null) {
-			this.mDBShoppingList = new DBShoppingList(this);
-		}
-		return mDBShoppingList;
+
+	public void setmShoppingList(ShoppingList mShoppingList) {
+		this.mShoppingList = mShoppingList;
 	}
 
 	public SettingGroup getmEditingSettingGroup() {
@@ -143,91 +116,5 @@ public class SFPeddlersApp extends Application {
 
 	public void setmEditingSettingGroup(SettingGroup mEditingSettingGroup) {
 		this.mEditingSettingGroup = mEditingSettingGroup;
-	}
-
-	public int addFirstFeeling(FirstFeeling firstFeeling) {
-		if (this.getmEditingSettingGroup()==null) {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-		return this.getmDBFirstFeeling().upsert(firstFeeling);
-	}
-	public int removeFirstFeeling(FirstFeeling firstFeeling) {
-		if (this.getmEditingSettingGroup()==null) {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-		boolean dbRs = this.getmDBFirstFeeling().delete(firstFeeling);
-		if (dbRs) {
-			return SFGlobal.DB_MSG_OK;
-		} else {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-	}
-	public int addCharacteristic(Characteristic characteristic) {
-		if (this.getmEditingSettingGroup()==null) {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-		return this.getmDBCharacteristic().upsert(characteristic);
-	}
-	public int removeCharacteristic(Characteristic characteristic) {
-		if (this.getmEditingSettingGroup()==null) {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-		boolean dbRs = this.getmDBCharacteristic().delete(characteristic);
-		if (dbRs) {
-			return SFGlobal.DB_MSG_OK;
-		} else {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-	}
-	public int addCharacteristicItem(CharacteristicItem characteristicItem) {
-		if (this.getmEditingSettingGroup()==null) {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-		return this.getmDBCharacteristicItem().upsert(characteristicItem);
-	}
-	public int removeCharacteristicItem(CharacteristicItem characteristicItem) {
-		if (this.getmEditingSettingGroup()==null) {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-		boolean dbRs = this.getmDBCharacteristicItem().delete(characteristicItem);
-		if (dbRs) {
-			return SFGlobal.DB_MSG_OK;
-		} else {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-	}
-	public int addCargoType(CargoType cargoType) {
-		if (this.getmEditingSettingGroup()==null) {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-		return this.getmDBCargoType().upsert(cargoType);
-	}
-	public int removeCargoType(CargoType cargoType) {
-		if (this.getmEditingSettingGroup()==null) {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-		boolean dbRs = this.getmDBCargoType().delete(cargoType);
-		if (dbRs) {
-			return SFGlobal.DB_MSG_OK;
-		} else {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-	}
-	public int addCargo(Cargo cargo) {
-		if (this.getmEditingSettingGroup()==null) {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-		return this.getmDBCargo().upsert(cargo);
-	}
-	public int removeCargo(Cargo cargo) {
-		if (this.getmEditingSettingGroup()==null) {
-			return SFGlobal.DB_MSG_ERROR;
-		}
-		boolean dbRs = this.getmDBCargo().delete(cargo);
-		if (dbRs) {
-			return SFGlobal.DB_MSG_OK;
-		} else {
-			return SFGlobal.DB_MSG_ERROR;
-		}
 	}
 }

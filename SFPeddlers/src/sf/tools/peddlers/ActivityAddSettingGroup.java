@@ -1,6 +1,7 @@
 package sf.tools.peddlers;
 
 import sf.tools.peddlers.model.SettingGroup;
+import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.activity.VHASettingGroupCargoList;
 import sf.tools.peddlers.viewholder.activity.VHASettingGroupCargoType;
 import sf.tools.peddlers.viewholder.activity.VHASettingGroupCharacteristic;
@@ -70,7 +71,17 @@ public class ActivityAddSettingGroup extends TopActivity {
 						new OnInputConfirmedListener() {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
-								ActivityAddSettingGroup.this.setSettingGroupName(inputMsg);
+								SettingGroup sg = new SettingGroup(inputMsg);
+								sg.setmSettingGroupId(mSettingGroup.getmSettingGroupId());
+								int dbRs = ActivityAddSettingGroup.this.getmApp().getmDbManager().upsertSettingGroup(sg);
+								if (dbRs==SFGlobal.DB_MSG_OK) {
+									ActivityAddSettingGroup.this.setSettingGroupName(inputMsg);
+								} else if (dbRs==SFGlobal.DB_MSG_SAME_COLUMN) {
+									ActivityAddSettingGroup.this.showToast(R.string.same_setting_group_name);
+								} else {
+									ActivityAddSettingGroup.this.showToast(R.string.system_error);
+								}
+
 							}
 						});
 			}

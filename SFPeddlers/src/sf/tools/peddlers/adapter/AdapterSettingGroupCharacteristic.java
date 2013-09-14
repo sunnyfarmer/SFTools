@@ -79,7 +79,7 @@ public class AdapterSettingGroupCharacteristic extends BaseAdapter implements
 		vhSettingGroupCharacteristic.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int dbRs = ((TopActivity)mContext).getmApp().removeCharacteristic(characteristic);
+				int dbRs = ((TopActivity)mContext).getmApp().getmDbManager().removeCharacteristic(characteristic);
 				if (dbRs==SFGlobal.DB_MSG_OK) {
 					mCharacteristicArray.remove(characteristic);
 					AdapterSettingGroupCharacteristic.this.notifyDataSetChanged();

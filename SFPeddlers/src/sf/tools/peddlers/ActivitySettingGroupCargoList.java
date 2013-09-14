@@ -1,8 +1,6 @@
 package sf.tools.peddlers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import sf.tools.peddlers.adapter.AdapterSettingGroupCargo;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
@@ -11,6 +9,7 @@ import sf.tools.peddlers.viewholder.activity.VHACargoType;
 import sf.tools.peddlers.viewholder.activity.VHACargoType.OnCargoTypeChangedListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -23,7 +22,7 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 
 	private AdapterSettingGroupCargo mAdapterSettingGroupCargo = null;
 
-	private HashMap<Integer, ArrayList<Cargo>> mCargoHashMap = new HashMap<Integer, ArrayList<Cargo>>();
+	private SparseArray<ArrayList<Cargo>> mCargoHashMap = new SparseArray<ArrayList<Cargo>>();
 	private ArrayList<CargoType> mCargoTypeArray = null;
 	private CargoType mSelectedCargoType = null;
 
@@ -116,15 +115,15 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 	public void initCargoList(CargoType cargoType, boolean forceReadFromDB) {
 		ArrayList<Cargo> cargoList = this.mCargoHashMap.get(cargoType.getmCargoTypeId());
 		if (forceReadFromDB || cargoList==null) {
-			cargoList = this.mApp.getmDBCargo().queryAll(cargoType);
+			cargoList = this.mApp.getmDbManager().getmDBCargo().queryAll(cargoType);
 			this.mCargoHashMap.put(cargoType.getmCargoTypeId(), cargoList);
 		}
 	}
 	public void putCargo(Cargo cargo) {
 		if (this.mCargoHashMap==null) {
-			this.mCargoHashMap = new HashMap<Integer, ArrayList<Cargo>>();
+			this.mCargoHashMap = new SparseArray<ArrayList<Cargo>>();
 		}
-		if (!this.mCargoHashMap.containsKey(cargo.getmCargoType().getmCargoTypeId())) {
+		if (null == this.mCargoHashMap.get(cargo.getmCargoType().getmCargoTypeId())) {
 			this.mCargoHashMap.put(cargo.getmCargoType().getmCargoTypeId(), new ArrayList<Cargo>());
 		}
 		this.mCargoHashMap.get(cargo.getmCargoType().getmCargoTypeId()).add(cargo);
@@ -132,9 +131,9 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 
 	public void replaceCargo(Cargo cargo) {
 		if (this.mCargoHashMap==null) {
-			this.mCargoHashMap = new HashMap<Integer, ArrayList<Cargo>>();
+			this.mCargoHashMap = new SparseArray<ArrayList<Cargo>>();
 		}
-		if (!this.mCargoHashMap.containsKey(cargo.getmCargoType().getmCargoTypeId())) {
+		if (null == this.mCargoHashMap.get(cargo.getmCargoType().getmCargoTypeId())) {
 			this.mCargoHashMap.put(cargo.getmCargoType().getmCargoTypeId(), new ArrayList<Cargo>());
 		}
 		ArrayList<Cargo> cargoList = this.mCargoHashMap.get(cargo.getmCargoType().getmCargoTypeId());

@@ -62,7 +62,7 @@ public class AdapterSettingGroupCharacteristicItem extends BaseAdapter
 		vhSettingGroupCharacteristicItem.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int dbRs = ((TopActivity)mContext).getmApp().removeCharacteristicItem(characteristicItem);
+				int dbRs = ((TopActivity)mContext).getmApp().getmDbManager().removeCharacteristicItem(characteristicItem);
 				if (dbRs==SFGlobal.DB_MSG_OK) {
 					AdapterSettingGroupCharacteristicItem.this.mCharacteristicItemArray.remove(characteristicItem);
 					AdapterSettingGroupCharacteristicItem.this.notifyDataSetChanged();

@@ -3,10 +3,11 @@ package sf.tools.peddlers.adapter;
 import java.util.ArrayList;
 
 import sf.tools.peddlers.ActivityAddSettingGroup;
-import sf.tools.peddlers.ActivitySettingGroup;
 import sf.tools.peddlers.BaseActivity;
 import sf.tools.peddlers.R;
+import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.SettingGroup;
+import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHSettingGroup;
 
 import android.app.AlertDialog;
@@ -62,7 +63,7 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 			vhSettingGroup = new VHSettingGroup();
 			vhSettingGroup.tvSettingGroupName = (TextView) convertView.findViewById(R.id.tvSettingGroupName);
 			vhSettingGroup.btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
-
+			vhSettingGroup.btnEdit = (Button) convertView.findViewById(R.id.btnEdit);
 			convertView.setTag(vhSettingGroup);
 		} else {
 			vhSettingGroup = (VHSettingGroup) convertView.getTag();
@@ -73,15 +74,21 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 		vhSettingGroup.tvSettingGroupName.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(mContext, ActivityAddSettingGroup.class);
-				((BaseActivity)mContext).getmApp().setmEditingSettingGroup(settingGroup);
-				mContext.startActivity(intent);
+
 			}
 		});
 		vhSettingGroup.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				delete(settingGroup);
+			}
+		});
+		vhSettingGroup.btnEdit.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mContext, ActivityAddSettingGroup.class);
+				((BaseActivity)mContext).getmApp().setmEditingSettingGroup(settingGroup);
+				mContext.startActivity(intent);
 			}
 		});
 
@@ -96,9 +103,13 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				//删除购物单
-				((BaseActivity)mContext).getmApp().getmDBSettingGroup().delete(settigGroup.getmSettingGroupName());
-				mSettingGroupArray = ((BaseActivity)mContext).getmApp().getmDBSettingGroup().queryAll();
-				AdapterSettingGroup.this.notifyDataSetChanged();
+				int dbRs = ((BaseActivity)mContext).getmApp().getmDbManager().removeSettingGroup(settigGroup);
+				if (dbRs==SFGlobal.DB_MSG_OK) {
+					mSettingGroupArray = ((TopActivity)mContext).getmApp().getmDbManager().getmDBSettingGroup().queryAll();
+					AdapterSettingGroup.this.notifyDataSetChanged();
+				} else {
+					((TopActivity)mContext).showToast(R.string.system_error);
+				}
 			}
 		})
 		.setNegativeButton(R.string.no,null)

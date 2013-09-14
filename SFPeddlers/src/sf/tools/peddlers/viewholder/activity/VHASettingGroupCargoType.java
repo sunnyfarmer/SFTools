@@ -37,7 +37,7 @@ public class VHASettingGroupCargoType {
 	}
 
 	private void initData() {
-		ArrayList<CargoType> cargoTypeArray = this.mActivity.getmApp().getmDBCargoType().queryAll(mSettingGroup);
+		ArrayList<CargoType> cargoTypeArray = this.mActivity.getmApp().getmDbManager().getmDBCargoType().queryAll(mSettingGroup);
 		this.mSettingGroup.setmCargoTypeArray(cargoTypeArray);
 		this.mAdapterSettingGroupCargoType = new AdapterSettingGroupCargoType(this.mActivity, this.mSettingGroup.getmCargoTypeArray());
 	}
@@ -75,7 +75,7 @@ public class VHASettingGroupCargoType {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
 								CargoType cargoType = new CargoType(inputMsg, mSettingGroup);
-								int dbRs = mActivity.getmApp().addCargoType(cargoType);
+								int dbRs = mActivity.getmApp().getmDbManager().upsertCargoType(cargoType);
 								if (dbRs==SFGlobal.DB_MSG_OK) {
 									mSettingGroup.getmCargoTypeArray().add(cargoType);
 									mAdapterSettingGroupCargoType.notifyDataSetChanged();

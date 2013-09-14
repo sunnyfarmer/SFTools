@@ -68,7 +68,7 @@ public class ActivitySettingGroup extends TopActivity {
 									return;
 								}
 								SettingGroup sg = new SettingGroup(inputMsg);
-								int msg = mApp.getmDBSettingGroup().upsert(sg);
+								int msg = mApp.getmDbManager().upsertSettingGroup(sg);
 								if (msg==SFGlobal.DB_MSG_OK) {
 									Intent intent = new Intent(ActivitySettingGroup.this, ActivityAddSettingGroup.class);
 									mApp.setmEditingSettingGroup(sg);
@@ -83,7 +83,7 @@ public class ActivitySettingGroup extends TopActivity {
 	}
 
 	public void refreshSettingGroupArray() {
-		this.mSettingGroupArray = this.mApp.getmDBSettingGroup().queryAll();
+		this.mSettingGroupArray = this.mApp.getmDbManager().getmDBSettingGroup().queryAll();
 		if (this.mAdapterSettingGroup==null) {
 			this.mAdapterSettingGroup = new AdapterSettingGroup(this, mSettingGroupArray);
 		} else {

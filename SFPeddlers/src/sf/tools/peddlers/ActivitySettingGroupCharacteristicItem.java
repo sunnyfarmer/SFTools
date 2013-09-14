@@ -76,7 +76,7 @@ public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
 								CharacteristicItem characteristicItem = new CharacteristicItem(inputMsg, mCharacteristic);
-								int dbRs = ActivitySettingGroupCharacteristicItem.this.getmApp().addCharacteristicItem(characteristicItem);
+								int dbRs = ActivitySettingGroupCharacteristicItem.this.getmApp().getmDbManager().upsertCharacteristicItem(characteristicItem);
 								if (dbRs==SFGlobal.DB_MSG_OK) {
 									ActivitySettingGroupCharacteristicItem.this.mCharacteristic.getmCharacteristicItemArray().add(
 											new CharacteristicItem(inputMsg, mCharacteristic)

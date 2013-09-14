@@ -63,7 +63,7 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 			@Override
 			public void onClick(View v) {
 				Cargo cargo = produceCargo();
-				int dbRs = mApp.addCargo(cargo);
+				int dbRs = mApp.getmDbManager().upsertCargo(cargo);
 				if (dbRs==SFGlobal.DB_MSG_OK) {
 					saveImage(cargo.getmCargoId());
 

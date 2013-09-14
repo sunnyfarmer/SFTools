@@ -66,7 +66,6 @@ public class AdapterSettingGroupCargo extends BaseAdapter implements
 		}
 
 		final Cargo cargo = this.getItem(position);
-		SFLog.d(TAG, vhSettingGroupCargo + ":" + vhSettingGroupCargo.tvCargo + ":" + cargo + ":" + cargo.getmCargoName());
 		vhSettingGroupCargo.tvCargo.setText(cargo.getmCargoName());
 		Bitmap bitmap = SFBitmapManager.getBitmap(cargo.getmCargoId(), ((TopActivity)mContext).getmApp());
 		if (bitmap!=null) {
@@ -75,7 +74,7 @@ public class AdapterSettingGroupCargo extends BaseAdapter implements
 		vhSettingGroupCargo.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int dbRs = ((TopActivity)mContext).getmApp().removeCargo(cargo);
+				int dbRs = ((TopActivity)mContext).getmApp().getmDbManager().removeCargo(cargo);
 				if (dbRs==SFGlobal.DB_MSG_OK) {
 					SFBitmapManager.removeBitmap(cargo.getmCargoId(), ((TopActivity)mContext).getmApp());
 					mCargoArray.remove(cargo);
