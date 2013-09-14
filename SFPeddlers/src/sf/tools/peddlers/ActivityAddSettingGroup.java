@@ -38,6 +38,7 @@ public class ActivityAddSettingGroup extends TopActivity {
 	@Override
 	protected void initView() {
 		super.initView();
+		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnOrganizing());
 		this.mVHAHeader.setLeftText(R.string.setting_group);
 		this.mVHAHeader.hideRight();
 		this.setSettingGroupName(this.mSettingGroup.getmSettingGroupName());

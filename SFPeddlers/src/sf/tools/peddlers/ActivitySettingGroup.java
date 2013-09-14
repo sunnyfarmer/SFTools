@@ -45,6 +45,7 @@ public class ActivitySettingGroup extends TopActivity {
 		this.lvSettingGroup = (ListView) this.findViewById(R.id.lvSettingGroup);
 		this.lvSettingGroup.setAdapter(mAdapterSettingGroup);
 
+		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnOrganizing());
 		this.mVHAHeader.setLeftText(R.string.add_setting_group);
 		this.mVHAHeader.hideRight();
 		this.mVHAHeader.setTitleText(R.string.setting_group);

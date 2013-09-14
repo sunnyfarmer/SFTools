@@ -19,6 +19,7 @@ public class ActivityStatisticsOverView extends TopActivity {
 	@Override
 	protected void initView() {
 		super.initView();
+		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnStatistics());
 	}
 	@Override
 	protected void setListener() {

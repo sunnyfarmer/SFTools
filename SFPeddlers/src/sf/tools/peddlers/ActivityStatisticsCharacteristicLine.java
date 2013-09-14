@@ -20,6 +20,7 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 	protected void initView() {
 		// TODO Auto-generated method stub
 		super.initView();
+		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnStatistics());
 	}
 	@Override
 	protected void setListener() {

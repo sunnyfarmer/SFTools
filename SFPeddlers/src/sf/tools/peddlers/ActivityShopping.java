@@ -64,6 +64,7 @@ public class ActivityShopping extends TopActivity {
 	@Override
 	protected void initView() {
 		super.initView();
+		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnInSelling());
 		this.lvCargo = (ListView) this.findViewById(R.id.lvCargo);
 		this.mVHACargoType = new VHACargoType(this, this.getCargoTypeArray());
 

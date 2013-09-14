@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import sf.tools.peddlers.BaseActivity.OnInputConfirmedListener;
-import sf.tools.peddlers.ActivitySettingGroup;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.adapter.AdapterSettingGroupCargoType;

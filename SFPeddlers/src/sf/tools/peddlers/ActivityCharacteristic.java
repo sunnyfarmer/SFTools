@@ -1,8 +1,6 @@
 package sf.tools.peddlers;
 
 import java.util.ArrayList;
-
-import sf.log.SFLog;
 import sf.tools.peddlers.adapter.AdapterCustomerCharacteristic;
 import sf.tools.peddlers.model.Characteristic;
 import android.content.Intent;
@@ -46,6 +44,7 @@ public class ActivityCharacteristic extends TopActivity {
 		super.initView();
 		this.lvCharacteristic = (ListView) this.findViewById(R.id.lvCharacteristic);
 
+		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnInSelling());
 		this.mVHAHeader.setLeftText(R.string.back);
 		this.mVHAHeader.setRightText(R.string.shopping_begin);
 		this.mVHAHeader.setTitleText(this.mApp.getSettingGroup().getmSettingGroupName());

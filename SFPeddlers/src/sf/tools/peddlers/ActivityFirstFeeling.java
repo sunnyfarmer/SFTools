@@ -46,7 +46,7 @@ public class ActivityFirstFeeling extends TopActivity {
 		super.initView();
 
 		this.lvFirstFeeling = (ListView) this.findViewById(R.id.lvFirstFeeling);
-
+		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnInSelling());
 		if (this.mApp.getSettingGroup()!=null) {
 			this.mVHAHeader.setTitleText(this.mApp.getSettingGroup().getmSettingGroupName());
 		}

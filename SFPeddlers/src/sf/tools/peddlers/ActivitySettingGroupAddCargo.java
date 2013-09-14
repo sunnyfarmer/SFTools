@@ -52,6 +52,7 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 	@Override
 	protected void initView() {
 		super.initView();
+		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnOrganizing());
 		this.mVHAHeader.setLeftText(R.string.back);
 		this.mVHAHeader.setRightText(R.string.finish);
 		this.mVHAHeader.setTitleText(this.mCargoType.getmCargoTypeName());

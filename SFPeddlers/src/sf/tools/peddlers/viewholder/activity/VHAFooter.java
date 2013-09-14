@@ -5,7 +5,6 @@ import sf.tools.peddlers.ActivitySettingGroup;
 import sf.tools.peddlers.ActivityStatisticsOverView;
 import sf.tools.peddlers.R;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -75,5 +74,13 @@ public class VHAFooter {
 		btn.setBackgroundResource(R.drawable.selector_tab_selected);
 	}
 
-	
+	public Button getBtnInSelling() {
+		return btnInSelling;
+	}
+	public Button getBtnOrganizing() {
+		return btnOrganizing;
+	}
+	public Button getBtnStatistics() {
+		return btnStatistics;
+	}
 }
