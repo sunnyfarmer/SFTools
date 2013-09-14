@@ -68,11 +68,11 @@ public class VHAFooter {
 		if (!isCheckedButtonFound) {
 			return;
 		}
-		this.btnInSelling.setBackgroundResource(R.drawable.tab_selector);
-		this.btnOrganizing.setBackgroundResource(R.drawable.tab_selector);
-		this.btnStatistics.setBackgroundResource(R.drawable.tab_selector);
+		this.btnInSelling.setBackgroundResource(R.drawable.selector_tab);
+		this.btnOrganizing.setBackgroundResource(R.drawable.selector_tab);
+		this.btnStatistics.setBackgroundResource(R.drawable.selector_tab);
 		
-		btn.setBackgroundResource(R.drawable.tab_selected_selector);
+		btn.setBackgroundResource(R.drawable.selector_tab_selected);
 	}
 
 	

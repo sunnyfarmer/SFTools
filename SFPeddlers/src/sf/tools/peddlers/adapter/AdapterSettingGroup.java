@@ -2,6 +2,7 @@ package sf.tools.peddlers.adapter;
 
 import java.util.ArrayList;
 
+import sf.log.SFLog;
 import sf.tools.peddlers.ActivityAddSettingGroup;
 import sf.tools.peddlers.BaseActivity;
 import sf.tools.peddlers.R;
@@ -70,11 +71,25 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 		}
 
 		final SettingGroup settingGroup = this.getItem(position);
+
+		//获得选中的id
+		convertView.setFocusable(true);
+		String selectedSettingGroupId = ((TopActivity)mContext).getmApp().getSettingGroupId();
+		SFLog.d(TAG,
+				String.format("%s \n %s", selectedSettingGroupId, settingGroup.getmSettingGroupId()));
+		if (selectedSettingGroupId!=null && selectedSettingGroupId.equals(settingGroup.getmSettingGroupId())) {
+			convertView.setBackgroundResource(R.drawable.selector_list_checked);
+		} else {
+			convertView.setBackgroundResource(R.drawable.selector_list);
+		}
+
 		vhSettingGroup.tvSettingGroupName.setText(settingGroup.getmSettingGroupName());
 		vhSettingGroup.tvSettingGroupName.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				//选中SettingGroup
+				((TopActivity)mContext).getmApp().setSettingGroupId(settingGroup.getmSettingGroupId());
+				AdapterSettingGroup.this.notifyDataSetChanged();
 			}
 		});
 		vhSettingGroup.btnDelete.setOnClickListener(new OnClickListener() {
@@ -94,7 +109,7 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 
 		return convertView;
 	}
-
+	
 	private void delete(final SettingGroup settigGroup) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 		builder.setTitle(R.string.warning)

@@ -75,7 +75,7 @@ public class VHACargoType {
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT, 1);
 			rb.setLayoutParams(params);
 			rb.setGravity(Gravity.CENTER);
-			rb.setBackgroundResource(R.drawable.tab_checkbox_selector);
+			rb.setBackgroundResource(R.drawable.selector_tab_checkbox);
 			rb.setButtonDrawable(android.R.color.transparent);
 			int padding = (int) SFAndroidSize.dp2Px(mActivity, 12);
 			rb.setPadding(padding, 0, padding, 0);

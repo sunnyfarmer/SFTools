@@ -62,6 +62,8 @@ public class SFPeddlersApp extends Application {
 				Editor editor = sp.edit();
 				editor.putString(SFGlobal.SP_SETTING_GROUP_ID, settingGroupId);
 				editor.commit();
+
+				this.mSettingGroupId = settingGroupId;
 			}
 		}
 	}
