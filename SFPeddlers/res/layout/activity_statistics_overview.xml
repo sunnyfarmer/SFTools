@@ -39,6 +39,6 @@
 
     <include
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_header_height"
+        android:layout_height="@dimen/activity_footer_height"
         layout="@layout/ui_footer" />
 </LinearLayout>

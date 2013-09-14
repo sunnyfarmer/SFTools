@@ -78,6 +78,7 @@ public class SFPeddlersApp extends Application {
 
 	public SettingGroup getSettingGroup() {
 		if (this.mIsSettingGroupDirty || this.mSettingGroup==null || !this.mSettingGroup.getmSettingGroupId().equals(this.getSettingGroupId())) {
+			this.mSettingGroup = null;
 			String settingGroupId = this.getSettingGroupId();
 			if (settingGroupId!=null) {
 				this.mSettingGroup = this.getmDbManager().getmDBSettingGroup().queryById(settingGroupId);

@@ -1,36 +1,30 @@
 package sf.tools.peddlers.adapter;
 
 import java.util.ArrayList;
-
-import sf.log.SFLog;
 import sf.tools.peddlers.ActivitySettingGroupCharacteristicItem;
-import sf.tools.peddlers.BaseActivity;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHSettingGroupCharacteristic;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class AdapterSettingGroupCharacteristic extends BaseAdapter implements
+public class AdapterSettingGroupCharacteristic extends SFBaseAdapter implements
 		OnItemClickListener {
 	public static final String TAG = "AdapterSettingGroupCharacteristic";
 
-	private Context mContext = null;
 	private ArrayList<Characteristic> mCharacteristicArray = null;
 
-	public AdapterSettingGroupCharacteristic(Context context, ArrayList<Characteristic> characteristicArray) {
-		this.mContext = context;
+	public AdapterSettingGroupCharacteristic(TopActivity activity, ArrayList<Characteristic> characteristicArray) {
+		super(activity);
 		this.mCharacteristicArray = characteristicArray;
 	}
 	
@@ -53,7 +47,7 @@ public class AdapterSettingGroupCharacteristic extends BaseAdapter implements
 	public View getView(int position, View convertView, ViewGroup parent) {
 		VHSettingGroupCharacteristic vhSettingGroupCharacteristic = null;
 		if (convertView==null) {
-			convertView = LayoutInflater.from(mContext).inflate(R.layout.adapter_setting_group_characteristic, null);
+			convertView = LayoutInflater.from(mActivity).inflate(R.layout.adapter_setting_group_characteristic, null);
 			vhSettingGroupCharacteristic = new VHSettingGroupCharacteristic();
 			vhSettingGroupCharacteristic.tvCharacteristicName = (TextView) convertView.findViewById(R.id.tvCharacteristicName);
 			vhSettingGroupCharacteristic.btnUnfold = (Button) convertView.findViewById(R.id.btnUnFold);
@@ -79,12 +73,12 @@ public class AdapterSettingGroupCharacteristic extends BaseAdapter implements
 		vhSettingGroupCharacteristic.btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int dbRs = ((TopActivity)mContext).getmApp().getmDbManager().removeCharacteristic(characteristic);
+				int dbRs = mApp.getmDbManager().removeCharacteristic(characteristic);
 				if (dbRs==SFGlobal.DB_MSG_OK) {
 					mCharacteristicArray.remove(characteristic);
 					AdapterSettingGroupCharacteristic.this.notifyDataSetChanged();
 				} else {
-					((BaseActivity)mContext).showToast(R.string.system_error);
+					mActivity.showToast(R.string.system_error);
 				}
 			}
 		});
@@ -99,8 +93,8 @@ public class AdapterSettingGroupCharacteristic extends BaseAdapter implements
 	}
 
 	private void toCharacteristicItemView(Characteristic characteristic) {
-		Intent intent = new Intent(this.mContext, ActivitySettingGroupCharacteristicItem.class);
+		Intent intent = new Intent(this.mActivity, ActivitySettingGroupCharacteristicItem.class);
 		intent.putExtra(SFGlobal.EXTRA_CHARACTERISTIC, characteristic);
-		this.mContext.startActivity(intent);
+		this.mActivity.startActivity(intent);
 	}
 }

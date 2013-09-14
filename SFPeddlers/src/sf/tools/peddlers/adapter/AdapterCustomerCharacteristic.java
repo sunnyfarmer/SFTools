@@ -3,26 +3,23 @@ package sf.tools.peddlers.adapter;
 import java.util.ArrayList;
 
 import sf.tools.peddlers.R;
+import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.viewholder.adapter.VHCustomerCharacteristic;
 import sf.view.RadioButtonGroup;
 import sf.view.RadioButtonGroup.OnCheckedChangeListener;
-
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class AdapterCustomerCharacteristic extends BaseAdapter {
+public class AdapterCustomerCharacteristic extends SFBaseAdapter {
 	public static final String TAG = "AdapterCustomerCharacteristic";
 
 	private ArrayList<Characteristic> mCharacteristicArray = null;
-	private Context mContext = null;
 
-	public AdapterCustomerCharacteristic(Context context, ArrayList<Characteristic> characteristicArray) {
-		this.mContext = context;
+	public AdapterCustomerCharacteristic(TopActivity activity, ArrayList<Characteristic> characteristicArray) {
+		super(activity);
 		this.mCharacteristicArray = characteristicArray;
 	}
 
@@ -51,7 +48,7 @@ public class AdapterCustomerCharacteristic extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		VHCustomerCharacteristic vhCustomerCharacteristic = null;
 		if (convertView==null) {
-			convertView = LayoutInflater.from(this.mContext).inflate(R.layout.adapter_customer_characteristic, null);
+			convertView = LayoutInflater.from(this.mActivity).inflate(R.layout.adapter_customer_characteristic, null);
 			vhCustomerCharacteristic = new VHCustomerCharacteristic();
 			vhCustomerCharacteristic.tvCharacteristic = (TextView) convertView.findViewById(R.id.tvCharacteristic);
 			vhCustomerCharacteristic.rbgCharacteristic = (RadioButtonGroup) convertView.findViewById(R.id.rbgCharacteristic);

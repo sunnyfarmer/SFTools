@@ -102,12 +102,17 @@ public class DBManager {
 	}
 
 	public int upsertSettingGroup(SettingGroup settingGroup) {
-		return this.getmDBSettingGroup().upsert(settingGroup);
+		int dbRs = this.getmDBSettingGroup().upsert(settingGroup);
+		if (dbRs==SFGlobal.DB_MSG_OK) {
+			this.mApp.setmIsSettingGroupDirty(true);
+		}
+		return dbRs;
 	}
 
 	public int removeSettingGroup(SettingGroup settingGroup) {
 		boolean dbRs = this.getmDBSettingGroup().delete(settingGroup.getmSettingGroupName());
 		if (dbRs) {
+			this.mApp.setmIsSettingGroupDirty(true);
 			return SFGlobal.DB_MSG_OK;
 		} else {
 			return SFGlobal.DB_MSG_ERROR;
@@ -115,12 +120,17 @@ public class DBManager {
 	}
 
 	public int upsertFirstFeeling(FirstFeeling firstFeeling) {
-		return this.getmDBFirstFeeling().upsert(firstFeeling);
+		int dbRs = this.getmDBFirstFeeling().upsert(firstFeeling);
+		if (dbRs==SFGlobal.DB_MSG_OK) {
+			this.mApp.setmIsSettingGroupDirty(true);
+		}
+		return dbRs;
 	}
 
 	public int removeFirstFeeling(FirstFeeling firstFeeling) {
 		boolean dbRs = this.getmDBFirstFeeling().delete(firstFeeling);
 		if (dbRs) {
+			this.mApp.setmIsSettingGroupDirty(true);
 			return SFGlobal.DB_MSG_OK;
 		} else {
 			return SFGlobal.DB_MSG_ERROR;
@@ -128,12 +138,17 @@ public class DBManager {
 	}
 
 	public int upsertCharacteristic(Characteristic characteristic) {
-		return this.getmDBCharacteristic().upsert(characteristic);
+		int dbRs = this.getmDBCharacteristic().upsert(characteristic);
+		if (dbRs==SFGlobal.DB_MSG_OK) {
+			this.mApp.setmIsSettingGroupDirty(true);
+		}
+		return dbRs;
 	}
 
 	public int removeCharacteristic(Characteristic characteristic) {
 		boolean dbRs = this.getmDBCharacteristic().delete(characteristic);
 		if (dbRs) {
+			this.mApp.setmIsSettingGroupDirty(true);
 			return SFGlobal.DB_MSG_OK;
 		} else {
 			return SFGlobal.DB_MSG_ERROR;
@@ -141,13 +156,18 @@ public class DBManager {
 	}
 
 	public int upsertCharacteristicItem(CharacteristicItem characteristicItem) {
-		return this.getmDBCharacteristicItem().upsert(characteristicItem);
+		int dbRs = this.getmDBCharacteristicItem().upsert(characteristicItem);
+		if (dbRs==SFGlobal.DB_MSG_OK) {
+			this.mApp.setmIsSettingGroupDirty(true);
+		}
+		return dbRs;
 	}
 
 	public int removeCharacteristicItem(CharacteristicItem characteristicItem) {
 		boolean dbRs = this.getmDBCharacteristicItem().delete(
 				characteristicItem);
 		if (dbRs) {
+			this.mApp.setmIsSettingGroupDirty(true);
 			return SFGlobal.DB_MSG_OK;
 		} else {
 			return SFGlobal.DB_MSG_ERROR;
@@ -155,12 +175,17 @@ public class DBManager {
 	}
 
 	public int upsertCargoType(CargoType cargoType) {
-		return this.getmDBCargoType().upsert(cargoType);
+		int dbRs = this.getmDBCargoType().upsert(cargoType);
+		if (dbRs==SFGlobal.DB_MSG_OK) {
+			this.mApp.setmIsSettingGroupDirty(true);
+		}
+		return dbRs;
 	}
 
 	public int removeCargoType(CargoType cargoType) {
 		boolean dbRs = this.getmDBCargoType().delete(cargoType);
 		if (dbRs) {
+			this.mApp.setmIsSettingGroupDirty(true);
 			return SFGlobal.DB_MSG_OK;
 		} else {
 			return SFGlobal.DB_MSG_ERROR;
@@ -168,12 +193,17 @@ public class DBManager {
 	}
 
 	public int upsertCargo(Cargo cargo) {
-		return this.getmDBCargo().upsert(cargo);
+		int dbRs = this.getmDBCargo().upsert(cargo);
+		if (dbRs==SFGlobal.DB_MSG_OK) {
+			this.mApp.setmIsSettingGroupDirty(true);
+		}
+		return dbRs;
 	}
 
 	public int removeCargo(Cargo cargo) {
 		boolean dbRs = this.getmDBCargo().delete(cargo);
 		if (dbRs) {
+			this.mApp.setmIsSettingGroupDirty(true);
 			return SFGlobal.DB_MSG_OK;
 		} else {
 			return SFGlobal.DB_MSG_ERROR;

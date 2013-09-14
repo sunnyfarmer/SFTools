@@ -20,11 +20,6 @@ public class ActivityFirstFeeling extends TopActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		this.setContentView(R.layout.activity_first_feeling);
 		super.onCreate(savedInstanceState);
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
 
 		if (this.mApp.getSettingGroup()==null) {
 			Intent intent = new Intent(this, ActivitySettingGroup.class);
@@ -34,17 +29,17 @@ public class ActivityFirstFeeling extends TopActivity {
 	}
 
 	@Override
+	protected void onStart() {
+		super.onStart();
+
+		this.refreshFirstFeeling();
+		this.mVHAHeader.setTitleText(this.mApp.getSettingGroup().getmSettingGroupName());
+	}
+
+	@Override
 	protected void initData() {
 		super.initData();
-		this.mFirstFeelingArray = new ArrayList<FirstFeeling>();
-		this.mFirstFeelingArray.add(new FirstFeeling("年轻女孩", null));
-		this.mFirstFeelingArray.add(new FirstFeeling("中年妇女", null));
-		this.mFirstFeelingArray.add(new FirstFeeling("老龄妇女", null));
-		this.mFirstFeelingArray.add(new FirstFeeling("年轻男孩", null));
-		this.mFirstFeelingArray.add(new FirstFeeling("中年男子", null));
-		this.mFirstFeelingArray.add(new FirstFeeling("老龄男人", null));
-
-		this.mFirstFeelingAdapter = new AdapterFirstFeeling(this, this.mFirstFeelingArray);
+		this.refreshFirstFeeling();
 	}
 
 	@Override
@@ -54,7 +49,7 @@ public class ActivityFirstFeeling extends TopActivity {
 		this.lvFirstFeeling = (ListView) this.findViewById(R.id.lvFirstFeeling);
 		this.lvFirstFeeling.setAdapter(this.mFirstFeelingAdapter);
 
-		this.mVHAHeader.setTitleText(R.string.first_feeling);
+		this.mVHAHeader.setTitleText(this.mApp.getSettingGroup().getmSettingGroupName());
 		this.mVHAHeader.hideLeft();
 		this.mVHAHeader.hideRight();
 	}
@@ -65,4 +60,13 @@ public class ActivityFirstFeeling extends TopActivity {
 		this.lvFirstFeeling.setOnItemClickListener(this.mFirstFeelingAdapter);
 	}
 
+	protected void refreshFirstFeeling() {
+		this.mFirstFeelingArray = this.mApp.getSettingGroup().getmFirstFeelingArray();
+		if (this.mFirstFeelingAdapter==null) {
+			this.mFirstFeelingAdapter = new AdapterFirstFeeling(this, this.mFirstFeelingArray);
+		} else {
+			this.mFirstFeelingAdapter.setmFirstFeelingArray(mFirstFeelingArray);
+			this.mFirstFeelingAdapter.notifyDataSetChanged();
+		}
+	}
 }

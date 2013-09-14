@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 import sf.tools.peddlers.ActivityCustomerCharacteristic;
 import sf.tools.peddlers.R;
+import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.FirstFeeling;
 import sf.tools.peddlers.model.ShoppingList;
 import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHFirstFeeling;
-
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,18 +16,20 @@ import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class AdapterFirstFeeling extends BaseAdapter implements OnItemClickListener{
+public class AdapterFirstFeeling extends SFBaseAdapter implements OnItemClickListener{
 	public static final String TAG = "FirstFeelingAdapter";
 
-	private Context mContext = null;
 	private ArrayList<FirstFeeling> mFirstFeelingArray = null;
 
-	public AdapterFirstFeeling(Context context, ArrayList<FirstFeeling> firstFeelingArray) {
+	public AdapterFirstFeeling(TopActivity activity, ArrayList<FirstFeeling> firstFeelingArray) {
+		super(activity);
 		this.mFirstFeelingArray = firstFeelingArray;
-		this.mContext = context;
+	}
+
+	public void setmFirstFeelingArray(ArrayList<FirstFeeling> firstFeelingArray) {
+		this.mFirstFeelingArray = firstFeelingArray;
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class AdapterFirstFeeling extends BaseAdapter implements OnItemClickListe
 	public View getView(int position, View convertView, ViewGroup parent) {
 		VHFirstFeeling firstFeelingViewHolder = null;
 		if (convertView==null) {
-			convertView = LayoutInflater.from(this.mContext)
+			convertView = LayoutInflater.from(this.mActivity)
 					.inflate(R.layout.adapter_first_feeling, null);
 			firstFeelingViewHolder = new VHFirstFeeling();
 			firstFeelingViewHolder.tvFirstFeeling = (TextView) convertView.findViewById(R.id.tvFirstFeeling);
@@ -75,7 +76,7 @@ public class AdapterFirstFeeling extends BaseAdapter implements OnItemClickListe
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		Intent intent = new Intent(this.mContext, ActivityCustomerCharacteristic.class);
+		Intent intent = new Intent(this.mActivity, ActivityCustomerCharacteristic.class);
 
 		FirstFeeling firstFeeling = this.getItem(arg2);
 		ShoppingList shoppingList = new ShoppingList(firstFeeling, null, null);
@@ -83,6 +84,6 @@ public class AdapterFirstFeeling extends BaseAdapter implements OnItemClickListe
 
 		intent.putExtra(SFGlobal.EXTRA_SHOPPINGLIST, shoppingList);
 
-		this.mContext.startActivity(intent);
+		this.mActivity.startActivity(intent);
 	}
 }

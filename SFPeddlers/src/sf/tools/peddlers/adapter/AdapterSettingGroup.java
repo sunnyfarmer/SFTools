@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import sf.log.SFLog;
 import sf.tools.peddlers.ActivityAddSettingGroup;
-import sf.tools.peddlers.BaseActivity;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.SettingGroup;
@@ -12,7 +11,6 @@ import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHSettingGroup;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -20,19 +18,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListener{
+public class AdapterSettingGroup extends SFBaseAdapter implements OnItemClickListener{
 	public static final String TAG = "AdapterSettingGroup";
 
-	private Context mContext = null;
 	private ArrayList<SettingGroup> mSettingGroupArray = null;
 
-	public AdapterSettingGroup(Context context, ArrayList<SettingGroup> settingGroupArray) {
-		this.mContext = context;
+	public AdapterSettingGroup(TopActivity activity, ArrayList<SettingGroup> settingGroupArray) {
+		super(activity);
 		this.mSettingGroupArray = settingGroupArray;
 	}
 
@@ -59,7 +55,7 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 	public View getView(int position, View convertView, ViewGroup parent) {
 		VHSettingGroup vhSettingGroup = null;
 		if (convertView==null) {
-			convertView = LayoutInflater.from(this.mContext).inflate(R.layout.adapter_setting_group, null);
+			convertView = LayoutInflater.from(this.mActivity).inflate(R.layout.adapter_setting_group, null);
 
 			vhSettingGroup = new VHSettingGroup();
 			vhSettingGroup.tvSettingGroupName = (TextView) convertView.findViewById(R.id.tvSettingGroupName);
@@ -74,7 +70,7 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 
 		//获得选中的id
 		convertView.setFocusable(true);
-		String selectedSettingGroupId = ((TopActivity)mContext).getmApp().getSettingGroupId();
+		String selectedSettingGroupId = this.mApp.getSettingGroupId();
 		SFLog.d(TAG,
 				String.format("%s \n %s", selectedSettingGroupId, settingGroup.getmSettingGroupId()));
 		if (selectedSettingGroupId!=null && selectedSettingGroupId.equals(settingGroup.getmSettingGroupId())) {
@@ -88,7 +84,7 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 			@Override
 			public void onClick(View v) {
 				//选中SettingGroup
-				((TopActivity)mContext).getmApp().setSettingGroupId(settingGroup.getmSettingGroupId());
+				mApp.setSettingGroupId(settingGroup.getmSettingGroupId());
 				AdapterSettingGroup.this.notifyDataSetChanged();
 			}
 		});
@@ -101,9 +97,9 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 		vhSettingGroup.btnEdit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(mContext, ActivityAddSettingGroup.class);
-				((BaseActivity)mContext).getmApp().setmEditingSettingGroup(settingGroup);
-				mContext.startActivity(intent);
+				Intent intent = new Intent(mActivity, ActivityAddSettingGroup.class);
+				mApp.setmEditingSettingGroup(settingGroup);
+				mActivity.startActivity(intent);
 			}
 		});
 
@@ -111,19 +107,19 @@ public class AdapterSettingGroup extends BaseAdapter implements OnItemClickListe
 	}
 	
 	private void delete(final SettingGroup settigGroup) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this.mActivity);
 		builder.setTitle(R.string.warning)
 		.setMessage(R.string.whether_delete_setting_group)
 		.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				//删除购物单
-				int dbRs = ((BaseActivity)mContext).getmApp().getmDbManager().removeSettingGroup(settigGroup);
+				int dbRs = mApp.getmDbManager().removeSettingGroup(settigGroup);
 				if (dbRs==SFGlobal.DB_MSG_OK) {
-					mSettingGroupArray = ((TopActivity)mContext).getmApp().getmDbManager().getmDBSettingGroup().queryAll();
+					mSettingGroupArray = mApp.getmDbManager().getmDBSettingGroup().queryAll();
 					AdapterSettingGroup.this.notifyDataSetChanged();
 				} else {
-					((TopActivity)mContext).showToast(R.string.system_error);
+					mActivity.showToast(R.string.system_error);
 				}
 			}
 		})

@@ -3,6 +3,7 @@ package sf.tools.peddlers.adapter;
 import java.util.ArrayList;
 
 import sf.tools.peddlers.R;
+import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.Cargo.CUSTOMER_BEHAVIOR;
 import sf.tools.peddlers.viewholder.adapter.VHShoppingCargo;
@@ -17,14 +18,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class AdapterShoppingCargo extends BaseAdapter{
+public class AdapterShoppingCargo extends SFBaseAdapter{
 	public static final String TAG = "AdapterShoppingCargo";
 
-	private Context mContext = null;
 	private ArrayList<Cargo> mCargoList = null;
 
-	public AdapterShoppingCargo(Context context, ArrayList<Cargo> cargoList) {
-		this.mContext = context;
+	public AdapterShoppingCargo(TopActivity activity, ArrayList<Cargo> cargoList) {
+		super(activity);
 		this.mCargoList = cargoList;
 	}
 
@@ -61,7 +61,7 @@ public class AdapterShoppingCargo extends BaseAdapter{
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		VHShoppingCargo vhShoppingCargo = null;
 		if (convertView==null) {
-			convertView = LayoutInflater.from(this.mContext).inflate(R.layout.adapter_shopping_cargo, null);
+			convertView = LayoutInflater.from(this.mActivity).inflate(R.layout.adapter_shopping_cargo, null);
 			vhShoppingCargo = new VHShoppingCargo();
 			vhShoppingCargo.ivCargo = (ImageView) convertView.findViewById(R.id.ivCargo);
 			vhShoppingCargo.tvCargo = (TextView) convertView.findViewById(R.id.tvCargo);
