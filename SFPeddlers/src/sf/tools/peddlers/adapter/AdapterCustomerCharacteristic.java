@@ -23,6 +23,10 @@ public class AdapterCustomerCharacteristic extends SFBaseAdapter {
 		this.mCharacteristicArray = characteristicArray;
 	}
 
+	public void setmCharacteristic(ArrayList<Characteristic> characteristicArray) {
+		this.mCharacteristicArray = characteristicArray;
+	}
+
 	@Override
 	public int getCount() {
 		if (this.mCharacteristicArray!=null) {

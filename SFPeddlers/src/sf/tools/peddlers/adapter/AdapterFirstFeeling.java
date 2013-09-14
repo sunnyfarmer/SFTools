@@ -2,7 +2,7 @@ package sf.tools.peddlers.adapter;
 
 import java.util.ArrayList;
 
-import sf.tools.peddlers.ActivityCustomerCharacteristic;
+import sf.tools.peddlers.ActivityCharacteristic;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.FirstFeeling;
@@ -12,6 +12,7 @@ import sf.tools.peddlers.viewholder.adapter.VHFirstFeeling;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.AdapterView;
@@ -66,24 +67,24 @@ public class AdapterFirstFeeling extends SFBaseAdapter implements OnItemClickLis
 			firstFeelingViewHolder = (VHFirstFeeling) convertView.getTag();
 		}
 
+		final FirstFeeling firstFeeling = this.mFirstFeelingArray.get(position);
 		firstFeelingViewHolder.tvFirstFeeling.setText(this.mFirstFeelingArray.get(position).getmFirstFeelingName());
+		firstFeelingViewHolder.tvFirstFeeling.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mActivity, ActivityCharacteristic.class);
+				
+				ShoppingList shoppingList = new ShoppingList(firstFeeling, null, null);
+				mApp.setmShoppingList(shoppingList);
 
-		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, 110);
-		convertView.setLayoutParams(params);
-
+				mActivity.startActivity(intent);				
+			}
+		});
 		return convertView;
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		Intent intent = new Intent(this.mActivity, ActivityCustomerCharacteristic.class);
-
-		FirstFeeling firstFeeling = this.getItem(arg2);
-		ShoppingList shoppingList = new ShoppingList(firstFeeling, null, null);
-		shoppingList.setmFirstFeeling(firstFeeling);
-
-		intent.putExtra(SFGlobal.EXTRA_SHOPPINGLIST, shoppingList);
-
-		this.mActivity.startActivity(intent);
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
 	}
 }

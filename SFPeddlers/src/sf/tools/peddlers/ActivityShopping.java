@@ -145,7 +145,7 @@ public class ActivityShopping extends TopActivity {
 			this.startActivity(firstFeelingIntent);
 			this.finish();
 		} else if (shoppingList.getmCharacteristic()==null){
-			Intent characteristicIntent = new Intent(this, ActivityCustomerCharacteristic.class);
+			Intent characteristicIntent = new Intent(this, ActivityCharacteristic.class);
 			characteristicIntent.putExtra(SFGlobal.EXTRA_SHOPPINGLIST, shoppingList);
 			this.startActivity(characteristicIntent);
 			this.finish();

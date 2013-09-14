@@ -25,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ActivityCustomerCharacteristic"></activity>
+        <activity android:name="ActivityCharacteristic"></activity>
         <activity android:name="ActivityStatistic"></activity>
         <activity android:name="ActivityShopping"></activity>
         <activity android:name="ActivitySettingGroup"

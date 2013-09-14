@@ -39,7 +39,6 @@ public class ActivityFirstFeeling extends TopActivity {
 	@Override
 	protected void initData() {
 		super.initData();
-		this.refreshFirstFeeling();
 	}
 
 	@Override
@@ -47,7 +46,6 @@ public class ActivityFirstFeeling extends TopActivity {
 		super.initView();
 
 		this.lvFirstFeeling = (ListView) this.findViewById(R.id.lvFirstFeeling);
-		this.lvFirstFeeling.setAdapter(this.mFirstFeelingAdapter);
 
 		this.mVHAHeader.setTitleText(this.mApp.getSettingGroup().getmSettingGroupName());
 		this.mVHAHeader.hideLeft();
@@ -67,6 +65,9 @@ public class ActivityFirstFeeling extends TopActivity {
 		} else {
 			this.mFirstFeelingAdapter.setmFirstFeelingArray(mFirstFeelingArray);
 			this.mFirstFeelingAdapter.notifyDataSetChanged();
+		}
+		if (this.lvFirstFeeling.getAdapter()==null || !this.lvFirstFeeling.getAdapter().equals(this.mFirstFeelingAdapter)) {
+			this.lvFirstFeeling.setAdapter(mFirstFeelingAdapter);
 		}
 	}
 }
