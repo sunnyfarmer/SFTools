@@ -62,6 +62,15 @@ public class ActivityCharacteristic extends TopActivity {
 		this.mVHAHeader.setRightOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				for (Characteristic characteristic : mCharacteristicArray) {
+					if (characteristic.getmSelectedCharacteristicItem()==null) {
+						showToast(
+								getString(R.string.characteristic_not_choose, 
+										characteristic.getmCharacteristicName())
+										);
+						return;
+					}
+				}
 				ActivityCharacteristic.this.mApp.getmShoppingList().setmCharacteristic(mCharacteristicArray);
 				Intent intent = new Intent(ActivityCharacteristic.this, ActivityShopping.class);
 				ActivityCharacteristic.this.startActivity(intent);

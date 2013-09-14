@@ -31,6 +31,7 @@
 	<string name="looked">已看</string>
 	<string name="buy">买</string>
 	<string name="buyed">已买</string>
+	<string name="characteristic_not_choose">请选择 %s</string>
 
 	<!-- string for SETTING_GROUP -->
 	<string name="cargo_type">货物种类</string>	

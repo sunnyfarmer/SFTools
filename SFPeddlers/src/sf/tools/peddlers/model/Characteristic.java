@@ -1,18 +1,14 @@
 package sf.tools.peddlers.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import sf.tools.peddlers.db.DataStructure.DSCharacteristic;
 
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Characteristic implements Serializable,Model{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4749038793940437454L;
-
+public class Characteristic extends Model{
 	public static final String TAG = "Characteristic";
 
 	private int mCharacteristicId = ID_UNDEFINED;
@@ -21,6 +17,42 @@ public class Characteristic implements Serializable,Model{
 	private ArrayList<CharacteristicItem> mCharacteristicItemArray = new ArrayList<CharacteristicItem>();
 
 	private CharacteristicItem mSelectedCharacteristicItem = null;
+
+    public static final Parcelable.Creator<Characteristic> CREATOR = new Parcelable.Creator<Characteristic>() {
+		public Characteristic createFromParcel(Parcel in) {
+		    return new Characteristic(in);
+		}
+		
+		public Characteristic[] newArray(int size) {
+		    return new Characteristic[size];
+		}
+	};
+	public Characteristic(Parcel in) {
+		this.mCharacteristicId = in.readInt();
+		this.mCharacteristicName = in.readString();
+		this.mSettingGroup = in.readParcelable(null);
+		int sizeOfItem = in.readInt();
+		mCharacteristicItemArray = new ArrayList<CharacteristicItem>();
+		for(int cot = 0; cot < sizeOfItem; cot++) {
+			CharacteristicItem item = in.readParcelable(null);
+			this.mCharacteristicItemArray.add(item);
+		}
+	}
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		super.writeToParcel(out, flags);
+		out.writeInt(this.mCharacteristicId);
+		out.writeString(this.mCharacteristicName);
+		out.writeParcelable(mSettingGroup, flags);
+		if (this.mCharacteristicItemArray!=null) {
+			out.writeInt(this.mCharacteristicItemArray.size());
+			for (CharacteristicItem characteristicItem : this.mCharacteristicItemArray) {
+				out.writeParcelable(characteristicItem, flags);
+			}
+		} else {
+			out.writeInt(0);
+		}
+	}
 
 	public Characteristic(String title, SettingGroup settingGroup) {
 		this.setmCharacteristicName(title);

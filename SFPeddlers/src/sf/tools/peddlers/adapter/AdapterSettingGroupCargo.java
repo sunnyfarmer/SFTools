@@ -100,9 +100,7 @@ public class AdapterSettingGroupCargo extends SFBaseAdapter implements
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		Cargo cargo = this.getItem(position);
-		Intent intent = new Intent(this.mActivity, ActivitySettingGroupCargoDetail.class);
-		intent.putExtra(SFGlobal.EXTRA_CARGO, cargo);
-		this.mActivity.startActivity(intent);
+		this.gotoCargoDetailView(cargo);
 	}
 	public ArrayList<Cargo> getmCargoArray() {
 		return mCargoArray;
@@ -113,7 +111,7 @@ public class AdapterSettingGroupCargo extends SFBaseAdapter implements
 
 	private void gotoCargoDetailView(Cargo cargo) {
 		Intent intent = new Intent(this.mActivity, ActivitySettingGroupCargoDetail.class);
-		intent.putExtra(SFGlobal.EXTRA_CARGO, cargo);
+		mApp.setmEdittingCargo(cargo);
 		this.mActivity.startActivityForResult(intent, SFGlobal.RS_CODE_EDIT_CARGO);
 	}
 }

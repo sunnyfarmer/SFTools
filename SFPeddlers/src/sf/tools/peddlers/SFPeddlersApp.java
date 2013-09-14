@@ -34,6 +34,7 @@ public class SFPeddlersApp extends Application {
 	private boolean mIsSettingGroupDirty = false;
 
 	private SettingGroup mEditingSettingGroup = null;
+	private Cargo mEdittingCargo = null;
 
 	private ShoppingList mShoppingList = null;
 
@@ -118,5 +119,13 @@ public class SFPeddlersApp extends Application {
 
 	public void setmEditingSettingGroup(SettingGroup mEditingSettingGroup) {
 		this.mEditingSettingGroup = mEditingSettingGroup;
+	}
+
+	public Cargo getmEdittingCargo() {
+		return mEdittingCargo;
+	}
+
+	public void setmEdittingCargo(Cargo mEdittingCargo) {
+		this.mEdittingCargo = mEdittingCargo;
 	}
 }

@@ -1,17 +1,13 @@
 package sf.tools.peddlers.model;
 
-import java.io.Serializable;
-
 import sf.log.SFLog;
 import sf.tools.peddlers.db.DataStructure.DSCargo;
 
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Cargo implements Serializable,Model{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2253625273503187217L;
+public class Cargo extends Model{
 	public static final String TAG = "Cargo";
 
 	public static enum CUSTOMER_BEHAVIOR {
@@ -26,6 +22,34 @@ public class Cargo implements Serializable,Model{
 
 	private CUSTOMER_BEHAVIOR mBehavior = CUSTOMER_BEHAVIOR.CB_NONE;
 
+    public static final Parcelable.Creator<Cargo> CREATOR = new Parcelable.Creator<Cargo>() {
+		public Cargo createFromParcel(Parcel in) {
+		    return new Cargo(in);
+		}
+		
+		public Cargo[] newArray(int size) {
+		    return new Cargo[size];
+		}
+	};
+	public Cargo(Parcel in) {
+		super(in);
+		this.mCargoId = in.readInt();
+		this.mCargoName = in.readString();
+		this.mCargoType = in.readParcelable(null);
+	}
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		super.writeToParcel(out, flags);
+		out.writeInt(this.mCargoId);
+		out.writeString(mCargoName);
+		out.writeParcelable(mCargoType, flags);
+	}
+
+	public Cargo(String cargoName, CargoType cargoType) {
+		this.setmCargoName(cargoName);
+		this.setmCargoType(cargoType);
+	}
+
 	@Override
 	public ContentValues getContentValues() {
 		ContentValues values = new ContentValues();
@@ -37,10 +61,6 @@ public class Cargo implements Serializable,Model{
 		return values;
 	}
 
-	public Cargo(String cargoName, CargoType cargoType) {
-		this.setmCargoName(cargoName);
-		this.setmCargoType(cargoType);
-	}
 
 	public int getmCargoId() {
 		return mCargoId;

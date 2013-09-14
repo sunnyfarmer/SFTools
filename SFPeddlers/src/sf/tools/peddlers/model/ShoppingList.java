@@ -1,29 +1,105 @@
 package sf.tools.peddlers.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import sf.log.SFLog;
 import sf.tools.peddlers.db.DataStructure.DSShoppingList;
 
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class ShoppingList implements Serializable, Model{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1977230604481916816L;
-
+public class ShoppingList extends Model{
 	public static final String TAG = "ShoppingList";
 
-	private long mTimestamp = 0;
 	private String mShoppingListId = null;
+	private long mTimestamp = 0;
 	private FirstFeeling mFirstFeeling = null;
 	private SettingGroup mSettingGroup = null;
 	private ArrayList<Characteristic> mCharacteristic = null;
 	private ArrayList<Cargo> mLookCargo = null;
 	private ArrayList<Cargo> mBuyCargo = null;
 	private ArrayList<Cargo> mRelatedCargo = null;
+
+    public static final Parcelable.Creator<ShoppingList> CREATOR = new Parcelable.Creator<ShoppingList>() {
+		public ShoppingList createFromParcel(Parcel in) {
+		    return new ShoppingList(in);
+		}
+		
+		public ShoppingList[] newArray(int size) {
+		    return new ShoppingList[size];
+		}
+	};
+	public ShoppingList(Parcel in) {
+		this.mShoppingListId = in.readString();
+		this.mTimestamp = in.readLong();
+		this.mFirstFeeling = in.readParcelable(null);
+		this.mSettingGroup = in.readParcelable(null);
+		int sizeOfCaracteristic = in.readInt();
+		this.mCharacteristic = new ArrayList<Characteristic>(); 
+		for (int cot = 0; cot < sizeOfCaracteristic; cot++) {
+			Characteristic characteristic = in.readParcelable(null);
+			this.mCharacteristic.add(characteristic);
+		}
+		int sizeOfLookCargo = in.readInt();
+		this.mLookCargo = new ArrayList<Cargo>();
+		for (int cot = 0; cot < sizeOfLookCargo; cot++) {
+			Cargo cargo = in.readParcelable(null);
+			this.mLookCargo.add(cargo);
+		}
+		int sizeOfBuyCargo = in.readInt();
+		this.mBuyCargo = new ArrayList<Cargo>();
+		for (int cot = 0; cot < sizeOfBuyCargo; cot++) {
+			Cargo cargo = in.readParcelable(null);
+			this.mBuyCargo.add(cargo);
+		}
+		int sizeOfRelatedCargo = in.readInt();
+		this.mRelatedCargo = new ArrayList<Cargo>();
+		for (int cot = 0; cot < sizeOfRelatedCargo; cot++) {
+			Cargo cargo = in.readParcelable(null);
+			this.mRelatedCargo.add(cargo);
+		}
+	}
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		super.writeToParcel(out, flags);
+		out.writeString(this.mShoppingListId);
+		out.writeLong(this.mTimestamp);
+		out.writeParcelable(this.mFirstFeeling, flags);
+		out.writeParcelable(this.mSettingGroup, flags);
+		if (this.mCharacteristic!=null) {
+			out.writeInt(this.mCharacteristic.size());
+			for (Characteristic characteristic : this.mCharacteristic) {
+				out.writeParcelable(characteristic, flags);
+			}
+		} else {
+			out.writeInt(0);
+		}
+		if (this.mLookCargo!=null) {
+			out.writeInt(this.mLookCargo.size());
+			for (Cargo cargo : this.mLookCargo) {
+				out.writeParcelable(cargo, flags);
+			}
+		} else {
+			out.writeInt(0);
+		}
+		if (this.mBuyCargo!=null) {
+			out.writeInt(this.mBuyCargo.size());
+			for (Cargo cargo : this.mBuyCargo) {
+				out.writeParcelable(cargo, flags);
+			}
+		} else {
+			out.writeInt(0);
+		}
+		if (this.mRelatedCargo!=null) {
+			out.writeInt(this.mRelatedCargo.size());
+			for (Cargo cargo : this.mRelatedCargo) {
+				out.writeParcelable(cargo, flags);
+			}
+		} else {
+			out.writeInt(0);
+		}
+	}
 
 	public ShoppingList(FirstFeeling firstFeeling, SettingGroup settingGroup, ArrayList<Characteristic> characteristicArray) {
 		this.setmFirstFeeling(firstFeeling);

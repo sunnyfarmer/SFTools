@@ -1,23 +1,40 @@
 package sf.tools.peddlers.model;
 
-import java.io.Serializable;
-
 import sf.tools.peddlers.db.DataStructure.DSFirstFeeling;
 
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class FirstFeeling implements Serializable,Model{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6370100111874428210L;
-
+public class FirstFeeling extends Model{
 	public static final String TAG = "FirstFeeling";
 
 	private SettingGroup mSettingGroup = null;
 	private String mFirstFeelingName = null;
 	private int mFirstFeelingId = ID_UNDEFINED;
 
+    public static final Parcelable.Creator<FirstFeeling> CREATOR = new Parcelable.Creator<FirstFeeling>() {
+		public FirstFeeling createFromParcel(Parcel in) {
+		    return new FirstFeeling(in);
+		}
+		
+		public FirstFeeling[] newArray(int size) {
+		    return new FirstFeeling[size];
+		}
+	};
+	public FirstFeeling(Parcel in) {
+		super(in);
+		this.mFirstFeelingId = in.readInt();
+		this.mFirstFeelingName = in.readString();
+		this.mSettingGroup = in.readParcelable(null);
+	}
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		super.writeToParcel(out, flags);
+		out.writeInt(this.mFirstFeelingId);
+		out.writeString(this.mFirstFeelingName);
+		out.writeParcelable(mSettingGroup, flags);
+	}
 	public FirstFeeling(String firstFeeling, SettingGroup settingGroup) {
 		this.setmFirstFeelingName(firstFeeling);
 		this.setmSettingGroup(settingGroup);

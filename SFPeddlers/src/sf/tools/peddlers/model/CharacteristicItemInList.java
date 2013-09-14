@@ -1,20 +1,36 @@
 package sf.tools.peddlers.model;
 
-import java.io.Serializable;
-
 import sf.tools.peddlers.db.DataStructure.DSCharacteristicItemInList;
 
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class CharacteristicItemInList implements Model, Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5860043230744655455L;
+public class CharacteristicItemInList extends Model {
 	public static final String TAG = "CharacteristicItemInList";
 
 	private CharacteristicItem mCharacteristicItem = null;
 	private ShoppingList mShoppingList = null;
+
+    public static final Parcelable.Creator<CharacteristicItemInList> CREATOR = new Parcelable.Creator<CharacteristicItemInList>() {
+		public CharacteristicItemInList createFromParcel(Parcel in) {
+		    return new CharacteristicItemInList(in);
+		}
+		
+		public CharacteristicItemInList[] newArray(int size) {
+		    return new CharacteristicItemInList[size];
+		}
+	};
+	public CharacteristicItemInList(Parcel in) {
+		this.mCharacteristicItem = in.readParcelable(null);
+		this.mShoppingList = in.readParcelable(null);
+	}
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		super.writeToParcel(out, flags);
+		out.writeParcelable(this.mCharacteristicItem, flags);
+		out.writeParcelable(this.mShoppingList, flags);
+	}
 
 	public CharacteristicItemInList(CharacteristicItem characteristicItem, ShoppingList shoppingList) {
 		this.setmCharacteristicItem(characteristicItem);

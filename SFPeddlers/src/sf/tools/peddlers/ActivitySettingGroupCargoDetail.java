@@ -51,7 +51,7 @@ public class ActivitySettingGroupCargoDetail extends TopActivity {
 
 	@Override
 	protected void initData() {
-		this.mCargo = (Cargo) this.getIntent().getSerializableExtra(SFGlobal.EXTRA_CARGO);
+		this.mCargo = this.mApp.getmEdittingCargo();
 		super.initData();
 	}
 	@Override
@@ -76,7 +76,7 @@ public class ActivitySettingGroupCargoDetail extends TopActivity {
 				SFBitmapManager.saveBitmap(mApp, mBitmap, mCargo.getmCargoId());
 
 				Intent data = new Intent();
-				data.putExtra(SFGlobal.EXTRA_CARGO, mCargo);
+				mApp.setmEdittingCargo(mCargo);
 				setResult(RESULT_OK, data);
 				finish();
 			}

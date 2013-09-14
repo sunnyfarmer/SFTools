@@ -80,7 +80,7 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 					saveImage(cargo.getmCargoId());
 
 					Intent data = new Intent();
-					data.putExtra(SFGlobal.EXTRA_CARGO, cargo);
+					mApp.setmEdittingCargo(cargo);
 					ActivitySettingGroupAddCargo.this.setResult(RESULT_OK, data);
 					finish();
 				} else if (dbRs==SFGlobal.DB_MSG_SAME_COLUMN) {

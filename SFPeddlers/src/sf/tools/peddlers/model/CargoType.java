@@ -1,23 +1,40 @@
 package sf.tools.peddlers.model;
 
-import java.io.Serializable;
-
 import sf.tools.peddlers.db.DataStructure.DSCargoType;
 
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class CargoType implements Serializable,Model{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8175652174337896275L;
-
+public class CargoType extends Model{
 	public static final String TAG = "CargoType";
 
 	private int mCargoTypeId = ID_UNDEFINED;
 	private String mCargoTypeName = null;
 	private SettingGroup mSettingGroup = null;
 
+    public static final Parcelable.Creator<CargoType> CREATOR = new Parcelable.Creator<CargoType>() {
+		public CargoType createFromParcel(Parcel in) {
+		    return new CargoType(in);
+		}
+		
+		public CargoType[] newArray(int size) {
+		    return new CargoType[size];
+		}
+	};
+	public CargoType(Parcel in) {
+		super(in);
+		this.mCargoTypeId = in.readInt();
+		this.mCargoTypeName = in.readString();
+		this.mSettingGroup = in.readParcelable(null);
+	}
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		super.writeToParcel(out, flags);
+		out.writeInt(this.mCargoTypeId);
+		out.writeString(mCargoTypeName);
+		out.writeParcelable(mSettingGroup, flags);
+	}
 	public CargoType(String cargoTypeName, SettingGroup settingGroup) {
 		this.setmCargoTypeName(cargoTypeName);
 		this.setmSettingGroup(settingGroup);

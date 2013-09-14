@@ -9,12 +9,8 @@ public class Model implements Parcelable{
 	public ContentValues getContentValues(){
 		return null;
 	}
-
     public int describeContents() {
         return 0;
-    }
-
-    public void writeToParcel(Parcel out, int flags) {
     }
 
     public static final Parcelable.Creator<Model> CREATOR
@@ -27,7 +23,11 @@ public class Model implements Parcelable{
             return new Model[size];
         }
     };
-    
-    private Model(Parcel in) {
+
+    public void writeToParcel(Parcel out, int flags) {
+    }
+    protected Model(Parcel in) {
+    }
+    protected Model(){
     }
 }

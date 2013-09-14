@@ -6,14 +6,14 @@ public class SFGlobal {
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "peddlers";
 
-	public static final String EXTRA_SETTING_GROUP = "extra_setting_group";
-	public static final String EXTRA_FIRSTFEELING = "extra_first_feeling";
-	public static final String EXTRA_CARGO = "extra_cargo";
-	public static final String EXTRA_CARGOTYPE = "extra_cargo_type";
+//	public static final String EXTRA_SETTING_GROUP = "extra_setting_group";
+//	public static final String EXTRA_FIRSTFEELING = "extra_first_feeling";
+//	public static final String EXTRA_CARGO = "extra_cargo";
+//	public static final String EXTRA_CARGOTYPE = "extra_cargo_type";
 	public static final String EXTRA_CARGOTYPE_ID = "extra_cargo_type_id";
-	public static final String EXTRA_CHARACTERISTIC = "extra_characteristic";
+//	public static final String EXTRA_CHARACTERISTIC = "extra_characteristic";
 	public static final String EXTRA_CHARACTERISTIC_ID = "extra_characteristic_id";
-	public static final String EXTRA_SHOPPINGLIST = "extra_shopping_list";
+//	public static final String EXTRA_SHOPPINGLIST = "extra_shopping_list";
 
 	public static final int RS_CODE_LOAD_IMAGE = 1001;
 	public static final int RS_CODE_ADD_CARGO = 1002;

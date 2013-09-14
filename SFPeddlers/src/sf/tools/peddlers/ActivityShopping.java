@@ -92,6 +92,9 @@ public class ActivityShopping extends TopActivity {
 				int dbRs = mApp.getmDbManager().addShoppingList(mApp.getmShoppingList());
 				if (dbRs==SFGlobal.DB_MSG_OK) {
 					showToast(R.string.shopping_end);
+					Intent intent = new Intent(ActivityShopping.this, ActivityFirstFeeling.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					ActivityShopping.this.startActivity(intent);
 					finish();
 				} else {
 					showToast(R.string.system_error);
@@ -104,19 +107,6 @@ public class ActivityShopping extends TopActivity {
 	 */
 	public void refreshCargoArray() {
 		this.mCargoSparseArray = this.mApp.getSettingGroup().getmCargoArray();
-	}
-	/**
-	 * 插入商品
-	 * @param cargo
-	 */
-	public void putCargo(Cargo cargo) {
-		if (this.mCargoSparseArray==null) {
-			this.mCargoSparseArray = new SparseArray<ArrayList<Cargo>>();
-		}
-		if (null == this.mCargoSparseArray.get(cargo.getmCargoType().getmCargoTypeId())) {
-			this.mCargoSparseArray.put(cargo.getmCargoType().getmCargoTypeId(), new ArrayList<Cargo>());
-		}
-		this.mCargoSparseArray.get(cargo.getmCargoType().getmCargoTypeId()).add(cargo);
 	}
 	/**
 	 * 刷新商品列表

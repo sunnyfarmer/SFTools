@@ -37,11 +37,11 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode==SFGlobal.RS_CODE_ADD_CARGO && resultCode==RESULT_OK) {
-			Cargo cargo = (Cargo) data.getSerializableExtra(SFGlobal.EXTRA_CARGO);
+			Cargo cargo = this.mApp.getmEdittingCargo();
 			this.putCargo(cargo);
 			this.refreshCargo();
 		} else if (requestCode==SFGlobal.RS_CODE_EDIT_CARGO && resultCode==RESULT_OK) {
-			Cargo cargo = (Cargo) data.getSerializableExtra(SFGlobal.EXTRA_CARGO);
+			Cargo cargo = this.mApp.getmEdittingCargo();
 			this.replaceCargo(cargo);
 			this.refreshCargo();
 		}
