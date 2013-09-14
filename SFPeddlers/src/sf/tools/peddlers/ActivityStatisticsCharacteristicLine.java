@@ -8,6 +8,7 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		this.setContentView(R.layout.activity_statistics_characteristic_line);
 	    super.onCreate(savedInstanceState);
 	}
 

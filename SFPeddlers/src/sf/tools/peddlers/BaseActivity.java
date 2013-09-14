@@ -5,6 +5,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,6 +42,11 @@ public class BaseActivity extends Activity {
 	protected void onStop() {
 		super.onStop();
 		EasyTracker.getInstance(this).activityStop(this);
+	}
+
+	public void toActivity(Class<?> classObject) {
+		Intent intent = new Intent(this, classObject);
+		this.startActivity(intent);
 	}
 
 	public void showInputDialog(String title, String defaultInputMsg, final OnInputConfirmedListener onInputConfirmedListener) {
