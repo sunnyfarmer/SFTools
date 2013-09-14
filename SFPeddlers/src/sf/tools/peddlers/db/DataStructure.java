@@ -92,19 +92,23 @@ public class DataStructure {
 		public static final String COL_SHOPPING_LIST_ID = "shopping_list_id";
 		public static final String COL_FIRST_FEELING_ID = "first_feeling_id";
 		public static final String COL_SETTING_GROUP_ID = "setting_group_id";
+		public static final String COL_SHOPPING_TIMESTAMP = "shopping_time";
 		public static final String[] COLUMNS = {
 			COL_SHOPPING_LIST_ID,
 			COL_FIRST_FEELING_ID,
-			COL_SETTING_GROUP_ID
+			COL_SETTING_GROUP_ID,
+			COL_SHOPPING_TIMESTAMP
 		};
 		public static final String SQL_CREATE = String.format(
 				"create table %s ("+
 				"%s text primary key,"+
 				"%s integer,"+
+				"%s long,"+
 				"%s text);",
 				TB_NAME,
 				COL_SHOPPING_LIST_ID,
 				COL_FIRST_FEELING_ID,
+				COL_SHOPPING_TIMESTAMP,
 				COL_SETTING_GROUP_ID
 				);
 		public static final String SQL_DROP = String.format("DROP TABLE IF EXISTS %s", TB_NAME);

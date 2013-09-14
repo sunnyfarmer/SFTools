@@ -16,6 +16,7 @@ import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.model.FirstFeeling;
 import sf.tools.peddlers.model.SettingGroup;
+import sf.tools.peddlers.model.ShoppingList;
 import sf.tools.peddlers.utils.SFGlobal;
 
 public class DBManager {
@@ -204,6 +205,15 @@ public class DBManager {
 		boolean dbRs = this.getmDBCargo().delete(cargo);
 		if (dbRs) {
 			this.mApp.setmIsSettingGroupDirty(true);
+			return SFGlobal.DB_MSG_OK;
+		} else {
+			return SFGlobal.DB_MSG_ERROR;
+		}
+	}
+
+	public int addShoppingList(ShoppingList shoppingList) {
+		boolean dbRs = this.getmDBShoppingList().insert(shoppingList);
+		if (dbRs) {
 			return SFGlobal.DB_MSG_OK;
 		} else {
 			return SFGlobal.DB_MSG_ERROR;

@@ -75,6 +75,10 @@ public class VHASettingGroupCharacteristic {
 						new OnInputConfirmedListener() {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
+								if (inputMsg.trim().equals("")) {
+									mActivity.showToast(R.string.must_be_filled);
+									return;
+								}
 								Characteristic characteristic = new Characteristic(inputMsg, mSettingGroup);
 								int dbRs = mActivity.getmApp().getmDbManager().upsertCharacteristic(characteristic);
 								if (dbRs==SFGlobal.DB_MSG_OK) {

@@ -7,14 +7,12 @@ import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.FirstFeeling;
 import sf.tools.peddlers.model.ShoppingList;
-import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHFirstFeeling;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AbsListView.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
@@ -74,7 +72,7 @@ public class AdapterFirstFeeling extends SFBaseAdapter implements OnItemClickLis
 			public void onClick(View v) {
 				Intent intent = new Intent(mActivity, ActivityCharacteristic.class);
 				
-				ShoppingList shoppingList = new ShoppingList(firstFeeling, null, null);
+				ShoppingList shoppingList = new ShoppingList(firstFeeling, mApp.getSettingGroup(), null);
 				mApp.setmShoppingList(shoppingList);
 
 				mActivity.startActivity(intent);				

@@ -4,8 +4,12 @@ import com.google.analytics.tracking.android.EasyTracker;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnFocusChangeListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,6 +19,7 @@ public class BaseActivity extends Activity {
 	protected SFPeddlersApp mApp = null;
 	protected EditText mEditText = null;
 	protected AlertDialog mAlertDialog = null;
+	private OnInputConfirmedListener mOnInputConfirmedListener = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,7 @@ public class BaseActivity extends Activity {
 	}
 
 	public void showInputDialog(String title, String defaultInputMsg, final OnInputConfirmedListener onInputConfirmedListener) {
+		this.mOnInputConfirmedListener = onInputConfirmedListener;
 		if (this.mAlertDialog == null) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			if (this.mEditText==null) {
@@ -54,9 +60,9 @@ public class BaseActivity extends Activity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					String input = BaseActivity.this.mEditText.getText().toString();
-					if (onInputConfirmedListener!=null) {
+					if (mOnInputConfirmedListener!=null) {
 						input = input.trim();
-						onInputConfirmedListener.onInputConfirmed(input);
+						mOnInputConfirmedListener.onInputConfirmed(input);
 					}
 				}
 			});

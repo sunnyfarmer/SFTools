@@ -71,6 +71,13 @@ public class ActivityAddSettingGroup extends TopActivity {
 						new OnInputConfirmedListener() {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
+								if (inputMsg.trim().equals("")) {
+									ActivityAddSettingGroup.this.showToast(R.string.must_be_filled);
+									return;
+								}
+								if (inputMsg.equals(mSettingGroup.getmSettingGroupName())) {
+									return;
+								}
 								SettingGroup sg = new SettingGroup(inputMsg);
 								sg.setmSettingGroupId(mSettingGroup.getmSettingGroupId());
 								int dbRs = ActivityAddSettingGroup.this.getmApp().getmDbManager().upsertSettingGroup(sg);

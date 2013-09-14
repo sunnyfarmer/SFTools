@@ -166,6 +166,7 @@ public class DBShoppingList extends DBController {
 			FirstFeeling firstFeeling = this.getDbFirstFeeling().query(firstFeelingId);
 			String settingGroupId = cursor.getString(cursor.getColumnIndex(DSShoppingList.COL_SETTING_GROUP_ID));
 			settingGroup = this.getDbSettingGroup().queryById(settingGroupId);
+			long timeStamp = cursor.getLong(cursor.getColumnIndex(DSShoppingList.COL_SHOPPING_TIMESTAMP));
 
 			//获得特征
 			ArrayList<CharacteristicItemInList> characteristicItemInListArray = this.getDbCharacteristicItemInList().queryAll(shoppingList);
@@ -178,6 +179,7 @@ public class DBShoppingList extends DBController {
 
 			shoppingList = new ShoppingList(firstFeeling, settingGroup, characteristicArray);
 			shoppingList.setmShoppingListId(shoppingListId);
+			shoppingList.setmTimestamp(timeStamp);
 
 			//获得商品
 			ArrayList<Cargo> buyCargo = new ArrayList<Cargo>();

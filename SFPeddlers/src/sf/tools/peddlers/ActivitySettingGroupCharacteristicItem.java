@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import sf.tools.peddlers.adapter.AdapterSettingGroupCharacteristicItem;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.CharacteristicItem;
+import sf.tools.peddlers.model.Model;
 import sf.tools.peddlers.utils.SFGlobal;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,10 +32,10 @@ public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 	protected void initData() {
 		super.initData();
 	    Intent intent = this.getIntent();
-	    Characteristic characteristicFromIntent = (Characteristic) intent.getSerializableExtra(SFGlobal.EXTRA_CHARACTERISTIC);
+	    int characteristicIdFromIntent = intent.getIntExtra(SFGlobal.EXTRA_CHARACTERISTIC_ID, Model.ID_UNDEFINED);
 	    ArrayList<Characteristic> characteristicArray = this.mApp.getmEditingSettingGroup().getmCharacteristicArray();
 	    for (Characteristic characteristic : characteristicArray) {
-			if (characteristic.getmCharacteristicId() == characteristicFromIntent.getmCharacteristicId()) {
+			if (characteristic.getmCharacteristicId() == characteristicIdFromIntent) {
 				this.mCharacteristic = characteristic;
 				break;
 			}
@@ -75,11 +76,15 @@ public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 						new OnInputConfirmedListener() {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
+								if (inputMsg.equals("")) {
+									showToast(R.string.must_be_filled);
+									return;
+								}
 								CharacteristicItem characteristicItem = new CharacteristicItem(inputMsg, mCharacteristic);
 								int dbRs = ActivitySettingGroupCharacteristicItem.this.getmApp().getmDbManager().upsertCharacteristicItem(characteristicItem);
 								if (dbRs==SFGlobal.DB_MSG_OK) {
 									ActivitySettingGroupCharacteristicItem.this.mCharacteristic.getmCharacteristicItemArray().add(
-											new CharacteristicItem(inputMsg, mCharacteristic)
+											characteristicItem
 											);
 									mAdapterSettingGroupCharacteristicItem.notifyDataSetChanged();
 								} else if (dbRs == SFGlobal.DB_MSG_SAME_COLUMN) {

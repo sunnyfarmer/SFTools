@@ -94,7 +94,7 @@ public class AdapterSettingGroupCharacteristic extends SFBaseAdapter implements
 
 	private void toCharacteristicItemView(Characteristic characteristic) {
 		Intent intent = new Intent(this.mActivity, ActivitySettingGroupCharacteristicItem.class);
-		intent.putExtra(SFGlobal.EXTRA_CHARACTERISTIC, characteristic);
+		intent.putExtra(SFGlobal.EXTRA_CHARACTERISTIC_ID, characteristic.getmCharacteristicId());
 		this.mActivity.startActivity(intent);
 	}
 }

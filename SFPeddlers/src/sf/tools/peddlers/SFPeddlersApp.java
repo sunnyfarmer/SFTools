@@ -1,8 +1,6 @@
 package sf.tools.peddlers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import sf.tools.peddlers.db.DBManager;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
@@ -15,6 +13,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.SparseArray;
 
 public class SFPeddlersApp extends Application {
 	public static final String TAG = "SFPeddlersApp";
@@ -86,15 +85,15 @@ public class SFPeddlersApp extends Application {
 				ArrayList<FirstFeeling> firstFeelingArray = this.getmDbManager().getmDBFirstFeeling().queryAll(this.mSettingGroup);
 				ArrayList<Characteristic> characteristicArray = this.getmDbManager().getmDBCharacteristic().queryAll(this.mSettingGroup);
 				ArrayList<CargoType> cargoTypeArray = this.getmDbManager().getmDBCargoType().queryAll(this.mSettingGroup);
-				HashMap<CargoType, ArrayList<Cargo>> cargoHashMap = new HashMap<CargoType, ArrayList<Cargo>>();
+				SparseArray<ArrayList<Cargo>> cargoArray = new SparseArray<ArrayList<Cargo>>();
 				for (CargoType cargoType : cargoTypeArray) {
-					ArrayList<Cargo> cargoArray = this.getmDbManager().getmDBCargo().queryAll(cargoType);
-					cargoHashMap.put(cargoType, cargoArray);
+					ArrayList<Cargo> cargoArrayOfType = this.getmDbManager().getmDBCargo().queryAll(cargoType);
+					cargoArray.put(cargoType.getmCargoTypeId(), cargoArrayOfType);
 				}
 				this.mSettingGroup.setmFirstFeelingArray(firstFeelingArray);
 				this.mSettingGroup.setmCharacteristicArray(characteristicArray);
 				this.mSettingGroup.setmCargoTypeArray(cargoTypeArray);
-				this.mSettingGroup.setmCargoArray(cargoHashMap);
+				this.mSettingGroup.setmCargoArray(cargoArray);
 			}
 			this.mIsSettingGroupDirty = false;
 		}

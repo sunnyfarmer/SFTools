@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import sf.tools.peddlers.BaseActivity.OnInputConfirmedListener;
+import sf.tools.peddlers.ActivitySettingGroup;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.adapter.AdapterSettingGroupCargoType;
@@ -74,6 +75,10 @@ public class VHASettingGroupCargoType {
 						new OnInputConfirmedListener() {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
+								if (inputMsg.trim().equals("")) {
+									mActivity.showToast(R.string.must_be_filled);
+									return;
+								}
 								CargoType cargoType = new CargoType(inputMsg, mSettingGroup);
 								int dbRs = mActivity.getmApp().getmDbManager().upsertCargoType(cargoType);
 								if (dbRs==SFGlobal.DB_MSG_OK) {

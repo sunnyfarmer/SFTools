@@ -2,10 +2,9 @@ package sf.tools.peddlers.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import sf.tools.peddlers.db.DataStructure.DSSettingGroup;
 import android.content.ContentValues;
+import android.util.SparseArray;
 
 public class SettingGroup implements Serializable,Model{
 	/**
@@ -22,7 +21,7 @@ public class SettingGroup implements Serializable,Model{
 	private ArrayList<FirstFeeling> mFirstFeelingArray = new ArrayList<FirstFeeling>();
 	private ArrayList<Characteristic> mCharacteristicArray = new ArrayList<Characteristic>();
 	private ArrayList<CargoType> mCargoTypeArray = new ArrayList<CargoType>();
-	private HashMap<CargoType, ArrayList<Cargo>> mCargoArray = new HashMap<CargoType, ArrayList<Cargo>>();
+	private SparseArray<ArrayList<Cargo>> mCargoArray = new SparseArray<ArrayList<Cargo>>();
 
 	public SettingGroup(String settingGroupName) {
 		this.setmSettingGroupName(settingGroupName);
@@ -75,11 +74,11 @@ public class SettingGroup implements Serializable,Model{
 		this.mCargoTypeArray = mCargoTypeArray;
 	}
 
-	public HashMap<CargoType, ArrayList<Cargo>> getmCargoArray() {
+	public SparseArray<ArrayList<Cargo>> getmCargoArray() {
 		return mCargoArray;
 	}
 
-	public void setmCargoArray(HashMap<CargoType, ArrayList<Cargo>> mCargoArray) {
+	public void setmCargoArray(SparseArray<ArrayList<Cargo>> mCargoArray) {
 		this.mCargoArray = mCargoArray;
 	}
 }

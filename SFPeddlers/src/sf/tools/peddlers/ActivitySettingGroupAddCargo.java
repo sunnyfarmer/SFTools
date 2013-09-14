@@ -1,7 +1,10 @@
 package sf.tools.peddlers;
 
+import java.util.ArrayList;
+
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
+import sf.tools.peddlers.model.Model;
 import sf.tools.peddlers.utils.SFBitmapManager;
 import sf.tools.peddlers.utils.SFGlobal;
 import android.content.Intent;
@@ -35,8 +38,14 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 	@Override
 	protected void initData() {
 		Intent intent = this.getIntent();
-		this.mCargoType = (CargoType) intent
-				.getSerializableExtra(SFGlobal.EXTRA_CARGOTYPE);
+		int cargoTypeId = intent.getIntExtra(SFGlobal.EXTRA_CARGOTYPE_ID, Model.ID_UNDEFINED);
+		ArrayList<CargoType> cargoTypeArray = this.mApp.getmEditingSettingGroup().getmCargoTypeArray();
+		for (CargoType cargoType : cargoTypeArray) {
+			if (cargoType.getmCargoTypeId()==cargoTypeId) {
+				this.mCargoType = cargoType;
+				break;
+			}
+		}
 		super.initData();
 	}
 
@@ -63,6 +72,9 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
 			@Override
 			public void onClick(View v) {
 				Cargo cargo = produceCargo();
+				if (cargo==null) {
+					return;
+				}
 				int dbRs = mApp.getmDbManager().upsertCargo(cargo);
 				if (dbRs==SFGlobal.DB_MSG_OK) {
 					saveImage(cargo.getmCargoId());

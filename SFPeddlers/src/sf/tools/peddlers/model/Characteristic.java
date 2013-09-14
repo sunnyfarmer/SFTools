@@ -64,9 +64,11 @@ public class Characteristic implements Serializable,Model{
 		return mSelectedCharacteristicItem;
 	}
 	public void setmSelectedCharacteristicItem(String characteristicItemString) {
-		for (CharacteristicItem characteristicItem : this.mCharacteristicItemArray) {
-			if (characteristicItemString.equals(characteristicItem.getmCharacteristicItemName())) {
-				this.mSelectedCharacteristicItem = characteristicItem;
+		if (characteristicItemString!=null) {
+			for (CharacteristicItem characteristicItem : this.mCharacteristicItemArray) {
+				if (characteristicItemString.equals(characteristicItem.getmCharacteristicItemName())) {
+					this.mSelectedCharacteristicItem = characteristicItem;
+				}
 			}
 		}
 	}

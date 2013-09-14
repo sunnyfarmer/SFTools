@@ -47,7 +47,9 @@ public class ActivityFirstFeeling extends TopActivity {
 
 		this.lvFirstFeeling = (ListView) this.findViewById(R.id.lvFirstFeeling);
 
-		this.mVHAHeader.setTitleText(this.mApp.getSettingGroup().getmSettingGroupName());
+		if (this.mApp.getSettingGroup()!=null) {
+			this.mVHAHeader.setTitleText(this.mApp.getSettingGroup().getmSettingGroupName());
+		}
 		this.mVHAHeader.hideLeft();
 		this.mVHAHeader.hideRight();
 	}

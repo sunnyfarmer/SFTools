@@ -3,40 +3,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/activity_header_height"
-        android:layout_marginBottom="1dp"
-        android:background="@color/light_gray"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="@dimen/content_size"
-            android:text="@string/customer_characteristic" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/cargo_list"
-            android:textSize="@dimen/title_size"
-            android:textColor="@android:color/black" />
-
-        <Button
-            android:id="@+id/btnFinishShopping"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textSize="@dimen/content_size"
-            android:text="@string/shopping_end" />
-    </LinearLayout>
+	<include layout="@layout/ui_header"
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/activity_header_height"/>
 
     <LinearLayout
         android:layout_width="match_parent"

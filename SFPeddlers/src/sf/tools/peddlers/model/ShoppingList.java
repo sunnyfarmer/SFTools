@@ -16,6 +16,7 @@ public class ShoppingList implements Serializable, Model{
 
 	public static final String TAG = "ShoppingList";
 
+	private long mTimestamp = 0;
 	private String mShoppingListId = null;
 	private FirstFeeling mFirstFeeling = null;
 	private SettingGroup mSettingGroup = null;
@@ -83,6 +84,13 @@ public class ShoppingList implements Serializable, Model{
 	public void setmRelatedCargo(ArrayList<Cargo> mRelatedCargo) {
 		this.mRelatedCargo = mRelatedCargo;
 	}
+	public long getmTimestamp() {
+		return mTimestamp;
+	}
+	public void setmTimestamp(long mTimestamp) {
+		this.mTimestamp = mTimestamp;
+	}
+
 	@Override
 	public ContentValues getContentValues() {
 		ContentValues values = new ContentValues();
@@ -91,6 +99,7 @@ public class ShoppingList implements Serializable, Model{
 		}
 		values.put(DSShoppingList.COL_FIRST_FEELING_ID, this.mFirstFeeling.getmFirstFeelingId());
 		values.put(DSShoppingList.COL_SETTING_GROUP_ID, this.mSettingGroup.getmSettingGroupId());
+		values.put(DSShoppingList.COL_SHOPPING_TIMESTAMP, this.mTimestamp);
 		return values;
 	}
 }

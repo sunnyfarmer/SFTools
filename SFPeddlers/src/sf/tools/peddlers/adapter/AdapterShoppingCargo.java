@@ -6,14 +6,13 @@ import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.Cargo.CUSTOMER_BEHAVIOR;
+import sf.tools.peddlers.utils.SFBitmapManager;
 import sf.tools.peddlers.viewholder.adapter.VHShoppingCargo;
-
-import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -74,6 +73,8 @@ public class AdapterShoppingCargo extends SFBaseAdapter{
 		}
 
 		final Cargo cargo = this.getItem(position);
+		Bitmap bitmap = SFBitmapManager.getBitmap(cargo.getmCargoId(), mApp); 
+		vhShoppingCargo.ivCargo.setImageBitmap(bitmap);
 		vhShoppingCargo.tvCargo.setText(cargo.getmCargoName());
 
 		this.setCargoStatus(cargo, vhShoppingCargo);

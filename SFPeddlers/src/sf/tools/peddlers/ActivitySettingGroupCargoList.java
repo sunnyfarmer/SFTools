@@ -79,7 +79,7 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(ActivitySettingGroupCargoList.this, ActivitySettingGroupAddCargo.class);
-				intent.putExtra(SFGlobal.EXTRA_CARGOTYPE, ActivitySettingGroupCargoList.this.getmSelectedCargoType());
+				intent.putExtra(SFGlobal.EXTRA_CARGOTYPE_ID, ActivitySettingGroupCargoList.this.getmSelectedCargoType().getmCargoTypeId());
 				ActivitySettingGroupCargoList.this.startActivityForResult(intent, SFGlobal.RS_CODE_ADD_CARGO);
 			}
 		});

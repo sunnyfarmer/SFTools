@@ -5,20 +5,14 @@ import java.util.ArrayList;
 import sf.log.SFLog;
 import sf.tools.peddlers.adapter.AdapterCustomerCharacteristic;
 import sf.tools.peddlers.model.Characteristic;
-import sf.tools.peddlers.model.CharacteristicItem;
-import sf.tools.peddlers.model.ShoppingList;
-import sf.tools.peddlers.utils.SFGlobal;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class ActivityCharacteristic extends TopActivity {
-	public static final String TAG = "ActivityCustomerCharacteristic";
+	public static final String TAG = "ActivityCharacteristic";
 
 	private ArrayList<Characteristic> mCharacteristicArray = new ArrayList<Characteristic>();
 	private AdapterCustomerCharacteristic mAdapterCustomerCharacteristic = null;
@@ -68,9 +62,6 @@ public class ActivityCharacteristic extends TopActivity {
 		this.mVHAHeader.setRightOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				for (Characteristic chara : ActivityCharacteristic.this.mCharacteristicArray) {
-					SFLog.d(TAG, chara.toString());
-				}
 				ActivityCharacteristic.this.mApp.getmShoppingList().setmCharacteristic(mCharacteristicArray);
 				Intent intent = new Intent(ActivityCharacteristic.this, ActivityShopping.class);
 				ActivityCharacteristic.this.startActivity(intent);
