@@ -68,6 +68,9 @@
 	<!-- string for statistics -->	
 	<string name="more_statistics_will_be_publish">更多统计方式，将会发布，敬请期待！</string>
 	<string name="cargo_rank_list">货物排行榜</string>
+	<string name="rank_list">排行榜</string>
 	<string name="characteristic_line">特征曲线</string>
 	<string name="data_statistics">数据统计</string>
+	<string name="show">显示</string>
+	<string name="hide">隐藏</string>
 </resources>

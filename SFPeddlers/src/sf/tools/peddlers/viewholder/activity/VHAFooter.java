@@ -9,10 +9,12 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class VHAFooter {
 	public static final String TAG = "VHAFooter";
 
+	private LinearLayout footer = null;
 	private Button btnInSelling = null;
 	private Button btnOrganizing = null;
 	private Button btnStatistics = null;
@@ -26,6 +28,7 @@ public class VHAFooter {
 	}
 
 	private void initView() {
+		this.footer = (LinearLayout) this.mActivity.findViewById(R.id.footer);
 		this.btnInSelling = (Button) this.mActivity.findViewById(R.id.btnInSelling);
 		this.btnOrganizing = (Button) this.mActivity.findViewById(R.id.btnOrganizing);
 		this.btnStatistics = (Button) this.mActivity.findViewById(R.id.btnStatistics);
@@ -82,5 +85,11 @@ public class VHAFooter {
 	}
 	public Button getBtnStatistics() {
 		return btnStatistics;
+	}
+	public void showFooter() {
+		this.footer.setVisibility(View.VISIBLE);
+	}
+	public void hideFooter() {
+		this.footer.setVisibility(View.GONE);
 	}
 }

@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class VHAHeader {
 	public static final String TAG = "VHAHeader";
 
+	private LinearLayout header = null;
 	private Button btnLeft = null;
 	private TextView tvTitle = null;
 	private Button btnRight = null;
@@ -21,6 +23,7 @@ public class VHAHeader {
 		this.initView();
 	}
 	private void initView() {
+		this.header = (LinearLayout) this.mActivity.findViewById(R.id.header);
 		this.btnLeft = (Button) this.mActivity.findViewById(R.id.btnLeft);
 		this.btnRight = (Button) this.mActivity.findViewById(R.id.btnRight);
 		this.tvTitle = (TextView) this.mActivity.findViewById(R.id.tvTitle);
@@ -70,5 +73,11 @@ public class VHAHeader {
 	}
 	public Button getBtnRight() {
 		return btnRight;
+	}
+	public void showHeader() {
+		this.header.setVisibility(View.VISIBLE);
+	}
+	public void hideHeader() {
+		this.header.setVisibility(View.GONE);
 	}
 }

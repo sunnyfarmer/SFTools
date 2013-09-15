@@ -14,4 +14,7 @@
 
     <dimen name="title_size">20sp</dimen>
     <dimen name="content_size">16sp</dimen>
+
+    <dimen name="activity_statistics_cargo_width">32dp</dimen>
+    <dimen name="activity_statistics_cargo_height">32dp</dimen>
 </resources>
