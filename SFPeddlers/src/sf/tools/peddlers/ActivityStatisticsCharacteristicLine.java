@@ -1,11 +1,11 @@
 package sf.tools.peddlers;
 
+import sf.log.SFLog;
 import sf.tools.peddlers.viewholder.activity.VHACargoNCharacteristic;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Spinner;
 
 public class ActivityStatisticsCharacteristicLine extends TopActivity {
 	public static final String TAG = "ActivityStatisticsCharacteristicLine";
@@ -23,7 +23,6 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 
 	@Override
 	protected void initData() {
-		// TODO Auto-generated method stub
 		super.initData();
 	}
 	@Override
@@ -53,7 +52,8 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				SFLog.d(TAG, mVHACargoNCharacteristic.getmSelectedCargo().getmCargoName());
+				SFLog.d(TAG, mVHACargoNCharacteristic.getmSelectedCharacteristic().toString());
 			}
 		});
 		this.btnBuy.setOnClickListener(new OnClickListener() {

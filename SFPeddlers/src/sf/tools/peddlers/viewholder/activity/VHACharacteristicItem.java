@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import sf.log.SFLog;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.Characteristic;
@@ -65,6 +66,7 @@ public class VHACharacteristicItem {
 					int position, long id) {
 				Characteristic characteristic = mCharacteristicArray.get(position);
 				mSelectedCharacteristic = characteristic;
+				mSelectedCharacteristicItem = mSelectedCharacteristic.getmCharacteristicItemArray().get(0);
 				mAdapterCharacteristicItem.clear();
 				ArrayList<String> itemStringArray = getCharacteristicItemName(characteristic);
 				for (String string : itemStringArray) {
@@ -78,6 +80,7 @@ public class VHACharacteristicItem {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				mSelectedCharacteristicItem = mSelectedCharacteristic.getmCharacteristicItemArray().get(position);
+				SFLog.d(TAG, "choose : "+mSelectedCharacteristicItem.getmCharacteristicItemName());
 			}
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
@@ -101,5 +104,12 @@ public class VHACharacteristicItem {
 	}
 	private ArrayList<String> getCharacteristicItemName(Characteristic characteristic) {
 		return characteristic.getmCharacteristicItemStringArray();
+	}
+
+	public Characteristic getmSelectedCharacteristic() {
+		return mSelectedCharacteristic;
+	}
+	public CharacteristicItem getmSelectedCharacteristicItem() {
+		return mSelectedCharacteristicItem;
 	}
 }

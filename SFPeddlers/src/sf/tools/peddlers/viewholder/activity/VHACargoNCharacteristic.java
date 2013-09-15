@@ -79,6 +79,7 @@ public class VHACargoNCharacteristic {
 					int position, long id) {
 				CargoType cargoType = mCargoTypeArray.get(position);
 				mSelectedCargoType = cargoType;
+				mSelectedCargo= mCargoArray.get(mSelectedCargoType.getmCargoTypeId()).get(0);
 				ArrayList<Cargo> cargoList = mCargoArray.get(cargoType.getmCargoTypeId());
 				mAdapterStatisticsCargo.setmCargoArray(cargoList);
 				mAdapterStatisticsCargo.notifyDataSetChanged();
