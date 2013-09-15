@@ -35,21 +35,22 @@ public class SFLineChart extends SFYValueChart {
 			return;
 		}
 
-		//TODO: to be deleted
-		this.addLineChartEntity(new SFLineChartEntity("拖鞋1", 15.0f));
-		this.addLineChartEntity(new SFLineChartEntity("拖鞋2", 25.0f));
-		this.addLineChartEntity(new SFLineChartEntity("拖鞋3", 35.0f));
-		this.addLineChartEntity(new SFLineChartEntity("拖鞋4", 45.0f));
-		this.addLineChartEntity(new SFLineChartEntity("拖鞋5", 55.0f));
-		this.addLineChartEntity(new SFLineChartEntity("拖鞋6", 60.0f));
-		this.addLineChartEntity(new SFLineChartEntity("拖鞋7", 65.0f));
-		this.addLineChartEntity(new SFLineChartEntity("拖鞋8", 75.0f));
-		this.addLineChartEntity(new SFLineChartEntity("拖鞋9", 85.0f));
-		this.addLineChartEntity(new SFLineChartEntity("拖鞋10", 15.0f));
-		this.setEntityRange(10.0f, 85.0f);
-		this.setmStepsOfValue(10);
-		this.setmNumOfDisplayingEntity(4);
-		this.setmIndexOfBeginDisplayingEntity(0);
+//		//TODO: to be deleted
+//		this.addLineChartEntity(new SFLineChartEntity("拖鞋1", 15.0f));
+//		this.addLineChartEntity(new SFLineChartEntity("拖鞋2", 25.0f));
+//		this.addLineChartEntity(new SFLineChartEntity("拖鞋3", 35.0f));
+//		this.addLineChartEntity(new SFLineChartEntity("拖鞋4", 45.0f));
+//		this.addLineChartEntity(new SFLineChartEntity("拖鞋5", 55.0f));
+//		this.addLineChartEntity(new SFLineChartEntity("拖鞋6", 60.0f));
+//		this.addLineChartEntity(new SFLineChartEntity("拖鞋7", 65.0f));
+//		this.addLineChartEntity(new SFLineChartEntity("拖鞋8", 75.0f));
+//		this.addLineChartEntity(new SFLineChartEntity("拖鞋9", 85.0f));
+//		this.addLineChartEntity(new SFLineChartEntity("拖鞋10", 15.0f));
+//		this.setEntityRange(10.0f, 85.0f);
+//		this.setmStepsOfValue(10);
+//		this.setmNumOfDisplayingEntity(4);
+//		this.setmIndexOfBeginDisplayingEntity(0);
+
 		this.setOnTouchListener(new SFLineChartOnGestureListener(context, this));
 	}
 
@@ -116,7 +117,6 @@ public class SFLineChart extends SFYValueChart {
 	}
 
 	private void drawLines(Canvas canvas) {
-		//TODO
 		if (this.getmLinentityList()==null || this.getmLinentityList().size()<=0) {
 			return;
 		}
@@ -182,6 +182,12 @@ public class SFLineChart extends SFYValueChart {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	public void clearLineEntityList() {
+		if (this.mLinentityList!=null) {
+			this.mLinentityList.clear();
 		}
 	}
 

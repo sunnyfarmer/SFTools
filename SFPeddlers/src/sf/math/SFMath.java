@@ -1,12 +1,13 @@
 package sf.math;
 
+import java.util.ArrayList;
+
 import android.graphics.Point;
 import android.graphics.PointF;
 
 public class SFMath {
 
 	/**
-	 * ����ֱ�ߵĳ���
 	 * @param beginPoint
 	 * @param endPoint
 	 * @return
@@ -122,5 +123,83 @@ public class SFMath {
 			data[1] = d2;
 		}
 		return data;
+	}
+	public static double[] getMinMax(double[] datas) {
+		if (datas.length >= 1) {
+			double[] rs = new double[2];
+			double min = Double.MAX_VALUE;
+			double max = Double.MIN_VALUE;
+			if (datas.length==1) {
+				min = datas[0];
+				max = datas[0];
+			} else {
+				for(int cot = 0; cot < datas.length; cot++) {
+					double curData = datas[cot];
+					if (curData < min) {
+						min = curData;
+					}
+					if (curData > max) {
+						max = curData;
+					}
+				}
+			}
+			rs[0] = min;
+			rs[1] = max;
+			return rs;
+		} else {
+			return null;
+		}
+	}
+	public static int[] getMinMax(ArrayList<Integer> datas) {
+		if (datas.size() >= 1) {
+			int[] rs = new int[2];
+			int min = Integer.MAX_VALUE;
+			int max = Integer.MIN_VALUE;
+			if (datas.size()==1) {
+				min = datas.get(0);
+				max = datas.get(0);
+			} else {
+				for(int cot = 0; cot < datas.size(); cot++) {
+					int curData = datas.get(cot);
+					if (curData < min) {
+						min = curData;
+					}
+					if (curData > max) {
+						max = curData;
+					}
+				}
+			}
+			rs[0] = min;
+			rs[1] = max;
+			return rs;
+		} else {
+			return null;
+		}
+	}
+	public static int[] getMinMax(int[] datas) {
+		if (datas.length >= 1) {
+			int[] rs = new int[2];
+			int min = Integer.MAX_VALUE;
+			int max = Integer.MIN_VALUE;
+			if (datas.length==1) {
+				min = datas[0];
+				max = datas[1];
+			} else {
+				for(int cot = 0; cot < datas.length; cot++) {
+					int curData = datas[cot];
+					if (curData < min) {
+						min = curData;
+					}
+					if (curData > max) {
+						max = curData;
+					}
+				}
+			}
+			rs[0] = min;
+			rs[1] = max;
+			return rs;
+		} else {
+			return null;
+		}
 	}
 }
