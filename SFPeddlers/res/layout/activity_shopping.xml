@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@android:color/white"
+    android:orientation="vertical" >
 
-	<include layout="@layout/ui_header"
-	    android:layout_width="match_parent"
-	    android:layout_height="@dimen/activity_header_height"/>
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_header_height"
+        layout="@layout/ui_header" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical" >
-		<include layout="@layout/ui_cargo_type"/>
+
+        <include layout="@layout/ui_cargo_type" />
+
+        <TextView
+            android:id="@+id/tvMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/edit_setting_group_first"
+            android:visibility="gone" />
 
         <ListView
             android:id="@+id/lvCargo"

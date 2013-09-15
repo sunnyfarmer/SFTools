@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ActivityCharacteristic extends TopActivity {
 	public static final String TAG = "ActivityCharacteristic";
@@ -15,6 +16,7 @@ public class ActivityCharacteristic extends TopActivity {
 	private ArrayList<Characteristic> mCharacteristicArray = new ArrayList<Characteristic>();
 	private AdapterCustomerCharacteristic mAdapterCustomerCharacteristic = null;
 	private ListView lvCharacteristic = null;
+	private TextView tvMsg = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,11 @@ public class ActivityCharacteristic extends TopActivity {
 		super.onStart();
 		this.refreshCharacteristic();
 		showToast(this.mApp.getmShoppingList().getmFirstFeeling().getmFirstFeelingName());
+		if (this.mCharacteristicArray==null || this.mCharacteristicArray.size()==0) {
+			this.tvMsg.setVisibility(View.VISIBLE);
+		} else {
+			this.tvMsg.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -43,6 +50,7 @@ public class ActivityCharacteristic extends TopActivity {
 	protected void initView() {
 		super.initView();
 		this.lvCharacteristic = (ListView) this.findViewById(R.id.lvCharacteristic);
+		this.tvMsg = (TextView) this.findViewById(R.id.tvMsg);
 
 		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnInSelling());
 		this.mVHAHeader.setLeftText(R.string.back);

@@ -6,12 +6,15 @@ import sf.tools.peddlers.adapter.AdapterFirstFeeling;
 import sf.tools.peddlers.model.FirstFeeling;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ActivityFirstFeeling extends TopActivity {
 	public static final String TAG = "FirstFeelingActivity";
 
 	private ListView lvFirstFeeling = null;
+	private TextView tvMsg = null;
 
 	private AdapterFirstFeeling mFirstFeelingAdapter = null;
 	private ArrayList<FirstFeeling> mFirstFeelingArray = null;
@@ -34,6 +37,11 @@ public class ActivityFirstFeeling extends TopActivity {
 
 		this.refreshFirstFeeling();
 		this.mVHAHeader.setTitleText(this.mApp.getSettingGroup().getmSettingGroupName());
+		if (this.mFirstFeelingArray==null || this.mFirstFeelingArray.size()==0) {
+			this.tvMsg.setVisibility(View.VISIBLE);
+		} else {
+			this.tvMsg.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -45,6 +53,7 @@ public class ActivityFirstFeeling extends TopActivity {
 	protected void initView() {
 		super.initView();
 
+		this.tvMsg = (TextView) this.findViewById(R.id.tvMsg);
 		this.lvFirstFeeling = (ListView) this.findViewById(R.id.lvFirstFeeling);
 		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnInSelling());
 		if (this.mApp.getSettingGroup()!=null) {

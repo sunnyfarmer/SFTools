@@ -16,6 +16,7 @@ import android.util.SparseArray;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ActivityShopping extends TopActivity {
 	public static final String TAG = "ActivityShopping";
@@ -24,6 +25,7 @@ public class ActivityShopping extends TopActivity {
 	private ArrayList<CargoType> mCargoTypeArray = null;
 	private CargoType mSelectedCargoType = null;
 
+	private TextView tvMsg = null;
 	private ListView lvCargo = null;
 	private VHACargoType mVHACargoType = null;
 
@@ -49,11 +51,18 @@ public class ActivityShopping extends TopActivity {
 			SFLog.d(TAG, String.format("%s : %s", characteristic.getmCharacteristicName(), characteristic.getmSelectedCharacteristicItem().getmCharacteristicItemName()));
 		}
 		this.refreshCargoArray();
-		
+
+		//默认选择第一个种类
 		if (this.mCargoTypeArray!=null && this.mCargoTypeArray.size()>0) {
 			this.setmSelectedCargoType(this.mCargoTypeArray.get(0));
 			this.mVHACargoType.checkCargoType(this.getmSelectedCargoType());
 		}
+		if (this.mCargoTypeArray==null || mCargoTypeArray.size()==0) {
+			this.tvMsg.setVisibility(View.VISIBLE);
+		} else {
+			this.tvMsg.setVisibility(View.GONE);
+		}
+
 	}
 
 	@Override
@@ -64,6 +73,7 @@ public class ActivityShopping extends TopActivity {
 	@Override
 	protected void initView() {
 		super.initView();
+		this.tvMsg = (TextView) this.findViewById(R.id.tvMsg);
 		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnInSelling());
 		this.lvCargo = (ListView) this.findViewById(R.id.lvCargo);
 		this.mVHACargoType = new VHACargoType(this, this.getCargoTypeArray());
@@ -93,6 +103,9 @@ public class ActivityShopping extends TopActivity {
 				int dbRs = mApp.getmDbManager().addShoppingList(mApp.getmShoppingList());
 				if (dbRs==SFGlobal.DB_MSG_OK) {
 					showToast(R.string.shopping_end);
+					//清空ShoppingList
+					mApp.setmShoppingList(null);
+					//跳回FirstFeeling界面
 					Intent intent = new Intent(ActivityShopping.this, ActivityFirstFeeling.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					ActivityShopping.this.startActivity(intent);
@@ -122,6 +135,7 @@ public class ActivityShopping extends TopActivity {
 			this.mAdapterShoppingCargo.setmCargoList(cargoList);
 			this.mAdapterShoppingCargo.notifyDataSetChanged();
 		}
+
 	}
 
 	public ArrayList<CargoType> getCargoTypeArray() {

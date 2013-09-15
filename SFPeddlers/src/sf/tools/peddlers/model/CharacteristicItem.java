@@ -25,7 +25,7 @@ public class CharacteristicItem extends Model {
 	public CharacteristicItem(Parcel in) {
 		this.mCharacteristicItemId = in.readInt();
 		this.mCharacteristicItemName = in.readString();
-		this.mCharacteristic = in.readParcelable(null);
+//		this.mCharacteristic = in.readParcelable(null);
 	}
 	@Override
 	public void writeToParcel(Parcel out, int flags) {
@@ -37,7 +37,7 @@ public class CharacteristicItem extends Model {
 	public CharacteristicItem(int id, String name, Characteristic characteristic) {
 		this.setmCharacteristicItemId(id);
 		this.setmCharacteristicItemName(name);
-//		this.setmCharacteristic(characteristic);
+		this.setmCharacteristic(characteristic);
 	}
 	public CharacteristicItem(String name, Characteristic characteristic) {
 		this(ID_UNDEFINED, name, characteristic);

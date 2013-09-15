@@ -5,15 +5,25 @@
     android:background="@android:color/white"
     android:orientation="vertical" >
 
-	<include layout="@layout/ui_header"
-	    android:layout_width="match_parent"
-	    android:layout_height="@dimen/activity_header_height"/>
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_header_height"
+        layout="@layout/ui_header" />
 
+    <TextView
+        android:id="@+id/tvMsg"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/edit_setting_group_first" />
+    
     <ListView
         android:id="@+id/lvFirstFeeling"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-		android:layout_weight="1">
+        android:layout_weight="1" >
     </ListView>
 
     <include

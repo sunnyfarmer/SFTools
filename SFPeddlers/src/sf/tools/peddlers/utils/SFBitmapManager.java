@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import sf.log.SFLog;
+import sf.tools.peddlers.R;
 import sf.tools.peddlers.SFPeddlersApp;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -35,6 +36,7 @@ public class SFBitmapManager {
 			FileInputStream fis = app.openFileInput(filename);
 			bitmap = BitmapFactory.decodeStream(fis);
 		} catch (FileNotFoundException e) {
+			bitmap = BitmapFactory.decodeResource(app.getResources(), R.drawable.ic_launcher);
 			SFLog.e(TAG, "file not exist : "+filename);
 		}
 		return bitmap;
