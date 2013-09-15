@@ -95,7 +95,10 @@ public class Characteristic extends Model{
 	public CharacteristicItem getmSelectedCharacteristicItem() {
 		return mSelectedCharacteristicItem;
 	}
-	public void setmSelectedCharacteristicItem(String characteristicItemString) {
+	public void setmSelectedCharacteristicItem(CharacteristicItem characteristicItem) {
+		this.mSelectedCharacteristicItem = characteristicItem;
+	}
+	public void setmSelectedCharacteristicItemString(String characteristicItemString) {
 		if (characteristicItemString!=null) {
 			for (CharacteristicItem characteristicItem : this.mCharacteristicItemArray) {
 				if (characteristicItemString.equals(characteristicItem.getmCharacteristicItemName())) {

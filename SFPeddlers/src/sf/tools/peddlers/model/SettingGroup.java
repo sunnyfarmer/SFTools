@@ -2,6 +2,7 @@ package sf.tools.peddlers.model;
 
 import java.util.ArrayList;
 import sf.tools.peddlers.db.DataStructure.DSSettingGroup;
+import sf.tools.peddlers.model.Cargo.CUSTOMER_BEHAVIOR;
 import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -188,5 +189,21 @@ public class SettingGroup extends Model{
 			this.mCargoArray.put(cargo.getmCargoType().getmCargoTypeId(), new ArrayList<Cargo>());
 		}
 		this.mCargoArray.get(cargo.getmCargoType().getmCargoTypeId()).add(cargo);
+	}
+	/**
+	 * 清除选购痕迹
+	 */
+	public void clearHistory() {
+		for (Characteristic characteristic : this.mCharacteristicArray) {
+			characteristic.setmSelectedCharacteristicItem(null);
+		}
+		int cargoSize = this.mCargoArray.size();
+		for(int cot = 0; cot < cargoSize; cot++) {
+			int key = this.mCargoArray.keyAt(cot);
+			ArrayList<Cargo> cargoList = this.mCargoArray.get(key);
+			for (Cargo cargo : cargoList) {
+				cargo.setmBehavior(CUSTOMER_BEHAVIOR.CB_NONE);
+			}
+		}
 	}
 }

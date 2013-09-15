@@ -173,7 +173,7 @@ public class DBShoppingList extends DBController {
 			ArrayList<Characteristic> characteristicArray = new ArrayList<Characteristic>();
 			for (CharacteristicItemInList characteristicItemInList : characteristicItemInListArray) {
 				Characteristic characteristic = characteristicItemInList.getmCharacteristicItem().getmCharacteristic();
-				characteristic.setmSelectedCharacteristicItem(characteristicItemInList.getmCharacteristicItem().getmCharacteristicItemName());
+				characteristic.setmSelectedCharacteristicItemString(characteristicItemInList.getmCharacteristicItem().getmCharacteristicItemName());
 				characteristicArray.add(characteristic);
 			}
 

@@ -72,7 +72,7 @@ public class AdapterCustomerCharacteristic extends SFBaseAdapter {
 		vhCustomerCharacteristic.rbgCharacteristic.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChange(String value) {
-				characteristic.setmSelectedCharacteristicItem(value);
+				characteristic.setmSelectedCharacteristicItemString(value);
 			}
 		});
 		return convertView;

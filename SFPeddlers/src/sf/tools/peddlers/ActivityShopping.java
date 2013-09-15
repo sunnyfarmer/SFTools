@@ -105,6 +105,7 @@ public class ActivityShopping extends TopActivity {
 					showToast(R.string.shopping_end);
 					//清空ShoppingList
 					mApp.setmShoppingList(null);
+					mApp.getSettingGroup().clearHistory();
 					//跳回FirstFeeling界面
 					Intent intent = new Intent(ActivityShopping.this, ActivityFirstFeeling.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
