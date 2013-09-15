@@ -1,11 +1,18 @@
 package sf.tools.peddlers;
 
+import java.util.ArrayList;
+
 import sf.log.SFLog;
+import sf.tools.peddlers.adapter.AdapterStatisticsRankList;
+import sf.tools.peddlers.adapter.AdapterStatisticsRankList.RANK_LIST_TYPE;
+import sf.tools.peddlers.model.CharacteristicItem;
+import sf.tools.peddlers.model.RankListItem;
 import sf.tools.peddlers.viewholder.activity.VHACharacteristicItem;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 
 public class ActivityStatisticsCargoRankList extends TopActivity {
 	public static final String TAG = "ActivityStatisticsCargoRankList";
@@ -14,7 +21,10 @@ public class ActivityStatisticsCargoRankList extends TopActivity {
 	private Button btnBuy = null;
 	private Button btnVisibility = null;
 	private VHACharacteristicItem mVHACharacteristicItem = null;
+	private ListView lvRankList = null;
+	private AdapterStatisticsRankList mAdapterStatisticsRankList = null;
 
+	private ArrayList<RankListItem> mRankListItemArray = null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		this.setContentView(R.layout.activity_statistics_cargo_rank_list);
@@ -24,6 +34,7 @@ public class ActivityStatisticsCargoRankList extends TopActivity {
 	@Override
 	protected void initData() {
 		super.initData();
+		this.mAdapterStatisticsRankList = new AdapterStatisticsRankList(this, null, null);
 	}
 	@Override
 	protected void initView() {
@@ -39,6 +50,9 @@ public class ActivityStatisticsCargoRankList extends TopActivity {
 		this.btnLook = (Button) this.findViewById(R.id.btnLook);
 		this.btnBuy = (Button) this.findViewById(R.id.btnBuy);
 		this.btnVisibility = (Button) this.findViewById(R.id.btnVisibility);
+		this.lvRankList = (ListView) this.findViewById(R.id.lvRankList);
+
+		this.lvRankList.setAdapter(this.mAdapterStatisticsRankList);
 	}
 	@Override
 	protected void setListener() {
@@ -52,15 +66,23 @@ public class ActivityStatisticsCargoRankList extends TopActivity {
 		this.btnLook.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				SFLog.d(TAG, mVHACharacteristicItem.getmSelectedCharacteristicItem().getmCharacteristicItemName());
+				CharacteristicItem characteristicItem = mVHACharacteristicItem.getmSelectedCharacteristicItem();
+				mRankListItemArray = mApp.getmDbManager().getmDBRankList().queryLookRank(characteristicItem);
+				mAdapterStatisticsRankList.setmRankListItemArray(mRankListItemArray);
+				mAdapterStatisticsRankList.setmType(RANK_LIST_TYPE.RANK_LIST_TYPE_LOOK);
+				mAdapterStatisticsRankList.notifyDataSetChanged();
 			}
 		});
 		this.btnBuy.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				SFLog.d(TAG, mVHACharacteristicItem.getmSelectedCharacteristicItem().getmCharacteristicItemName());
+				CharacteristicItem characteristicItem = mVHACharacteristicItem.getmSelectedCharacteristicItem();
+				mRankListItemArray = mApp.getmDbManager().getmDBRankList().queryBuyRank(characteristicItem);
+				mAdapterStatisticsRankList.setmRankListItemArray(mRankListItemArray);
+				mAdapterStatisticsRankList.setmType(RANK_LIST_TYPE.RANK_LIST_TYPE_BUY);
+				mAdapterStatisticsRankList.notifyDataSetChanged();				
 			}
 		});
 		this.btnVisibility.setOnClickListener(new OnClickListener() {

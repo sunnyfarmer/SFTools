@@ -8,6 +8,7 @@ import sf.tools.peddlers.db.controller.DBCharacteristic;
 import sf.tools.peddlers.db.controller.DBCharacteristicItem;
 import sf.tools.peddlers.db.controller.DBCharacteristicItemInList;
 import sf.tools.peddlers.db.controller.DBFirstFeeling;
+import sf.tools.peddlers.db.controller.DBRankList;
 import sf.tools.peddlers.db.controller.DBSettingGroup;
 import sf.tools.peddlers.db.controller.DBShoppingList;
 import sf.tools.peddlers.model.Cargo;
@@ -31,6 +32,7 @@ public class DBManager {
 	private DBCharacteristicItemInList mDBCharacteristicItemInList = null;
 	private DBFirstFeeling mDBFirstFeeling = null;
 	private DBShoppingList mDBShoppingList = null;
+	private DBRankList mDBRankList = null;
 
 	private SFPeddlersApp mApp = null;
 
@@ -100,6 +102,13 @@ public class DBManager {
 			this.mDBShoppingList = new DBShoppingList(this.mApp);
 		}
 		return mDBShoppingList;
+	}
+
+	public DBRankList getmDBRankList() {
+		if (this.mDBRankList == null) {
+			this.mDBRankList = new DBRankList(this.mApp);
+		}
+		return mDBRankList;
 	}
 
 	public int upsertSettingGroup(SettingGroup settingGroup) {

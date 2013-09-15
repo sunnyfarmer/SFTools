@@ -73,4 +73,6 @@
 	<string name="data_statistics">数据统计</string>
 	<string name="show">显示</string>
 	<string name="hide">隐藏</string>
+	<string name="quantity_format">次数(%1$s):%2$d</string>
+	<string name="rank_format">排行:%1$d</string>
 </resources>

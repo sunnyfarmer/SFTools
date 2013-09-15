@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="10dp" >
+
+    <ImageView
+        android:id="@+id/ivCargo"
+        android:layout_width="@dimen/activity_shopping_cargo_width"
+        android:layout_height="@dimen/activity_shopping_cargo_height"
+        android:contentDescription="@string/default_content_description"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvCargo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/content_size" >
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+		android:gravity="center|right">
+
+        <TextView
+            android:id="@+id/tvRank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_format"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/content_size" />
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity_format"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/content_size" />
+    </LinearLayout>
+
+</LinearLayout>

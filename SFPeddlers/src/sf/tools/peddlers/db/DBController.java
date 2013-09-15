@@ -39,7 +39,6 @@ public abstract class DBController {
 		this.mContext = context;
 		this.getmDatabase();
 	}
-	
 
 	public SQLiteDatabase getmDatabase() {
 		if (this.mDatabase==null) {
