@@ -9,11 +9,9 @@ import sf.tools.peddlers.db.DBController;
 import sf.tools.peddlers.db.DataStructure.DSCargoInList;
 import sf.tools.peddlers.db.DataStructure.DSCharacteristicItemInList;
 import sf.tools.peddlers.model.Cargo;
-import sf.tools.peddlers.model.CargoType;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.model.RankListItem;
-import sf.tools.peddlers.model.SettingGroup;
 import sf.tools.peddlers.model.Cargo.CUSTOMER_BEHAVIOR;
 
 public class DBRankList extends DBController {
@@ -38,11 +36,11 @@ public class DBRankList extends DBController {
 		//TODO begin
 		Cursor cursor = this.getmDatabase().rawQuery(
 				String.format(
-				"select %s.%s, count(%s.%s)" +
-				"from %s, %s" +
-				"where %s.%s=%s.%s" +
-				"and %s.%s = ?" +
-				"and %s.%s = ?" +
+				"select %s.%s, count(%s.%s) " +
+				"from %s, %s " +
+				"where %s.%s=%s.%s " +
+				"and %s.%s = ? " +
+				"and %s.%s = ? " +
 				"group by %s.%s;",
 				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID,
 				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID,
@@ -87,20 +85,51 @@ public class DBRankList extends DBController {
 
 	public ArrayList<RankListItem> queryBuyRank(CharacteristicItem characteristicItem) {
 		ArrayList<RankListItem> itemArray = new ArrayList<RankListItem>();
-		//TODO
-		ArrayList<SettingGroup> sgArray = this.getDbSettingGroup().queryAll();
-		for (SettingGroup settingGroup : sgArray) {
-			ArrayList<CargoType> ctArray = this.getDbCargoType().queryAll(settingGroup);
-			for (CargoType cargoType : ctArray) {
-				ArrayList<Cargo> cArray = this.getDbCargo().queryAll(cargoType);
-				for (Cargo cargo : cArray) {
-					RankListItem item = new RankListItem();
-					item.setmCargo(cargo);
-					item.setQuantity(10000);
-					itemArray.add(item);
-				}
-			}
+		//TODO begin
+		Cursor cursor = this.getmDatabase().rawQuery(
+				String.format(
+				"select %s.%s, count(%s.%s) " +
+				"from %s, %s " +
+				"where %s.%s=%s.%s " +
+				"and %s.%s = ? " +
+				"and %s.%s = ? " +
+				"group by %s.%s;",
+				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID,
+				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID,
+				DSCharacteristicItemInList.TB_NAME, DSCargoInList.TB_NAME,
+				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_SHOPPING_LIST_ID,
+				DSCargoInList.TB_NAME, DSCargoInList.COL_SHOPPING_LIST_ID,
+				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID,
+				DSCargoInList.TB_NAME, DSCargoInList.COL_USER_BEHAVIOR,
+				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID
+				),
+				new String[] {
+					String.valueOf(characteristicItem.getmCharacteristicItemId()),
+					String.valueOf(CUSTOMER_BEHAVIOR.CB_BUY.ordinal())
+				});
+		while (cursor.moveToNext()) {
+			int cargoId = cursor.getInt(0);
+			int quantity = cursor.getInt(1);
+			Cargo cargo = this.getDbCargo().query(cargoId);
+			RankListItem item = new RankListItem();
+			item.setmCargo(cargo);
+			item.setQuantity(quantity);
+			itemArray.add(item);
 		}
+		//TODO end
+//		ArrayList<SettingGroup> sgArray = this.getDbSettingGroup().queryAll();
+//		for (SettingGroup settingGroup : sgArray) {
+//			ArrayList<CargoType> ctArray = this.getDbCargoType().queryAll(settingGroup);
+//			for (CargoType cargoType : ctArray) {
+//				ArrayList<Cargo> cArray = this.getDbCargo().queryAll(cargoType);
+//				for (Cargo cargo : cArray) {
+//					RankListItem item = new RankListItem();
+//					item.setmCargo(cargo);
+//					item.setQuantity(10000);
+//					itemArray.add(item);
+//				}
+//			}
+//		}
 		
 		return itemArray;
 	}
@@ -116,21 +145,76 @@ public class DBRankList extends DBController {
 
 	public int queryLookQuantity(Cargo cargo, CharacteristicItem characteristicItem) {
 		//TODO
-		return 100;
+		Cursor cursor = this.getmDatabase().rawQuery(
+				String.format(
+				"select %s.%s, count(%s.%s) " +
+				"from %s, %s " +
+				"where %s.%s=%s.%s " +
+				"and %s.%s = ? " +
+				"and %s.%s = ? " +
+				"and %s.%s = ? " +
+				"group by %s.%s;",
+				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID,
+				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID,
+				DSCharacteristicItemInList.TB_NAME, DSCargoInList.TB_NAME,
+				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_SHOPPING_LIST_ID,
+				DSCargoInList.TB_NAME, DSCargoInList.COL_SHOPPING_LIST_ID,
+				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID,
+				DSCargoInList.TB_NAME, DSCargoInList.COL_USER_BEHAVIOR,
+				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID,
+				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID
+				),
+				new String[] {
+					String.valueOf(characteristicItem.getmCharacteristicItemId()),
+					String.valueOf(CUSTOMER_BEHAVIOR.CB_LOOK.ordinal()),
+					String.valueOf(cargo.getmCargoId())
+				});
+		int quantity = 0;
+		if (cursor.moveToNext()) {
+			quantity = cursor.getInt(1);
+		}
+		return quantity;
 	}
 
 	public HashMap<CharacteristicItem, Integer> queryBuyQuantity(Cargo cargo, Characteristic characteristic) {
 		HashMap<CharacteristicItem, Integer> rsMap = new HashMap<CharacteristicItem, Integer>();
 		for (CharacteristicItem characteristicItem : characteristic.getmCharacteristicItemArray()) {
-			int quantity = this.queryLookQuantity(cargo, characteristicItem);
+			int quantity = this.queryBuyQuantity(cargo, characteristicItem);
 			rsMap.put(characteristicItem, quantity);
 		}
 		return rsMap;
 	}
 
 	public int queryBuyQuantity(Cargo cargo, CharacteristicItem characteristicItem) {
-		//TODO
-		return 100;
+		Cursor cursor = this.getmDatabase().rawQuery(
+				String.format(
+				"select %s.%s, count(%s.%s) " +
+				"from %s, %s " +
+				"where %s.%s=%s.%s " +
+				"and %s.%s = ? " +
+				"and %s.%s = ? " +
+				"and %s.%s = ? " +
+				"group by %s.%s;",
+				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID,
+				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID,
+				DSCharacteristicItemInList.TB_NAME, DSCargoInList.TB_NAME,
+				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_SHOPPING_LIST_ID,
+				DSCargoInList.TB_NAME, DSCargoInList.COL_SHOPPING_LIST_ID,
+				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID,
+				DSCargoInList.TB_NAME, DSCargoInList.COL_USER_BEHAVIOR,
+				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID,
+				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID
+				),
+				new String[] {
+					String.valueOf(characteristicItem.getmCharacteristicItemId()),
+					String.valueOf(CUSTOMER_BEHAVIOR.CB_BUY.ordinal()),
+					String.valueOf(cargo.getmCargoId())
+				});
+		int quantity = 0;
+		if (cursor.moveToNext()) {
+			quantity = cursor.getInt(1);
+		}
+		return quantity;
 	}
 
 }

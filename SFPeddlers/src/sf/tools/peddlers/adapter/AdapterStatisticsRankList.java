@@ -79,7 +79,7 @@ public class AdapterStatisticsRankList extends SFBaseAdapter {
 		Bitmap bitmap = SFBitmapManager.getBitmap(rankListItem.getmCargo().getmCargoId(), this.mApp);
 		vhStatisticsRanklist.ivCargo.setImageBitmap(bitmap);
 		vhStatisticsRanklist.tvCargo.setText(rankListItem.getmCargo().getmCargoName());
-		vhStatisticsRanklist.tvRank.setText(this.mActivity.getString(R.string.rank_format, position));
+		vhStatisticsRanklist.tvRank.setText(this.mActivity.getString(R.string.rank_format, position+1));
 		
 		vhStatisticsRanklist.tvQuantity.setText(
 				this.mActivity.getString(R.string.quantity_format,
