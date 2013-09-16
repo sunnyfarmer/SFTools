@@ -177,6 +177,7 @@ public class ActivityShopping extends TopActivity {
 				}
 			}
 		}
+		this.mApp.getmShoppingList().setmTimestamp(System.currentTimeMillis());
 		this.mApp.getmShoppingList().setmLookCargo(lookCargoArray);
 		this.mApp.getmShoppingList().setmBuyCargo(buyCargoArray);
 		this.mApp.getmShoppingList().setmRelatedCargo(relatedCargoArray);
