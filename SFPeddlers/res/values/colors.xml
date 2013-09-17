@@ -7,4 +7,10 @@
 
 	<color name="light_blue">#99CCFF</color>
 	<color name="lighter_blue">#99FFFF</color>
+
+	<color name="light_yellow">#CCCC99</color>
+	<color name="dark_yellow">#999966</color>
+
+	<color name="blue">#88BBEE</color>
+	<color name="dark_blue">#6699CC</color>
 </resources>
