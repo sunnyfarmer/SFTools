@@ -59,6 +59,7 @@ public class VHAFooter {
 			Intent intent = new Intent(this.mActivity, activityClass);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			this.mActivity.startActivity(intent);
+			this.mActivity.finish();
 		}
 	}
 

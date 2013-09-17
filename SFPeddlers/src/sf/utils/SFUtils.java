@@ -9,4 +9,8 @@ public class SFUtils {
 		String uniqueId = UUID.randomUUID().toString();
 		return uniqueId;
 	}
+
+	public static int sdkVersion() {
+		return android.os.Build.VERSION.SDK_INT;
+	}
 }
