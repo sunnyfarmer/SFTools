@@ -1,6 +1,8 @@
 package sf.utils;
 
 import android.app.Activity;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.DisplayMetrics;
 
 public class SFAndroidSize {
@@ -13,5 +15,11 @@ public class SFAndroidSize {
 		density = metrics.density;
 		float pixels = dps * density;
 		return pixels;
+	}
+
+	public static Rect textSize(Paint paint, String text) {
+		Rect rect = new Rect();
+		paint.getTextBounds(text, 0, text.length(), rect);
+		return rect;
 	}
 }

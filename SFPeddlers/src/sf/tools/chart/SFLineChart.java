@@ -23,7 +23,7 @@ public class SFLineChart extends SFYValueChart {
 
 	private float mSizeOfLine = 2.0f;
 	private int mColorOfLine = Color.BLACK;
-	private float mSizeOfPointInLine = 15.0f;
+	private float mSizeOfPointInLine = 8.0f;
 	private int mColorOfPointInLine = Color.RED;
 
 	private int mNumOfDisplayingEntity = 0;
@@ -97,8 +97,7 @@ public class SFLineChart extends SFYValueChart {
 			//calculate the size of Title
 			int indexOfEntity = this.getmIndexOfBeginDisplayingEntity()+cot;
 			String title = this.getmLinentityList().get(indexOfEntity).title;
-			Rect rectOfTitle = new Rect();
-			this.mPaint.getTextBounds(title, 0, title.length(), rectOfTitle);
+			Rect rectOfTitle = SFAndroidSize.textSize(mPaint, title);
 
 			//record the max height of title
 			if (maxHeightOfTitle < rectOfTitle.height()) {
@@ -133,6 +132,11 @@ public class SFLineChart extends SFYValueChart {
 					this.mBeginPointOfYAxis.y - 
 					this.mPixelsOfYAxis * (lineChartEntity.value-this.mYDisplayMinValue)/(this.mYDisplayMaxValue-this.mYDisplayMinValue);
 			canvas.drawPoint(xOfPoint, yOfPoint, this.mPaint);
+
+			//draw value
+			String valueText = String.valueOf(lineChartEntity.value);
+			Rect sizeOfText = SFAndroidSize.textSize(mPaint, valueText);
+			canvas.drawText(valueText, xOfPoint-sizeOfText.width()/2, yOfPoint-this.mSizeOfPointInLine, mPaint);
 
 			//record the points
 			pointArray.add(new PointF(xOfPoint, yOfPoint));

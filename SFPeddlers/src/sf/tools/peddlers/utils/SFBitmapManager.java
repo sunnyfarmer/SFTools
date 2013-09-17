@@ -3,6 +3,8 @@ package sf.tools.peddlers.utils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.Locale;
+
 import sf.log.SFLog;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.SFPeddlersApp;
@@ -20,7 +22,7 @@ public class SFBitmapManager {
 		if (bitmap != null) {
 			FileOutputStream fos;
 			try {
-				String filename = String.format("%d.png", cargoId);
+				String filename = String.format(Locale.US, "%d.png", cargoId);
 				fos = app.openFileOutput(filename, Context.MODE_PRIVATE);
 				bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
 			} catch (FileNotFoundException e) {
@@ -31,7 +33,7 @@ public class SFBitmapManager {
 	}
 	public static Bitmap getBitmap(int cargoId, SFPeddlersApp app) {
 		Bitmap bitmap = null;
-		String filename = String.format("%d.png", cargoId);
+		String filename = String.format(Locale.US, "%d.png", cargoId);
 		try {
 			FileInputStream fis = app.openFileInput(filename);
 			bitmap = BitmapFactory.decodeStream(fis);
@@ -42,7 +44,7 @@ public class SFBitmapManager {
 		return bitmap;
 	}
 	public static void removeBitmap(int cargoId, SFPeddlersApp app) {
-		String filename = String.format("%d.png", cargoId);
+		String filename = String.format(Locale.US, "%d.png", cargoId);
 		app.deleteFile(filename);
 	}
 }
