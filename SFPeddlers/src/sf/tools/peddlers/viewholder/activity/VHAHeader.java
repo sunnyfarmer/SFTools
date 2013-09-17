@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class VHAHeader {
 	public static final String TAG = "VHAHeader";
 
-	private LinearLayout header = null;
+	private RelativeLayout header = null;
 	private Button btnLeft = null;
 	private TextView tvTitle = null;
 	private Button btnRight = null;
@@ -23,7 +24,7 @@ public class VHAHeader {
 		this.initView();
 	}
 	private void initView() {
-		this.header = (LinearLayout) this.mActivity.findViewById(R.id.header);
+		this.header = (RelativeLayout) this.mActivity.findViewById(R.id.header);
 		this.btnLeft = (Button) this.mActivity.findViewById(R.id.btnLeft);
 		this.btnRight = (Button) this.mActivity.findViewById(R.id.btnRight);
 		this.tvTitle = (TextView) this.mActivity.findViewById(R.id.tvTitle);

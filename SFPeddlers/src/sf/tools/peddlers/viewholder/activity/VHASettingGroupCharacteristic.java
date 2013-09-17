@@ -84,7 +84,7 @@ public class VHASettingGroupCharacteristic {
 								if (dbRs==SFGlobal.DB_MSG_OK) {
 									mSettingGroup.getmCharacteristicArray().add(characteristic);
 									mAdapterSettingGroupCharacteristic.notifyDataSetChanged();
-									VHASettingGroupCharacteristic.this.llCharacteristic.setVisibility(View.VISIBLE);
+									VHASettingGroupCharacteristic.this.lvCharacteristic.setVisibility(View.VISIBLE);
 								} else if (dbRs==SFGlobal.DB_MSG_SAME_COLUMN) {
 									mActivity.showToast(R.string.same_characteristic);
 								} else {

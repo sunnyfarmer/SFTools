@@ -34,7 +34,9 @@ public class ActivityStatisticsOverView extends TopActivity {
 		super.initView();
 		this.mVHAHeader.hideLeft();
 		this.mVHAHeader.hideRight();
-		this.mVHAHeader.setTitleText(this.mApp.getSettingGroup().getmSettingGroupName());
+		if (this.mApp.getSettingGroup()!=null) {
+			this.mVHAHeader.setTitleText(this.mApp.getSettingGroup().getmSettingGroupName());
+		}
 		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnStatistics());
 
 		this.btnCargoRankList = (Button) this.findViewById(R.id.btnCargoRankList);
