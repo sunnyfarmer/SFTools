@@ -4,17 +4,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
+import sf.log.SFLog;
+import sf.tools.peddlers.ActivityStatisticShoppingListDetail;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.ShoppingList;
+import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHStatisticsShoppingList;
 
-public class AdapterStatisticsShoppingList extends SFBaseAdapter {
+public class AdapterStatisticsShoppingList extends SFBaseAdapter implements OnItemClickListener{
 	public static final String TAG = "AdapterStatisticsShoppingList";
 
 	private ArrayList<ShoppingList> mShoppingListArray = null;
@@ -97,5 +103,15 @@ public class AdapterStatisticsShoppingList extends SFBaseAdapter {
 				c.get(Calendar.MINUTE)
 				);
 		return timeText;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+
+		SFLog.d(TAG, String.valueOf(this.getItem(position).getmTimestamp()));
+		Intent intent = new Intent(this.mActivity, ActivityStatisticShoppingListDetail.class);
+		intent.putExtra(SFGlobal.EXTRA_SHOPPINGLIST_ID, this.getItem(position).getmShoppingListId());
+		this.mActivity.startActivity(intent);
 	}
 }

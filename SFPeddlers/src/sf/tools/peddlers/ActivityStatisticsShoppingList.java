@@ -60,6 +60,7 @@ public class ActivityStatisticsShoppingList extends TopActivity {
 				//TODO: setting
 			}
 		});
+		this.lvShoppingList.setOnItemClickListener(mAdapterStatisticsShoppingList);
 	}
 
 	protected void refreshList() {
