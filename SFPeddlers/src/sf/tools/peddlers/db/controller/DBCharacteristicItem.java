@@ -66,6 +66,7 @@ public class DBCharacteristicItem extends DBController {
 			characteristic.getmCharacteristicId()==Model.ID_UNDEFINED) {
 			return false;
 		}
+		this.getDbShoppingList().delete(characteristic);
 		int rowDeleted = this.delete(
 				String.format("%s=?", DSCharacteristicItem.COL_CHARACTERISTIC_ID),
 				new String[] {
@@ -80,6 +81,7 @@ public class DBCharacteristicItem extends DBController {
 			characteristicItem.getmCharacteristicItemId()==Model.ID_UNDEFINED) {
 			return false;
 		}
+		this.getDbShoppingList().delete(characteristicItem);
 		int rowDeleted = this.delete(
 				String.format(
 						"%s=? and %s=?",
@@ -125,7 +127,9 @@ public class DBCharacteristicItem extends DBController {
 					String.valueOf(characteristicItemId)
 				},
 				"1");
-		characteristicItem = this.parseCursor(cursor, null);
+		if (cursor!=null && cursor.moveToNext()) {
+			characteristicItem = this.parseCursor(cursor, null);
+		}
 		return characteristicItem;
 	}
 

@@ -65,6 +65,23 @@ public class DBCharacteristicItemInList extends DBController {
 		return rowDeleted>0 ? true : false;
 	}
 
+	public ArrayList<CharacteristicItemInList> queryAll(CharacteristicItem characteristicItem) {
+		if (characteristicItem!=null && characteristicItem.getmCharacteristicItemId()==Model.ID_UNDEFINED) {
+			return null;
+		}
+		Cursor cursor = this.query(
+				DSCharacteristicItemInList.COLUMNS,
+				String.format("%s=?", DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID),
+				new String[] {String.valueOf(characteristicItem.getmCharacteristicItemId())},
+				null);
+		ArrayList<CharacteristicItemInList> characteristicItemInListArray = new ArrayList<CharacteristicItemInList>();
+		while (cursor!=null && cursor.moveToNext()) {
+			CharacteristicItemInList characteristicItemInList = this.parseCursor(cursor, null);
+			characteristicItemInListArray.add(characteristicItemInList);
+		}
+		return characteristicItemInListArray;
+	}
+
 	public ArrayList<CharacteristicItemInList> queryAll(ShoppingList shoppingList) {
 		if (shoppingList==null ||
 			shoppingList.getmShoppingListId()==null) {

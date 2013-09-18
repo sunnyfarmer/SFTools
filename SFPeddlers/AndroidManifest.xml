@@ -38,6 +38,7 @@
             android:launchMode="singleTask"></activity>
         <activity android:name="ActivityStatisticsCargoRankList"></activity>
         <activity android:name="ActivityStatisticsCharacteristicLine"></activity>
+        <activity android:name="ActivityStatisticsShoppingList"></activity>
     </application>
 
 </manifest>

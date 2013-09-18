@@ -63,6 +63,7 @@ public class DBCargo extends DBController {
 		if (cargoType==null || cargoType.getmCargoTypeId()==Model.ID_UNDEFINED) {
 			return false;
 		}
+		this.getDbShoppingList().delete(cargoType);
 		int rowDeleted = this.delete(
 				String.format("%s=?", DSCargo.COL_CARGO_TYPE_ID),
 				new String[] {
@@ -77,6 +78,7 @@ public class DBCargo extends DBController {
 			cargo.getmCargoType().getmCargoTypeId()==Model.ID_UNDEFINED) {
 			return false;
 		}
+		this.getDbShoppingList().delete(cargo);
 		int rowDeleted = this.delete(
 				String.format(
 						"%s=? and %s=?",

@@ -14,6 +14,7 @@
     <string name="finish">完成</string>
     <string name="edit">编辑</string>
     <string name="system_error">系统正在打小差，请稍后再试</string>
+    <string name="setting">设置</string>
 
     <string name="default_content_description">default_content_description</string>
     <!-- string for footer -->
@@ -67,6 +68,7 @@
 
 	<!-- string for statistics -->	
 	<string name="more_statistics_will_be_publish">更多统计方式，将会发布，敬请期待！</string>
+	<string name="shopping_list">选购清单</string>
 	<string name="cargo_rank_list">货物排行榜</string>
 	<string name="rank_list">排行榜</string>
 	<string name="characteristic_line">特征曲线</string>

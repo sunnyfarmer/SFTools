@@ -65,6 +65,7 @@ public class DBFirstFeeling extends DBController {
 				settingGroup.getmSettingGroupId()==null) {
 			return false;
 		}
+		this.getDbShoppingList().delete(settingGroup);
 		int rowDeleted = this.delete(
 				String.format("%s=?", DSFirstFeeling.COL_SETTING_GROUP_ID),
 				new String[] {
@@ -79,6 +80,7 @@ public class DBFirstFeeling extends DBController {
 				firstFeeling.getmSettingGroup().getmSettingGroupId()==null) {
 				return false;
 		}
+		this.getDbShoppingList().delete(firstFeeling);
 		int rowDeleted = this.delete(
 				String.format(
 						"%s=? and %s=?",
@@ -122,7 +124,9 @@ public class DBFirstFeeling extends DBController {
 				String.format("%s=?", DSFirstFeeling.COL_FIRST_FEELING_ID),
 				new String[] {String.valueOf(firstFeelingId)},
 				"1");
-		firstFeeling = this.parseCursor(cursor, null);
+		if (cursor!=null && cursor.moveToNext()) {
+			firstFeeling = this.parseCursor(cursor, null);
+		}
 		return firstFeeling;
 	}
 
