@@ -227,9 +227,12 @@ public class DBShoppingList extends DBController {
 		}
 		ArrayList<ShoppingList> shoppingListArray = new ArrayList<ShoppingList>();
 		Cursor cursor = this.query(
+				false,
 				DSShoppingList.COLUMNS,
 				String.format("%s=?", DSShoppingList.COL_SETTING_GROUP_ID),
 				new String[] {settingGroup.getmSettingGroupId()},
+				null,null,
+				String.format("%s DESC", DSShoppingList.COL_SHOPPING_TIMESTAMP),
 				null);
 		while (cursor!=null && cursor.moveToNext()) {
 			ShoppingList shoppingList = this.parseCursor(cursor, settingGroup);

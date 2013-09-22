@@ -1,6 +1,8 @@
 package sf.tools.peddlers;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.Characteristic;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 public class ActivityStatisticShoppingListDetail extends TopActivity {
 	public static final String TAG = "ActivityStatisticShoppingListDetail";
 
+	private TextView tvTimestamp = null;
 	private TextView tvFirstFeeling = null;
 	private TextView tvCharacteristic = null;
 	private LinearLayout llLook = null;
@@ -30,6 +33,12 @@ public class ActivityStatisticShoppingListDetail extends TopActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		this.setContentView(R.layout.activity_statistics_shopping_list_detail);
 	    super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		this.refresh();
 	}
 
 	@Override
@@ -49,6 +58,7 @@ public class ActivityStatisticShoppingListDetail extends TopActivity {
 		this.mVHAHeader.setTitleText(this.mApp.getSettingGroup().getmSettingGroupName());
 		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnStatistics());
 
+		this.tvTimestamp = (TextView) this.findViewById(R.id.tvTimestamp);
 		this.tvFirstFeeling = (TextView) this.findViewById(R.id.tvFirstFeeling);
 		this.tvCharacteristic = (TextView) this.findViewById(R.id.tvCharacteristic);
 		this.llLook = (LinearLayout) this.findViewById(R.id.llLook);
@@ -66,6 +76,7 @@ public class ActivityStatisticShoppingListDetail extends TopActivity {
 	}
 
 	protected void refresh() {
+		this.tvTimestamp.setText(this.formatTime(this.mShoppingList.getmTimestamp()));
 		this.tvFirstFeeling.setText(this.mShoppingList.getmFirstFeeling().getmFirstFeelingName());
 		this.tvCharacteristic.setText(this.getCharacteristicText(this.mShoppingList.getmCharacteristic()));
 
@@ -75,8 +86,8 @@ public class ActivityStatisticShoppingListDetail extends TopActivity {
 			if (bm!=null) {
 				ImageView iv = new ImageView(this);
 				LayoutParams params = new LayoutParams(
-						(int)this.getResources().getDimension(R.dimen.activity_statistics_cargo_width),
-						(int)this.getResources().getDimension(R.dimen.activity_statistics_cargo_height)
+						(int)this.getResources().getDimension(R.dimen.activity_shopping_cargo_width),
+						(int)this.getResources().getDimension(R.dimen.activity_shopping_cargo_height)
 						);
 				iv.setLayoutParams(params);
 				iv.setImageBitmap(bm);
@@ -89,12 +100,12 @@ public class ActivityStatisticShoppingListDetail extends TopActivity {
 			if (bm!=null) {
 				ImageView iv = new ImageView(this);
 				LayoutParams params = new LayoutParams(
-						(int)this.getResources().getDimension(R.dimen.activity_statistics_cargo_width),
-						(int)this.getResources().getDimension(R.dimen.activity_statistics_cargo_height)
+						(int)this.getResources().getDimension(R.dimen.activity_shopping_cargo_width),
+						(int)this.getResources().getDimension(R.dimen.activity_shopping_cargo_height)
 						);
 				iv.setLayoutParams(params);
 				iv.setImageBitmap(bm);
-				this.llLook.addView(iv);
+				this.llBuy.addView(iv);
 			}
 		}
 	}
@@ -106,5 +117,20 @@ public class ActivityStatisticShoppingListDetail extends TopActivity {
 					characteristic.getmSelectedCharacteristicItem().getmCharacteristicItemName());
 		}
 		return text;
+	}
+	protected String formatTime(long time) {
+		String timeText = null;
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(time);
+		timeText = String.format(
+				Locale.US,
+				"%s/%02d/%02d %02d:%02d",
+				c.get(Calendar.YEAR),
+				c.get(Calendar.MONTH),
+				c.get(Calendar.DAY_OF_MONTH),
+				c.get(Calendar.HOUR_OF_DAY),
+				c.get(Calendar.MINUTE)
+				);
+		return timeText;
 	}
 }

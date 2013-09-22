@@ -1,5 +1,6 @@
 package sf.tools.peddlers.viewholder.adapter;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class VHStatisticsShoppingList {
@@ -8,4 +9,5 @@ public class VHStatisticsShoppingList {
 	public TextView tvFirstFeeling = null;
 	public TextView tvCharacteristic = null;
 	public TextView tvTime = null;
+	public LinearLayout llCargoList = null;
 }

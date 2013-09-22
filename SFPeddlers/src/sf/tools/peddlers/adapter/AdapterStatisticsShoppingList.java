@@ -5,18 +5,24 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import sf.log.SFLog;
 import sf.tools.peddlers.ActivityStatisticShoppingListDetail;
 import sf.tools.peddlers.R;
 import sf.tools.peddlers.TopActivity;
+import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.ShoppingList;
+import sf.tools.peddlers.utils.SFBitmapManager;
 import sf.tools.peddlers.utils.SFGlobal;
 import sf.tools.peddlers.viewholder.adapter.VHStatisticsShoppingList;
 
@@ -68,6 +74,7 @@ public class AdapterStatisticsShoppingList extends SFBaseAdapter implements OnIt
 			vhStatisticsShoppingList.tvFirstFeeling = (TextView) convertView.findViewById(R.id.tvFirstFeeling);
 			vhStatisticsShoppingList.tvCharacteristic = (TextView) convertView.findViewById(R.id.tvCharacteristic);
 			vhStatisticsShoppingList.tvTime = (TextView) convertView.findViewById(R.id.tvTime);
+			vhStatisticsShoppingList.llCargoList = (LinearLayout) convertView.findViewById(R.id.llCargoList);
 			convertView.setTag(vhStatisticsShoppingList);
 		} else {
 			vhStatisticsShoppingList = (VHStatisticsShoppingList) convertView.getTag();
@@ -76,6 +83,26 @@ public class AdapterStatisticsShoppingList extends SFBaseAdapter implements OnIt
 		vhStatisticsShoppingList.tvFirstFeeling.setText(shoppingList.getmFirstFeeling().getmFirstFeelingName());
 		vhStatisticsShoppingList.tvCharacteristic.setText(getCharacteristicItemString(shoppingList.getmCharacteristic()));
 		vhStatisticsShoppingList.tvTime.setText(formatTime(shoppingList.getmTimestamp()));
+
+		ArrayList<Cargo> cargoList = shoppingList.getmRelatedCargo();
+		int cot = 0;
+		int MAX_IV = 3;
+		vhStatisticsShoppingList.llCargoList.removeAllViews();
+		for (Cargo cargo : cargoList) {
+			ImageView iv = new ImageView(this.mActivity);
+			LayoutParams lp = new LayoutParams(
+					this.mActivity.getResources().getDimensionPixelOffset(R.dimen.activity_statistics_cargo_width),
+					this.mActivity.getResources().getDimensionPixelOffset(R.dimen.activity_statistics_cargo_height)
+					);
+			iv.setLayoutParams(lp);
+			Bitmap bm = SFBitmapManager.getBitmap(cargo.getmCargoId(), mApp);
+			iv.setImageBitmap(bm);
+			vhStatisticsShoppingList.llCargoList.addView(iv);
+			cot++;
+			if (cot >= MAX_IV) {
+				break;
+			}
+		}
 		return convertView;
 	}
 
@@ -83,7 +110,10 @@ public class AdapterStatisticsShoppingList extends SFBaseAdapter implements OnIt
 		String text = "";
 		for (Characteristic characteristic : characteristicArray) {
 			if (characteristic.getmSelectedCharacteristicItem()!=null) {
-				text += characteristic.getmSelectedCharacteristicItem().getmCharacteristicItemName() + "  ";
+				if (text!="") {
+					text+=",";
+				}
+				text += characteristic.getmSelectedCharacteristicItem().getmCharacteristicItemName();
 			}
 		}
 		return text.trim();
@@ -95,7 +125,7 @@ public class AdapterStatisticsShoppingList extends SFBaseAdapter implements OnIt
 		c.setTimeInMillis(time);
 		timeText = String.format(
 				Locale.US,
-				"%s/%02d%02d\n%02d:%02d",
+				"%s/%02d/%02d\n%02d:%02d",
 				c.get(Calendar.YEAR),
 				c.get(Calendar.MONTH),
 				c.get(Calendar.DAY_OF_MONTH),

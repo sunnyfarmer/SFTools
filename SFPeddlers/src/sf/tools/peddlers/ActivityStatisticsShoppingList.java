@@ -60,13 +60,13 @@ public class ActivityStatisticsShoppingList extends TopActivity {
 				//TODO: setting
 			}
 		});
-		this.lvShoppingList.setOnItemClickListener(mAdapterStatisticsShoppingList);
 	}
 
 	protected void refreshList() {
 		if (this.mAdapterStatisticsShoppingList==null) {
 			this.mAdapterStatisticsShoppingList = new AdapterStatisticsShoppingList(this, this.mShoppingListArray);
 			this.lvShoppingList.setAdapter(mAdapterStatisticsShoppingList);
+			this.lvShoppingList.setOnItemClickListener(mAdapterStatisticsShoppingList);
 		} else {
 			this.mAdapterStatisticsShoppingList.setmShoppingListArray(mShoppingListArray);
 			this.mAdapterStatisticsShoppingList.notifyDataSetChanged();
