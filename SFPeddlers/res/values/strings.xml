@@ -23,7 +23,7 @@
     <string name="organizing">铺位摆设</string>
 
     <!-- string for IN_SELLING -->
-    <string name="first_feeling">第一感觉</string>
+    <string name="first_feeling">销售员</string>
     <string name="customer_characteristic">顾客特征</string>
     <string name="cargo_list">货物清单</string>
     <string name="shopping_begin">开始选购</string>
@@ -41,7 +41,7 @@
 	<string name="add_setting_group">添加铺位</string>
 	<string name="delete">删除</string>
 	<string name="whether_delete_setting_group">是否要删除该铺位?</string>
-	<string name="add_first_feeling">添加感觉</string>
+	<string name="add_first_feeling">添加销售员</string>
 	<string name="add_customer_characteristic">添加特征</string>
 	<string name="unfold">展开</string>
 	<string name="fold">收起</string>
@@ -49,7 +49,7 @@
 	<string name="add_cargo_type">添加种类</string>
 	<string name="click_to_chage_title">点击修改标题</string>
 	<string name="please_input_setting_group_name">请输入铺位名称</string>
-	<string name="please_input_new_first_feeling">请输入新感觉</string>
+	<string name="please_input_new_first_feeling">请输入新销售员</string>
 	<string name="please_input_new_cargo_type_name">请输入新商品种类</string>
 	<string name="please_input_new_characteristic">请输入新的特征</string>
 	<string name="please_input_new_cargo_name">请输入商品名称</string>
@@ -57,7 +57,7 @@
 	<string name="add_cargo">添加货物</string>
 	<string name="name">名称</string>
 	<string name="same_setting_group_name">重复铺位名称</string>
-	<string name="same_first_feeling">重复感觉</string>
+	<string name="same_first_feeling">重复销售员</string>
 	<string name="same_characteristic">重复特征名称</string>
 	<string name="same_characteristic_item">重复特征项</string>
 	<string name="same_cargo_type">重复商品种类</string>
