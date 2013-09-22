@@ -14,6 +14,7 @@ public class SFGlobal {
 //	public static final String EXTRA_CHARACTERISTIC = "extra_characteristic";
 	public static final String EXTRA_CHARACTERISTIC_ID = "extra_characteristic_id";
 //	public static final String EXTRA_SHOPPINGLIST = "extra_shopping_list";
+	public static final String EXTRA_SHOPPINGLIST_ID = "extra_shopping_list_id";
 
 	public static final int RS_CODE_LOAD_IMAGE = 1001;
 	public static final int RS_CODE_ADD_CARGO = 1002;

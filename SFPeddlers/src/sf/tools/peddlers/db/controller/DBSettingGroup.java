@@ -62,6 +62,7 @@ public class DBSettingGroup extends DBController {
 			this.getDbFirstFeeling().deleteAll(settingGroup);
 			this.getDbCharacteristic().deleteAll(settingGroup);
 			this.getDbCargoType().deleteAll(settingGroup);
+			this.getDbShoppingList().delete(settingGroup);
 		}
 		
 		int rowDeleted = this.delete(

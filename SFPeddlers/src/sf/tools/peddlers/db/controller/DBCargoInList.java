@@ -87,6 +87,22 @@ public class DBCargoInList extends DBController {
 		return rowAffected>0 ? true : false;
 	}
 
+	public ArrayList<CargoInList> queryAll(Cargo cargo) {
+		if (cargo==null || cargo.getmCargoId()==Model.ID_UNDEFINED) {
+			return null;
+		}
+		Cursor cursor = this.query(
+				DSCargoInList.COLUMNS,
+				String.format("%s=?", DSCargoInList.COL_CARGO_ID),
+				new String[] {String.valueOf(cargo.getmCargoId())},
+				null);
+		ArrayList<CargoInList> cargoInListArray = new ArrayList<CargoInList>();
+		while (cursor!=null && cursor.moveToNext()) {
+			CargoInList cil = this.parseCursor(cursor, null);
+			cargoInListArray.add(cil);
+		}
+		return cargoInListArray;
+	}
 	public ArrayList<CargoInList> queryAll(ShoppingList shoppingList) {
 		if (shoppingList==null ||
 			shoppingList.getmShoppingListId()==null) {

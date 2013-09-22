@@ -9,6 +9,7 @@ import sf.tools.peddlers.db.DataStructure.DSShoppingList;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.Cargo.CUSTOMER_BEHAVIOR;
 import sf.tools.peddlers.model.CargoInList;
+import sf.tools.peddlers.model.CargoType;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.model.CharacteristicItemInList;
@@ -81,6 +82,85 @@ public class DBShoppingList extends DBController {
 				String.format("%s=?", DSShoppingList.COL_SHOPPING_LIST_ID),
 				new String[] {shoppingList.getmShoppingListId()});
 		return rowDeleted>0 ? true : false;
+	}
+	public boolean delete(SettingGroup settingGroup) {
+		if (settingGroup==null ||
+				settingGroup.getmSettingGroupId()==null) {
+			return false;
+		}
+		Cursor cursor = this.query(
+				DSShoppingList.COLUMNS,
+				String.format("%s=?", DSShoppingList.COL_SETTING_GROUP_ID),
+				new String[] {settingGroup.getmSettingGroupId()},
+				null);
+		while (cursor!=null && cursor.moveToNext()) {
+			String shoppingListId = cursor.getString(cursor.getColumnIndex(DSShoppingList.COL_SHOPPING_LIST_ID));
+			ShoppingList sl = new ShoppingList(null, settingGroup, null);
+			sl.setmShoppingListId(shoppingListId);
+			this.delete(sl);
+		}
+		return true;
+	}
+	public boolean delete(FirstFeeling firstFeeling) {
+		if (firstFeeling==null ||
+				firstFeeling.getmFirstFeelingId()==Model.ID_UNDEFINED) {
+			return false;
+		}
+		Cursor cursor = this.query(
+				DSShoppingList.COLUMNS,
+				String.format("%s=?", DSShoppingList.COL_FIRST_FEELING_ID),
+				new String[] {String.valueOf(firstFeeling.getmFirstFeelingId())},
+				null);
+		while (cursor!=null && cursor.moveToNext()) {
+			String shoppingListId = cursor.getString(cursor.getColumnIndex(DSShoppingList.COL_SHOPPING_LIST_ID));
+			ShoppingList sl = new ShoppingList(null, null, null);
+			sl.setmShoppingListId(shoppingListId);
+			this.delete(sl);
+		}
+		return true;
+	}
+	public boolean delete(Characteristic characteristic) {
+		if (characteristic==null || characteristic.getmCharacteristicId()==Model.ID_UNDEFINED) {
+			return false;
+		}
+		ArrayList<CharacteristicItem> characteristicItemArray = this.getDbCharacteristicItem().queryAll(characteristic);
+		for (CharacteristicItem characteristicItem : characteristicItemArray) {
+			this.delete(characteristicItem);
+		}
+		return true;
+	}
+	public boolean delete(CharacteristicItem characteristicItem) {
+		if (characteristicItem==null || characteristicItem.getmCharacteristicItemId()==Model.ID_UNDEFINED) {
+			return false;
+		}
+		ArrayList<CharacteristicItemInList> characteristicItemInListArray =
+				this.getDbCharacteristicItemInList().queryAll(characteristicItem);
+		for (CharacteristicItemInList characteristicItemInList : characteristicItemInListArray) {
+			ShoppingList sl = characteristicItemInList.getmShoppingList();
+			this.delete(sl);
+		}
+		return true;
+	}
+	public boolean delete(CargoType cargoType) {
+		if (cargoType==null || cargoType.getmCargoTypeId()==Model.ID_UNDEFINED) {
+			return false;
+		}
+		ArrayList<Cargo> cargoArray = this.getDbCargo().queryAll(cargoType);
+		for (Cargo cargo : cargoArray) {
+			this.delete(cargo);
+		}
+		return true;
+	}
+	public boolean delete(Cargo cargo) {
+		if (cargo==null || cargo.getmCargoId()==Model.ID_UNDEFINED) {
+			return false;
+		}
+		ArrayList<CargoInList> cargoInListArray = this.getDbCargoInList().queryAll(cargo);
+		for (CargoInList cargoInList : cargoInListArray) {
+			ShoppingList sl = cargoInList.getmShoppingList();
+			this.delete(sl);
+		}
+		return true;
 	}
 
 	public boolean update(ShoppingList shoppingList) {
@@ -168,6 +248,10 @@ public class DBShoppingList extends DBController {
 			settingGroup = this.getDbSettingGroup().queryById(settingGroupId);
 			long timeStamp = cursor.getLong(cursor.getColumnIndex(DSShoppingList.COL_SHOPPING_TIMESTAMP));
 
+			shoppingList = new ShoppingList(firstFeeling, settingGroup, null);
+			shoppingList.setmShoppingListId(shoppingListId);
+			shoppingList.setmTimestamp(timeStamp);
+
 			//获得特征
 			ArrayList<CharacteristicItemInList> characteristicItemInListArray = this.getDbCharacteristicItemInList().queryAll(shoppingList);
 			ArrayList<Characteristic> characteristicArray = new ArrayList<Characteristic>();
@@ -176,10 +260,8 @@ public class DBShoppingList extends DBController {
 				characteristic.setmSelectedCharacteristicItemString(characteristicItemInList.getmCharacteristicItem().getmCharacteristicItemName());
 				characteristicArray.add(characteristic);
 			}
+			shoppingList.setmCharacteristic(characteristicArray);
 
-			shoppingList = new ShoppingList(firstFeeling, settingGroup, characteristicArray);
-			shoppingList.setmShoppingListId(shoppingListId);
-			shoppingList.setmTimestamp(timeStamp);
 
 			//获得商品
 			ArrayList<Cargo> buyCargo = new ArrayList<Cargo>();
@@ -199,6 +281,8 @@ public class DBShoppingList extends DBController {
 					lookCargo.add(cargo);
 					buyCargo.add(cargo);
 					relatedCargo.add(cargo);
+					break;
+				case CB_NONE:
 					break;
 				}
 			}

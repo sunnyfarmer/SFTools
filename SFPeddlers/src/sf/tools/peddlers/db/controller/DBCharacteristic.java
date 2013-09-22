@@ -133,7 +133,9 @@ public class DBCharacteristic extends DBController {
 				String.format("%s=?", DSCharacteristic.COL_CHARACTERISTIC_ID),
 				new String[] {String.valueOf(characteristicid)},
 				"1");
-		characteristic = this.parseCursor(cursor, null);
+		if (cursor!=null && cursor.moveToNext()) {
+			characteristic = this.parseCursor(cursor, null);
+		}
 		return characteristic;
 	}
 

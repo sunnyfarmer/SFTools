@@ -9,6 +9,7 @@ import android.widget.Button;
 public class ActivityStatisticsOverView extends TopActivity {
 	public static final String TAG = "ActivityStatisticsOverView";
 
+	private Button btnShoppingList = null;
 	private Button btnCargoRankList = null;
 	private Button btnCharacteristicLine = null;
 
@@ -39,6 +40,7 @@ public class ActivityStatisticsOverView extends TopActivity {
 		}
 		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnStatistics());
 
+		this.btnShoppingList = (Button) this.findViewById(R.id.btnShoppingList);
 		this.btnCargoRankList = (Button) this.findViewById(R.id.btnCargoRankList);
 		this.btnCharacteristicLine = (Button) this.findViewById(R.id.btnCharacteristicLine);
 	}
@@ -46,6 +48,12 @@ public class ActivityStatisticsOverView extends TopActivity {
 	protected void setListener() {
 		super.setListener();
 
+		this.btnShoppingList.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				toActivity(ActivityStatisticsShoppingList.class);
+			}
+		});
 		this.btnCargoRankList.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
