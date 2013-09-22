@@ -2,6 +2,9 @@ package sf.tools.peddlers;
 
 import java.util.ArrayList;
 
+import net.youmi.android.AdManager;
+import net.youmi.android.smart.SmartBannerManager;
+
 import sf.tools.peddlers.adapter.AdapterFirstFeeling;
 import sf.tools.peddlers.model.FirstFeeling;
 import android.content.Intent;
@@ -29,6 +32,8 @@ public class ActivityFirstFeeling extends TopActivity {
 			this.startActivity(intent);
 			this.finish();
 		}
+
+//		AdManager.getInstance(this).init("ec5afc7d80074930","70bde6655e968616", false);
 	}
 
 	@Override
@@ -42,6 +47,9 @@ public class ActivityFirstFeeling extends TopActivity {
 		} else {
 			this.tvMsg.setVisibility(View.GONE);
 		}
+
+//		SmartBannerManager.init(this);
+//		SmartBannerManager.show(this);
 	}
 
 	@Override

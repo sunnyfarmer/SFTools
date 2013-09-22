@@ -1,5 +1,8 @@
 package sf.tools.peddlers;
 
+import sf.log.SFLog;
+import net.youmi.android.spot.SpotDialogLinstener;
+import net.youmi.android.spot.SpotManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +26,26 @@ public class ActivityStatisticsOverView extends TopActivity {
 			this.startActivity(intent);
 			this.finish();
 		}
+	}
+	@Override
+	protected void onStart() {
+		super.onStart();
+//		SpotManager.getInstance(this).loadSpotAds();
+//		SpotManager.getInstance(this).showSpotAds(this, new SpotDialogLinstener() {
+//			@Override
+//			public void onShowSuccess() {
+//				SFLog.d(TAG, "success youmi");
+//			}
+//			@Override
+//			public void onShowFailed() {
+//				SFLog.d(TAG, "fail youmi");
+//			}
+//			
+//			@Override
+//			public void onClicked() {
+//				SFLog.d(TAG, "click youmi");
+//			}
+//		});
 	}
 
 	@Override

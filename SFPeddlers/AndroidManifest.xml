@@ -10,6 +10,20 @@
     <uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+<!-- 有米 begin -->	
+	<uses-permission android:name="android.permission.INTERNET"/> 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--以下两个为新增必选权限！-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <!--以下两个为可选权限-->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<!-- 有米 end -->
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -40,6 +54,35 @@
         <activity android:name="ActivityStatisticsCharacteristicLine"></activity>
         <activity android:name="ActivityStatisticsShoppingList"></activity>
         <activity android:name="ActivityStatisticShoppingListDetail"></activity>
+
+    <!-- 有米 begin -->
+	    <activity
+	        android:name="net.youmi.android.AdBrowser"
+	        android:configChanges="keyboard|keyboardHidden|orientation"
+	        android:theme="@android:style/Theme.Light.NoTitleBar" >
+	    </activity>
+	    <service
+	        android:name="net.youmi.android.AdService"
+	        android:exported="false" >
+	    </service>
+	    <receiver
+	        android:name="net.youmi.android.AdReceiver" >
+	        <intent-filter>
+	            <action android:name="android.intent.action.PACKAGE_ADDED" />
+	            <data android:scheme="package" />
+	        </intent-filter>
+	    </receiver>
+	    <activity
+                android:name="net.youmi.android.SmartBannerActivity"
+                android:configChanges="keyboard|keyboardHidden|orientation"
+                android:theme="@style/Transparent"
+                ></activity>
+        <service
+                android:name="net.youmi.android.SmartBannerService"
+                android:exported="false"
+                ></service>
+	    
+    <!-- 有米 end -->
     </application>
 
 </manifest>
