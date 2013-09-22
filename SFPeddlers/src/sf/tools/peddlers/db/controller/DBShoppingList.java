@@ -302,7 +302,6 @@ public class DBShoppingList extends DBController {
 					relatedCargo.add(cargo);
 					break;
 				case CB_BUY:
-					lookCargo.add(cargo);
 					buyCargo.add(cargo);
 					relatedCargo.add(cargo);
 					break;
