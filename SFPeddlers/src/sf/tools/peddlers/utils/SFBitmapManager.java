@@ -25,7 +25,10 @@ public class SFBitmapManager {
 	public static long bitmapBytesCount = 0;
 	public static final long MAX_BITMAP_BYTES_COUNT = 12 * 1024 * 1024;
 
-	public static void clearBitmap() {
+	/**
+	 * 清理Bitmap内存
+	 */
+	private static void clearBitmap() {
 		//每次清理一半
 		if (bitmapBytesCount >= MAX_BITMAP_BYTES_COUNT) {
 			int bitmapCount = bitmapArray.size();
@@ -40,11 +43,12 @@ public class SFBitmapManager {
 			}
 		}
 	}
-	public static void addBitmapBytes(Bitmap bitmap) {
+	private static void addBitmapBytes(Bitmap bitmap) {
 		long bytesCount = bitmapBytesCount(bitmap);
 		bitmapBytesCount += bytesCount;
 	}
-	public static void updateBitmapBytesCount() {
+	@SuppressWarnings("unused")
+	private static void updateBitmapBytesCount() {
 		Set<Integer> keyArray = bitmapArray.keySet();
 		bitmapBytesCount = 0;
 		for (Integer integer : keyArray) {
@@ -53,7 +57,7 @@ public class SFBitmapManager {
 			bitmapBytesCount += bytesCount;
 		}
 	}
-	public static Bitmap getBitmapFromArray(int cargoId) {
+	private static Bitmap getBitmapFromArray(int cargoId) {
 		Bitmap bitmap = bitmapArray.get(cargoId);
 		//将刚取过的图片放在顶端,最后才释放
 		bitmapArray.remove(cargoId);
@@ -61,19 +65,25 @@ public class SFBitmapManager {
 		printKeySet(bitmapArray.keySet());
 		return bitmap;
 	}
-	public static void printKeySet(Set<Integer> keyset) {
+	private static void printKeySet(Set<Integer> keyset) {
 		String text = "";
 		for (Integer integer : keyset) {
 			text += integer+",";
 		}
 		SFLog.d(TAG, text);
 	}
-	public static void putBitmapIntoArray(int cargoId, Bitmap bitmap) {
+	private static void putBitmapIntoArray(int cargoId, Bitmap bitmap) {
 		clearBitmap();
 		bitmapArray.put(cargoId, bitmap);
 		addBitmapBytes(bitmap);
 	}
 
+	/**
+	 * 保存Cargo的Bitmap
+	 * @param app
+	 * @param bitmap
+	 * @param cargoId
+	 */
 	public static void saveBitmap(SFPeddlersApp app, Bitmap bitmap,
 			int cargoId) {
 		if (bitmap != null) {
@@ -87,6 +97,12 @@ public class SFBitmapManager {
 			}
 		}
 	}
+	/**
+	 * 获得Cargo的Bitmap
+	 * @param cargoId
+	 * @param app
+	 * @return
+	 */
 	public static Bitmap getBitmap(int cargoId, SFPeddlersApp app) {
 		Bitmap bitmap = null;
 		String filename = String.format(Locale.US, "%d.png", cargoId);
@@ -105,11 +121,20 @@ public class SFBitmapManager {
 		}
 		return bitmap;
 	}
+	/**
+	 * 删除Cargo的Bitmap
+	 * @param cargoId
+	 * @param app
+	 */
 	public static void removeBitmap(int cargoId, SFPeddlersApp app) {
 		String filename = String.format(Locale.US, "%d.png", cargoId);
 		app.deleteFile(filename);
 	}
-
+	/**
+	 * 计算Bitmap所占内存
+	 * @param bitmap
+	 * @return
+	 */
 	@SuppressLint("NewApi")
 	public static long bitmapBytesCount(Bitmap bitmap) {
 		long bytesCount = 0;
@@ -119,5 +144,51 @@ public class SFBitmapManager {
 			bytesCount = bitmap.getRowBytes() * bitmap.getHeight();
 		}
 		return bytesCount;
+	}
+
+	public static Bitmap loadBitmap(String filePath, int reqWidth, int reqHeight) {
+	    // First decode with inJustDecodeBounds=true to check dimensions
+	    final BitmapFactory.Options options = new BitmapFactory.Options();
+	    options.inJustDecodeBounds = true;
+	    BitmapFactory.decodeFile(filePath, options);
+
+	    // Calculate inSampleSize
+	    options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+	    // Decode bitmap with inSampleSize set
+	    options.inJustDecodeBounds = false;
+	    return BitmapFactory.decodeFile(filePath, options);
+	}
+	public static Bitmap loadBitmap(FileInputStream fis, int reqWidth, int reqHeight) {
+	    // First decode with inJustDecodeBounds=true to check dimensions
+	    final BitmapFactory.Options options = new BitmapFactory.Options();
+	    options.inJustDecodeBounds = true;
+	    BitmapFactory.decodeStream(fis, null, options);
+
+	    // Calculate inSampleSize
+	    options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+	    // Decode bitmap with inSampleSize set
+	    options.inJustDecodeBounds = false;
+	    return BitmapFactory.decodeStream(fis, null, options);
+	}
+	private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+	    // Raw height and width of image
+	    final int height = options.outHeight;
+	    final int width = options.outWidth;
+	    int inSampleSize = 1;
+
+	    if (height > reqHeight || width > reqWidth) {
+	        // Calculate ratios of height and width to requested height and width
+	        final int heightRatio = Math.round((float) height / (float) reqHeight);
+	        final int widthRatio = Math.round((float) width / (float) reqWidth);
+	
+	        // Choose the smallest ratio as inSampleSize value, this will guarantee
+	        // a final image with both dimensions larger than or equal to the
+	        // requested height and width.
+	        inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+	    }
+
+	    return inSampleSize;
 	}
 }

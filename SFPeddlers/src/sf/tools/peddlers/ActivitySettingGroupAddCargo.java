@@ -118,7 +118,8 @@ public class ActivitySettingGroupAddCargo extends TopActivity {
         	if (mBitmap!=null && !mBitmap.isRecycled()) {
         		mBitmap.recycle();
         	}
-        	mBitmap = BitmapFactory.decodeFile(picturePath);
+//        	mBitmap = BitmapFactory.decodeFile(picturePath);
+        	mBitmap = SFBitmapManager.loadBitmap(picturePath, 512, 512);
         	ivCargo.setImageBitmap(mBitmap);
         }
 	}
