@@ -25,6 +25,9 @@ public class SFBitmapManager {
 	public static long bitmapBytesCount = 0;
 	public static final long MAX_BITMAP_BYTES_COUNT = 12 * 1024 * 1024;
 
+	public static final int MAX_REFERENCE_BITMAP_WIDTH = 512;
+	public static final int MAX_REFERENCE_BITMAP_HEIGHT = 512;
+
 	/**
 	 * 清理Bitmap内存
 	 */
