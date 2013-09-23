@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_alignParentLeft="true"
-        android:text=""
+        android:layout_alignBaseline="@+id/tvTitle"
+        android:text="@string/back"
         android:textSize="@dimen/content_size" />
 
     <TextView
@@ -35,7 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_alignParentRight="true"
-        android:text=""
+        android:layout_alignBaseline="@+id/tvTitle"
+        android:text="@string/finish"
         android:textSize="@dimen/content_size" />
 
 </RelativeLayout>

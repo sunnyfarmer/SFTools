@@ -58,7 +58,7 @@ public class ActivitySettingGroupCargoList extends TopActivity {
 		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnOrganizing());
 		this.mVHAHeader.setTitleText(R.string.cargo_list);
 		this.mVHAHeader.setLeftText(R.string.back);
-		this.mVHAHeader.setRightText(R.string.add_cargo);
+		this.mVHAHeader.setRightText(R.string.add);
 		this.lvCargoList = (ListView) this.findViewById(R.id.lvCargoList);
 		this.mVHACargoType = new VHACargoType(this, this.getCargoTypeArray());
 

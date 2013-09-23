@@ -79,7 +79,7 @@ public class ActivityShopping extends TopActivity {
 		this.mVHACargoType = new VHACargoType(this, this.getCargoTypeArray());
 
 		this.mVHAHeader.setLeftText(R.string.back);
-		this.mVHAHeader.setRightText(R.string.shopping_end);
+		this.mVHAHeader.setRightText(R.string.end);
 	}
 	@Override
 	protected void setListener() {

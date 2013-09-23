@@ -62,10 +62,12 @@ public class SFBitmapManager {
 	}
 	private static Bitmap getBitmapFromArray(int cargoId) {
 		Bitmap bitmap = bitmapArray.get(cargoId);
-		//将刚取过的图片放在顶端,最后才释放
-		bitmapArray.remove(cargoId);
-		bitmapArray.put(cargoId, bitmap);
-		printKeySet(bitmapArray.keySet());
+		if (bitmap!=null) {
+			//将刚取过的图片放在顶端,最后才释放
+			bitmapArray.remove(cargoId);
+			bitmapArray.put(cargoId, bitmap);
+			printKeySet(bitmapArray.keySet());
+		}
 		return bitmap;
 	}
 	private static void printKeySet(Set<Integer> keyset) {

@@ -54,7 +54,7 @@ public class ActivityCharacteristic extends TopActivity {
 
 		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnInSelling());
 		this.mVHAHeader.setLeftText(R.string.back);
-		this.mVHAHeader.setRightText(R.string.shopping_begin);
+		this.mVHAHeader.setRightText(R.string.shopping);
 		this.mVHAHeader.setTitleText(this.mApp.getSettingGroup().getmSettingGroupName());
 	}
 	@Override

@@ -52,7 +52,7 @@ public class ActivitySettingGroupCharacteristicItem extends TopActivity {
 		super.initView();
 		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnOrganizing());
 		this.mVHAHeader.setLeftText(R.string.back);
-		this.mVHAHeader.setRightText(R.string.add_characteristic_item);
+		this.mVHAHeader.setRightText(R.string.add);
 		this.lvCharacteristicItem = (ListView) this.findViewById(R.id.lvCharacteristicItem);
 
 		this.setCharacteristicName();

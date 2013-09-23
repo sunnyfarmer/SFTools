@@ -100,7 +100,7 @@ public class ActivityStatisticsCargoRankList extends TopActivity {
 
 	protected void showTools() {
 		this.mVHAHeader.showHeader();
-		this.mVHAFooter.showFooter();
+//		this.mVHAFooter.showFooter();
 		this.btnLook.setVisibility(View.VISIBLE);
 		this.btnBuy.setVisibility(View.VISIBLE);
 		this.btnVisibility.setVisibility(View.VISIBLE);
@@ -108,7 +108,7 @@ public class ActivityStatisticsCargoRankList extends TopActivity {
 		this.mVHACharacteristicItem.show();
 	}
 	protected void hideTools() {
-		this.mVHAFooter.hideFooter();
+//		this.mVHAFooter.hideFooter();
 		this.mVHAHeader.hideHeader();
 		this.btnLook.setVisibility(View.INVISIBLE);
 		this.btnBuy.setVisibility(View.INVISIBLE);

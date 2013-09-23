@@ -130,6 +130,10 @@ public class AdapterSettingGroup extends SFBaseAdapter implements OnItemClickLis
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+//		SettingGroup settingGroup = this.getItem(position);
+//		Intent intent = new Intent(mActivity, ActivityAddSettingGroup.class);
+//		mApp.setmEditingSettingGroup(settingGroup);
+//		mActivity.startActivity(intent);
 	}
 
 }

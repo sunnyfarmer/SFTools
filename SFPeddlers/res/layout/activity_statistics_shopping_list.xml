@@ -15,7 +15,9 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <include layout="@layout/ui_footer"
+    <include
+        android:visibility="gone"
+        layout="@layout/ui_footer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_footer_height" />
 </LinearLayout>

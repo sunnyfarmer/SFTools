@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.hardware.Camera.PreviewCallback;
 import android.util.AttributeSet;
 
 public class SFYValueChart extends SFChart {
@@ -14,7 +13,7 @@ public class SFYValueChart extends SFChart {
 
 	// min\max value on the screen(根据entityMin/entityMax定义出来的Y轴范围)
 	protected float mYMinValue = 0.0f;
-	protected float mYMaxValue = 10000.0f;
+	protected float mYMaxValue = 10.0f;
 
 	// min\max value displaying on the screen(即当前界面上显示最大最小值)
 	protected float mYDisplayMinValue = mYMinValue;

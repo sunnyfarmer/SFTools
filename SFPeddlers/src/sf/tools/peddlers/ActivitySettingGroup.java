@@ -36,17 +36,15 @@ public class ActivitySettingGroup extends TopActivity {
 	@Override
 	protected void initData() {
 		super.initData();
-		this.refreshSettingGroupArray();
 	}
 
 	@Override
 	protected void initView() {
 		super.initView();
 		this.lvSettingGroup = (ListView) this.findViewById(R.id.lvSettingGroup);
-		this.lvSettingGroup.setAdapter(mAdapterSettingGroup);
 
 		this.mVHAFooter.setCheckedButton(this.mVHAFooter.getBtnOrganizing());
-		this.mVHAHeader.setLeftText(R.string.add_setting_group);
+		this.mVHAHeader.setLeftText(R.string.add);
 		this.mVHAHeader.hideRight();
 		this.mVHAHeader.setTitleText(R.string.setting_group);
 	}
@@ -87,6 +85,8 @@ public class ActivitySettingGroup extends TopActivity {
 		this.mSettingGroupArray = this.mApp.getmDbManager().getmDBSettingGroup().queryAll();
 		if (this.mAdapterSettingGroup==null) {
 			this.mAdapterSettingGroup = new AdapterSettingGroup(this, mSettingGroupArray);
+			this.lvSettingGroup.setAdapter(mAdapterSettingGroup);
+			this.lvSettingGroup.setOnItemClickListener(mAdapterSettingGroup);
 		} else {
 			this.mAdapterSettingGroup.setmSettingGroupArray(mSettingGroupArray);
 			this.mAdapterSettingGroup.notifyDataSetChanged();
