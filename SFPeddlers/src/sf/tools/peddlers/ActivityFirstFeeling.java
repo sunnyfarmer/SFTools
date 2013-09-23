@@ -33,7 +33,7 @@ public class ActivityFirstFeeling extends TopActivity {
 			this.finish();
 		}
 
-//		AdManager.getInstance(this).init("ec5afc7d80074930","70bde6655e968616", true);
+		AdManager.getInstance(this).init("ec5afc7d80074930","70bde6655e968616", true);
 	}
 
 	@Override
@@ -48,8 +48,8 @@ public class ActivityFirstFeeling extends TopActivity {
 			this.tvMsg.setVisibility(View.GONE);
 		}
 
-//		SmartBannerManager.init(this);
-//		SmartBannerManager.show(this);
+		SmartBannerManager.init(this);
+		SmartBannerManager.show(this);
 	}
 
 	@Override

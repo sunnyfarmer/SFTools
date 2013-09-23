@@ -3,6 +3,9 @@ package sf.tools.peddlers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.youmi.android.spot.SpotDialogLinstener;
+import net.youmi.android.spot.SpotManager;
+
 import sf.log.SFLog;
 import sf.math.SFMath;
 import sf.tools.chart.SFLineChart;
@@ -29,6 +32,27 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		this.setContentView(R.layout.activity_statistics_characteristic_line);
 	    super.onCreate(savedInstanceState);
+	}
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		SpotManager.getInstance(this).loadSpotAds();
+		SpotManager.getInstance(this).showSpotAds(this, new SpotDialogLinstener() {
+			@Override
+			public void onShowSuccess() {
+				SFLog.d(TAG, "success youmi");
+			}
+			@Override
+			public void onShowFailed() {
+				SFLog.d(TAG, "fail youmi");
+			}
+			
+			@Override
+			public void onClicked() {
+				SFLog.d(TAG, "click youmi");
+			}
+		});
 	}
 
 	@Override

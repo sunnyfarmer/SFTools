@@ -1,7 +1,8 @@
 package sf.tools.peddlers;
 
 import java.util.ArrayList;
-
+import net.youmi.android.spot.SpotDialogLinstener;
+import net.youmi.android.spot.SpotManager;
 import sf.log.SFLog;
 import sf.tools.peddlers.adapter.AdapterStatisticsRankList;
 import sf.tools.peddlers.adapter.AdapterStatisticsRankList.RANK_LIST_TYPE;
@@ -31,6 +32,27 @@ public class ActivityStatisticsCargoRankList extends TopActivity {
 	    super.onCreate(savedInstanceState);
 	}
 
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		SpotManager.getInstance(this).loadSpotAds();
+		SpotManager.getInstance(this).showSpotAds(this, new SpotDialogLinstener() {
+			@Override
+			public void onShowSuccess() {
+				SFLog.d(TAG, "success youmi");
+			}
+			@Override
+			public void onShowFailed() {
+				SFLog.d(TAG, "fail youmi");
+			}
+			
+			@Override
+			public void onClicked() {
+				SFLog.d(TAG, "click youmi");
+			}
+		});
+	}
 	@Override
 	protected void initData() {
 		super.initData();

@@ -1,9 +1,10 @@
 package sf.tools.peddlers;
 
+import sf.log.SFLog;
+import net.youmi.android.spot.SpotDialogLinstener;
+import net.youmi.android.spot.SpotManager;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import sf.log.SFLog;
 import sf.tools.peddlers.adapter.AdapterStatisticsShoppingList;
 import sf.tools.peddlers.model.ShoppingList;
 import android.app.DatePickerDialog;
@@ -34,6 +35,23 @@ public class ActivityStatisticsShoppingList extends TopActivity {
 	protected void onStart() {
 		super.onStart();
 		this.refreshList();
+
+		SpotManager.getInstance(this).loadSpotAds();
+		SpotManager.getInstance(this).showSpotAds(this, new SpotDialogLinstener() {
+			@Override
+			public void onShowSuccess() {
+				SFLog.d(TAG, "success youmi");
+			}
+			@Override
+			public void onShowFailed() {
+				SFLog.d(TAG, "fail youmi");
+			}
+			
+			@Override
+			public void onClicked() {
+				SFLog.d(TAG, "click youmi");
+			}
+		});
 	}
 
 	@Override
