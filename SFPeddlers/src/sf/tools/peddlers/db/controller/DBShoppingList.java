@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import sf.tools.peddlers.db.DBController;
+import sf.tools.peddlers.db.DatabaseHelper;
 import sf.tools.peddlers.db.DataStructure.DSShoppingList;
 import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.Cargo.CUSTOMER_BEHAVIOR;
@@ -22,6 +24,10 @@ import sf.utils.SFUtils;
 public class DBShoppingList extends DBController {
 	public static final String TAG = "DBShoppingList";
 
+	public DBShoppingList(DatabaseHelper databaseHelper, SQLiteDatabase db) {
+		super(databaseHelper, db);
+		this.mTableName = DSShoppingList.TB_NAME;
+	}
 	public DBShoppingList(Context context) {
 		super(context);
 		this.mTableName = DSShoppingList.TB_NAME;

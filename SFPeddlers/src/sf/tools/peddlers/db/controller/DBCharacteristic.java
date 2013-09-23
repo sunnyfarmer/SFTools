@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import sf.tools.peddlers.db.DBController;
+import sf.tools.peddlers.db.DatabaseHelper;
 import sf.tools.peddlers.db.DataStructure.DSCharacteristic;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.CharacteristicItem;
@@ -15,6 +17,10 @@ import sf.tools.peddlers.utils.SFGlobal;
 public class DBCharacteristic extends DBController {
 	public static final String TAG = "DBCharacteristic";
 
+	public DBCharacteristic(DatabaseHelper databaseHelper, SQLiteDatabase db) {
+		super(databaseHelper, db);
+		this.mTableName = DSCharacteristic.TB_NAME;
+	}
 	public DBCharacteristic(Context context) {
 		super(context);
 		this.mTableName = DSCharacteristic.TB_NAME;

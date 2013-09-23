@@ -2,16 +2,22 @@ package sf.tools.peddlers.db.controller;
 import java.util.ArrayList;
 
 import sf.tools.peddlers.db.DBController;
+import sf.tools.peddlers.db.DatabaseHelper;
 import sf.tools.peddlers.db.DataStructure.DSSettingGroup;
 import sf.tools.peddlers.model.SettingGroup;
 import sf.tools.peddlers.utils.SFGlobal;
 import sf.utils.SFUtils;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 public class DBSettingGroup extends DBController {
 	public static final String TAG = "DBSettingGroup";
 
+	public DBSettingGroup(DatabaseHelper databaseHelper, SQLiteDatabase db) {
+		super(databaseHelper, db);
+		this.mTableName = DSSettingGroup.TB_NAME;
+	}
 	public DBSettingGroup(Context context) {
 		super(context);
 		this.mTableName = DSSettingGroup.TB_NAME;

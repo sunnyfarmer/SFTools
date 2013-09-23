@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import sf.tools.peddlers.db.DBController;
+import sf.tools.peddlers.db.DatabaseHelper;
 import sf.tools.peddlers.db.DataStructure.DSCargoType;
 import sf.tools.peddlers.model.CargoType;
 import sf.tools.peddlers.model.Model;
@@ -14,6 +16,10 @@ import sf.tools.peddlers.utils.SFGlobal;
 public class DBCargoType extends DBController {
 	public static final String TAG = "DBCargoType";
 
+	public DBCargoType(DatabaseHelper databaseHelper, SQLiteDatabase db) {
+		super(databaseHelper, db);
+		this.mTableName = DSCargoType.TB_NAME;
+	}
 	public DBCargoType(Context context) {
 		super(context);
 		this.mTableName = DSCargoType.TB_NAME;

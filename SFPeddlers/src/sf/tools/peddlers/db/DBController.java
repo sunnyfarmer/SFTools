@@ -35,6 +35,10 @@ public abstract class DBController {
 	private DBCharacteristicItemInList mDbCharacteristicItemInList = null;
 	private DBShoppingList mDbShoppingList = null;
 
+	public DBController(DatabaseHelper databaseHelper, SQLiteDatabase db) {
+		this.mDatabaseHelper = databaseHelper;
+		this.mDatabase = db;
+	}
 	public DBController(Context context) {
 		this.mContext = context;
 		this.getmDatabase();
@@ -150,7 +154,11 @@ public abstract class DBController {
 			if (this instanceof DBCargo) {
 				this.mDbCargo = (DBCargo) this;
 			} else {
-				this.mDbCargo = new DBCargo(this.mContext);
+				if (this.mContext==null) {
+					this.mDbCargo = new DBCargo(this.mDatabaseHelper, this.mDatabase);
+				} else {
+					this.mDbCargo = new DBCargo(this.mContext);
+				}
 			}
 		}
 		return this.mDbCargo;
@@ -161,7 +169,11 @@ public abstract class DBController {
 			if (this instanceof DBCargoInList) {
 				this.mDbCargoInList = (DBCargoInList)this;
 			} else {
-				this.mDbCargoInList = new DBCargoInList(this.mContext);
+				if (this.mContext==null) {
+					this.mDbCargoInList = new DBCargoInList(this.mDatabaseHelper, this.mDatabase);
+				} else {
+					this.mDbCargoInList = new DBCargoInList(this.mContext);
+				}
 			}
 		}
 		return this.mDbCargoInList;
@@ -172,7 +184,11 @@ public abstract class DBController {
 			if (this instanceof DBCargoType) {
 				this.mDbCargoType = (DBCargoType) this;
 			} else {
-				this.mDbCargoType = new DBCargoType(this.mContext);
+				if (this.mContext==null) {
+					this.mDbCargoType = new DBCargoType(this.mDatabaseHelper, this.mDatabase);
+				} else {
+					this.mDbCargoType = new DBCargoType(this.mContext);
+				}
 			}
 		}
 		return this.mDbCargoType;
@@ -183,7 +199,11 @@ public abstract class DBController {
 			if (this instanceof DBCharacteristic) {
 				this.mDbCharacteristic = (DBCharacteristic)this;
 			} else {
-				this.mDbCharacteristic = new DBCharacteristic(this.mContext);
+				if (this.mContext==null) {
+					this.mDbCharacteristic = new DBCharacteristic(this.mDatabaseHelper, this.mDatabase);
+				} else {
+					this.mDbCharacteristic = new DBCharacteristic(this.mContext);
+				}
 			}
 		}
 		return this.mDbCharacteristic;
@@ -194,7 +214,11 @@ public abstract class DBController {
 			if (this instanceof DBCharacteristicItem) {
 				this.mDbCharacteristicItem = (DBCharacteristicItem) this;
 			} else {
-				this.mDbCharacteristicItem = new DBCharacteristicItem(this.mContext);
+				if (this.mContext==null) {
+					this.mDbCharacteristicItem = new DBCharacteristicItem(this.mDatabaseHelper, this.mDatabase);
+				} else {
+					this.mDbCharacteristicItem = new DBCharacteristicItem(this.mContext);
+				}
 			}
 		}
 		return mDbCharacteristicItem;
@@ -205,7 +229,11 @@ public abstract class DBController {
 			if (this instanceof DBFirstFeeling) {
 				this.mDbFirstFeeling = (DBFirstFeeling)this;
 			} else {
-				this.mDbFirstFeeling = new DBFirstFeeling(this.mContext);
+				if (this.mContext==null) {
+					this.mDbFirstFeeling = new DBFirstFeeling(this.mDatabaseHelper, this.mDatabase);
+				} else {
+					this.mDbFirstFeeling = new DBFirstFeeling(this.mContext);
+				}
 			}
 		}
 		return this.mDbFirstFeeling;
@@ -216,7 +244,11 @@ public abstract class DBController {
 			if (this instanceof DBSettingGroup) {
 				this.mDbSettingGroup = (DBSettingGroup)this;
 			} else {
-				this.mDbSettingGroup = new DBSettingGroup(this.mContext);
+				if (this.mContext==null) {
+					this.mDbSettingGroup = new DBSettingGroup(this.mDatabaseHelper, this.mDatabase);
+				} else {
+					this.mDbSettingGroup = new DBSettingGroup(this.mContext);
+				}
 			}
 		}
 		return this.mDbSettingGroup;
@@ -228,7 +260,11 @@ public abstract class DBController {
 			if (this instanceof DBCharacteristicItemInList) {
 				this.mDbCharacteristicItemInList = (DBCharacteristicItemInList)this;
 			} else {
-				this.mDbCharacteristicItemInList = new DBCharacteristicItemInList(this.mContext);
+				if (this.mContext==null) {
+					this.mDbCharacteristicItemInList = new DBCharacteristicItemInList(this.mDatabaseHelper, this.mDatabase);
+				} else {
+					this.mDbCharacteristicItemInList = new DBCharacteristicItemInList(this.mContext);
+				}
 			}
 		}
 		return mDbCharacteristicItemInList;
@@ -240,7 +276,11 @@ public abstract class DBController {
 			if (this instanceof DBShoppingList) {
 				this.mDbShoppingList = (DBShoppingList)this;
 			} else {
-				this.mDbShoppingList = new DBShoppingList(this.mContext);
+				if (this.mContext==null) {
+					this.mDbShoppingList = new DBShoppingList(this.mDatabaseHelper, this.mDatabase);
+				} else {
+					this.mDbShoppingList = new DBShoppingList(this.mContext);
+				}
 			}
 		}
 		return mDbShoppingList;
