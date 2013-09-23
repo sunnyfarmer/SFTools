@@ -4,15 +4,13 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="horizontal"
-    android:paddingTop="1dp"
-    android:background="@android:color/black">
+    android:background="@android:color/white">
 		<Button
 		    android:id="@+id/btnInSelling"
 		    android:layout_width="0dp"
 		    android:layout_height="fill_parent"
 		    android:layout_weight="1"
 		    android:background="@drawable/selector_tab_selected"
-		    android:layout_marginRight="1dp"
 		    android:textSize="@dimen/content_size"
 		    android:text="@string/in_selling" />
 
@@ -22,7 +20,6 @@
 		    android:layout_height="fill_parent"
 		    android:layout_weight="1"
 		    android:background="@drawable/selector_tab"
-		    android:layout_marginRight="1dp"
 		    android:textSize="@dimen/content_size"
 		    android:text="@string/statistics" />
 

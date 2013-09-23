@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/activity_header_height"
     android:paddingBottom="1dp"
-    android:background="@color/light_gray"
+    android:background="@drawable/header_bar"
     android:gravity="center"
     android:orientation="horizontal" >
 
