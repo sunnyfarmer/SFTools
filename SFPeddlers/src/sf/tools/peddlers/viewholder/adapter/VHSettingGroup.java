@@ -8,5 +8,5 @@ public class VHSettingGroup {
 
 	public TextView tvSettingGroupName = null;
 	public Button btnDelete = null;
-	public Button btnEdit = null;
+	public Button btnApply = null;
 }

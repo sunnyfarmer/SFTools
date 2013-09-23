@@ -60,7 +60,7 @@ public class AdapterSettingGroup extends SFBaseAdapter implements OnItemClickLis
 			vhSettingGroup = new VHSettingGroup();
 			vhSettingGroup.tvSettingGroupName = (TextView) convertView.findViewById(R.id.tvSettingGroupName);
 			vhSettingGroup.btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
-			vhSettingGroup.btnEdit = (Button) convertView.findViewById(R.id.btnEdit);
+			vhSettingGroup.btnApply = (Button) convertView.findViewById(R.id.btnApply);
 			convertView.setTag(vhSettingGroup);
 		} else {
 			vhSettingGroup = (VHSettingGroup) convertView.getTag();
@@ -83,9 +83,9 @@ public class AdapterSettingGroup extends SFBaseAdapter implements OnItemClickLis
 		vhSettingGroup.tvSettingGroupName.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//选中SettingGroup
-				mApp.setSettingGroupId(settingGroup.getmSettingGroupId());
-				AdapterSettingGroup.this.notifyDataSetChanged();
+				Intent intent = new Intent(mActivity, ActivityAddSettingGroup.class);
+				mApp.setmEditingSettingGroup(settingGroup);
+				mActivity.startActivity(intent);
 			}
 		});
 		vhSettingGroup.btnDelete.setOnClickListener(new OnClickListener() {
@@ -94,12 +94,12 @@ public class AdapterSettingGroup extends SFBaseAdapter implements OnItemClickLis
 				delete(settingGroup);
 			}
 		});
-		vhSettingGroup.btnEdit.setOnClickListener(new OnClickListener() {
+		vhSettingGroup.btnApply.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(mActivity, ActivityAddSettingGroup.class);
-				mApp.setmEditingSettingGroup(settingGroup);
-				mActivity.startActivity(intent);
+				//选中SettingGroup
+				mApp.setSettingGroupId(settingGroup.getmSettingGroupId());
+				AdapterSettingGroup.this.notifyDataSetChanged();
 			}
 		});
 
