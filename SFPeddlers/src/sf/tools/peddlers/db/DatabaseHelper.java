@@ -1,7 +1,5 @@
 package sf.tools.peddlers.db;
 
-import java.util.ArrayList;
-
 import sf.tools.peddlers.db.DataStructure.DSCargo;
 import sf.tools.peddlers.db.DataStructure.DSCargoInList;
 import sf.tools.peddlers.db.DataStructure.DSCargoType;
@@ -16,6 +14,7 @@ import sf.tools.peddlers.db.controller.DBCargoType;
 import sf.tools.peddlers.db.controller.DBCharacteristic;
 import sf.tools.peddlers.db.controller.DBFirstFeeling;
 import sf.tools.peddlers.db.controller.DBSettingGroup;
+import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.CargoType;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.CharacteristicItem;
@@ -167,5 +166,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		dbCT.upsert(ct6);
 		dbCT.upsert(ct7);
 
+		DBCargo dbCargo = new DBCargo(this, db);
+		for(int cot = 0; cot < 10; cot++) {
+			Cargo cargo1 = new Cargo(ct1.getmCargoTypeName()+cot, ct1);
+			Cargo cargo2 = new Cargo(ct2.getmCargoTypeName()+cot, ct2);
+			Cargo cargo3 = new Cargo(ct3.getmCargoTypeName()+cot, ct3);
+			Cargo cargo4 = new Cargo(ct4.getmCargoTypeName()+cot, ct4);
+			Cargo cargo5 = new Cargo(ct5.getmCargoTypeName()+cot, ct5);
+			Cargo cargo6 = new Cargo(ct6.getmCargoTypeName()+cot, ct6);
+			Cargo cargo7 = new Cargo(ct7.getmCargoTypeName()+cot, ct7);
+
+			dbCargo.upsert(cargo1);
+			dbCargo.upsert(cargo2);
+			dbCargo.upsert(cargo3);
+			dbCargo.upsert(cargo4);
+			dbCargo.upsert(cargo5);
+			dbCargo.upsert(cargo6);
+			dbCargo.upsert(cargo7);
+		}
 	}
 }

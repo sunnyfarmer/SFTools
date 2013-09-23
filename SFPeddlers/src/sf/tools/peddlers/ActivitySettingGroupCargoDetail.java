@@ -91,6 +91,10 @@ public class ActivitySettingGroupCargoDetail extends TopActivity {
 						new OnInputConfirmedListener() {
 							@Override
 							public void onInputConfirmed(String inputMsg) {
+								if (inputMsg.equals("")) {
+									showToast(R.string.must_be_filled);
+									return;
+								}
 								Cargo cargo = mApp.getmDbManager().getmDBCargo().query(mCargo.getmCargoType(), inputMsg);
 								if (cargo!=null) {
 									showToast(R.string.same_cargo_name);
