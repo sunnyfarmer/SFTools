@@ -33,7 +33,7 @@ public class ActivityFirstFeeling extends TopActivity {
 			this.finish();
 		}
 
-		AdManager.getInstance(this).init("ec5afc7d80074930","70bde6655e968616", true);
+//		AdManager.getInstance(this).init("ec5afc7d80074930","70bde6655e968616", true);
 	}
 
 	@Override
@@ -48,8 +48,8 @@ public class ActivityFirstFeeling extends TopActivity {
 			this.tvMsg.setVisibility(View.GONE);
 		}
 
-		SmartBannerManager.init(this);
-		SmartBannerManager.show(this);
+//		SmartBannerManager.init(this);
+//		SmartBannerManager.show(this);
 	}
 
 	@Override
@@ -74,13 +74,13 @@ public class ActivityFirstFeeling extends TopActivity {
 	@Override
 	protected void setListener() {
 		super.setListener();
-		this.lvFirstFeeling.setOnItemClickListener(this.mFirstFeelingAdapter);
 	}
 
 	protected void refreshFirstFeeling() {
 		this.mFirstFeelingArray = this.mApp.getSettingGroup().getmFirstFeelingArray();
 		if (this.mFirstFeelingAdapter==null) {
 			this.mFirstFeelingAdapter = new AdapterFirstFeeling(this, this.mFirstFeelingArray);
+			this.lvFirstFeeling.setOnItemClickListener(this.mFirstFeelingAdapter);
 		} else {
 			this.mFirstFeelingAdapter.setmFirstFeelingArray(mFirstFeelingArray);
 			this.mFirstFeelingAdapter.notifyDataSetChanged();

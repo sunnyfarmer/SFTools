@@ -65,24 +65,20 @@ public class AdapterFirstFeeling extends SFBaseAdapter implements OnItemClickLis
 			firstFeelingViewHolder = (VHFirstFeeling) convertView.getTag();
 		}
 
-		final FirstFeeling firstFeeling = this.mFirstFeelingArray.get(position);
 		firstFeelingViewHolder.tvFirstFeeling.setText(this.mFirstFeelingArray.get(position).getmFirstFeelingName());
-		firstFeelingViewHolder.tvFirstFeeling.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(mActivity, ActivityCharacteristic.class);
-				
-				ShoppingList shoppingList = new ShoppingList(firstFeeling, mApp.getSettingGroup(), null);
-				mApp.setmShoppingList(shoppingList);
-
-				mActivity.startActivity(intent);				
-			}
-		});
 		return convertView;
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		FirstFeeling firstFeeling = this.getItem(position);
+
+		Intent intent = new Intent(mActivity, ActivityCharacteristic.class);
+		
+		ShoppingList shoppingList = new ShoppingList(firstFeeling, mApp.getSettingGroup(), null);
+		mApp.setmShoppingList(shoppingList);
+
+		mActivity.startActivity(intent);
 	}
 }
