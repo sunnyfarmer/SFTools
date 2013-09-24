@@ -31,12 +31,12 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		this.setContentView(R.layout.activity_statistics_characteristic_line);
 	    super.onCreate(savedInstanceState);
+
+		SFAdvertisement.showSpotAd(this);
 	}
 	@Override
 	protected void onStart() {
 		super.onStart();
-
-		SFAdvertisement.showSpotAd(this);
 	}
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {

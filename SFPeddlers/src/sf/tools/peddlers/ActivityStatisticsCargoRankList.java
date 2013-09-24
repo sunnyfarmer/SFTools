@@ -31,13 +31,13 @@ public class ActivityStatisticsCargoRankList extends TopActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		this.setContentView(R.layout.activity_statistics_cargo_rank_list);
 	    super.onCreate(savedInstanceState);
+
+	    SFAdvertisement.showSpotAd(this);
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-
-		SFAdvertisement.showSpotAd(this);
 	}
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {

@@ -32,14 +32,14 @@ public class ActivityStatisticsShoppingList extends TopActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		this.setContentView(R.layout.activity_statistics_shopping_list);
 	    super.onCreate(savedInstanceState);
+
+		SFAdvertisement.showSpotAd(this);
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
 		this.refreshList();
-
-		SFAdvertisement.showSpotAd(this);
 	}
 
 	@Override

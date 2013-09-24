@@ -31,6 +31,7 @@ public class ActivityFirstFeeling extends TopActivity {
 		}
 
 		SFAdvertisement.init(this);
+		SFAdvertisement.showSmartBanner(this);
 	}
 
 	@Override
@@ -44,8 +45,6 @@ public class ActivityFirstFeeling extends TopActivity {
 		} else {
 			this.tvMsg.setVisibility(View.GONE);
 		}
-
-		SFAdvertisement.showSmartBanner(this);
 	}
 
 	@Override
