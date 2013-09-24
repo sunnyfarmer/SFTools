@@ -19,6 +19,7 @@ public class ActivityStatisticsOverView extends TopActivity {
 	    super.onCreate(savedInstanceState);
 
 	    if (this.mApp.getSettingGroup()==null) {
+			this.showToast(R.string.please_select_setting_group_first);
 			Intent intent = new Intent(this, ActivitySettingGroup.class);
 			this.startActivity(intent);
 			this.finish();

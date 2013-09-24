@@ -39,6 +39,7 @@
 	<string name="edit_setting_group_first">请先编辑铺位</string>
 
 	<!-- string for SETTING_GROUP -->
+	<string name="please_select_setting_group_first">请先选用合适铺位</string>
 	<string name="cargo_type">货物种类</string>	
 	<string name="setting_group">铺位摆设</string>
 	<string name="add_setting_group">添加铺位</string>
