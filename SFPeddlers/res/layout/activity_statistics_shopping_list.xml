@@ -9,6 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_header_height"/>
 
+    <TextView
+        android:id="@+id/tvMsg"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="" />
+    
     <ListView
         android:id="@+id/lvShoppingList"
         android:layout_width="match_parent"

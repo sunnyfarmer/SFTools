@@ -5,6 +5,8 @@ import net.youmi.android.spot.SpotDialogLinstener;
 import net.youmi.android.spot.SpotManager;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
+
 import sf.tools.peddlers.adapter.AdapterStatisticsShoppingList;
 import sf.tools.peddlers.model.ShoppingList;
 import android.app.DatePickerDialog;
@@ -14,12 +16,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ActivityStatisticsShoppingList extends TopActivity {
 	public static final String TAG = "ActivityStatisticsShoppingList";
 
 	private ArrayList<ShoppingList> mShoppingListArray = null;
 
+	private TextView tvMsg = null;
 	private ListView lvShoppingList = null;
 	private AdapterStatisticsShoppingList mAdapterStatisticsShoppingList = null;
 
@@ -63,6 +67,7 @@ public class ActivityStatisticsShoppingList extends TopActivity {
 	protected void initView() {
 		super.initView();
 		this.lvShoppingList = (ListView) this.findViewById(R.id.lvShoppingList);
+		this.tvMsg = (TextView) this.findViewById(R.id.tvMsg);
 
 		this.mVHAHeader.setLeftText(R.string.back);
 		this.mVHAHeader.setTitleText(R.string.shopping_list);
@@ -115,6 +120,16 @@ public class ActivityStatisticsShoppingList extends TopActivity {
 		} else {
 			this.mAdapterStatisticsShoppingList.setmShoppingListArray(mShoppingListArray);
 			this.mAdapterStatisticsShoppingList.notifyDataSetChanged();
+		}
+
+		if (this.mShoppingListArray==null || 0==this.mShoppingListArray.size()) {
+			Calendar c = this.getmCalendar();
+			String date = String.format(Locale.US, "%d/%02d/%02d", c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH));
+			String msg = this.getString(R.string.no_data_this_day, date);
+			this.tvMsg.setText(msg);
+			this.tvMsg.setVisibility(View.VISIBLE);
+		} else {
+			this.tvMsg.setVisibility(View.GONE);
 		}
 	}
 

@@ -81,4 +81,8 @@
 	<string name="hide">隐藏</string>
 	<string name="quantity_format">次数(%1$s):%2$d</string>
 	<string name="rank_format">排行:%1$d</string>
+	<string name="no_data_this_day">%1$s 没有数据</string>
+	<string name="please_click_to_check_rank_list">请点击\"看\",展示\"%1$s\"为\"%2$s\"的\"看排行榜\"\n点击\"买\",展示\"%3$s\"为\"%4$s\"的\"买排行榜\"</string>
+	<string name="rank_list_no_data">排行榜没有数据</string>
+	<string name="please_click_to_check_characteristic_line">请点击\"看\",展示\"%1$s\"对应于\"%2$s\"的浏览曲线\n点击\"买\",展示\"%3$s\"对应于\"%4$s\"的购买曲线</string>
 </resources>

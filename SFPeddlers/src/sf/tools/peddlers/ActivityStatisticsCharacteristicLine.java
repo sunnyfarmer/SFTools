@@ -18,10 +18,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class ActivityStatisticsCharacteristicLine extends TopActivity {
 	public static final String TAG = "ActivityStatisticsCharacteristicLine";
 
+	private TextView tvMsg = null;
 	private Button btnLook = null;
 	private Button btnBuy = null;
 	private Button btnVisibility = null;
@@ -54,7 +56,21 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 			}
 		});
 	}
-
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		Cargo cargo = this.mVHACargoNCharacteristic.getmSelectedCargo();
+		Characteristic characteristic = this.mVHACargoNCharacteristic.getmSelectedCharacteristic();
+		if (cargo!=null && characteristic!=null) {
+			String msg = this.getString(R.string.please_click_to_check_characteristic_line,
+					cargo.getmCargoName(),
+					characteristic.getmCharacteristicName(),
+					cargo.getmCargoName(),
+					characteristic.getmCharacteristicName());
+			this.tvMsg.setText(msg);
+			tvMsg.setVisibility(View.VISIBLE);
+		}
+	}
 	@Override
 	protected void initData() {
 		super.initData();
@@ -69,6 +85,7 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 		this.mVHAHeader.setTitleText(R.string.characteristic_line);
 		this.mVHACargoNCharacteristic = new VHACargoNCharacteristic(this);
 
+		this.tvMsg = (TextView) this.findViewById(R.id.tvMsg);
 		this.btnLook = (Button) this.findViewById(R.id.btnLook);
 		this.btnBuy = (Button) this.findViewById(R.id.btnBuy);
 		this.btnVisibility = (Button) this.findViewById(R.id.btnVisibility);
@@ -95,6 +112,8 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 				Characteristic characteristic = mVHACargoNCharacteristic.getmSelectedCharacteristic();
 				HashMap<CharacteristicItem, Integer> map = mApp.getmDbManager().getmDBRankList().queryLookQuantity(cargo, characteristic);
 				refreshLineChart(map);
+
+				tvMsg.setVisibility(View.GONE);
 			}
 		});
 		this.btnBuy.setOnClickListener(new OnClickListener() {
@@ -107,6 +126,8 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 				Characteristic characteristic = mVHACargoNCharacteristic.getmSelectedCharacteristic();
 				HashMap<CharacteristicItem, Integer> map = mApp.getmDbManager().getmDBRankList().queryBuyQuantity(cargo, characteristic);
 				refreshLineChart(map);
+
+				tvMsg.setVisibility(View.GONE);
 			}
 		});
 		this.btnVisibility.setOnClickListener(new OnClickListener() {
