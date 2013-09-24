@@ -7,6 +7,7 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -22,6 +23,10 @@
     <!--以下两个为可选权限-->
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <meta-data android:name="YOUMI_CHANNEL"
+                android:value="10010" >
+    </meta-data>
 <!-- 有米 end -->
 
     <application
@@ -81,7 +86,6 @@
                 android:name="net.youmi.android.SmartBannerService"
                 android:exported="false"
                 ></service>
-	    
     <!-- 有米 end -->
     </application>
 
