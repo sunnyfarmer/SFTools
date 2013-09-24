@@ -2,10 +2,6 @@ package sf.tools.peddlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import net.youmi.android.spot.SpotDialogLinstener;
-import net.youmi.android.spot.SpotManager;
-
 import sf.log.SFLog;
 import sf.math.SFMath;
 import sf.tools.chart.SFLineChart;
@@ -14,6 +10,7 @@ import sf.tools.peddlers.model.Cargo;
 import sf.tools.peddlers.model.Characteristic;
 import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.viewholder.activity.VHACargoNCharacteristic;
+import sf.utils.SFAdvertisement;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,22 +36,7 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 	protected void onStart() {
 		super.onStart();
 
-		SpotManager.getInstance(this).loadSpotAds();
-		SpotManager.getInstance(this).showSpotAds(this, new SpotDialogLinstener() {
-			@Override
-			public void onShowSuccess() {
-				SFLog.d(TAG, "success youmi");
-			}
-			@Override
-			public void onShowFailed() {
-				SFLog.d(TAG, "fail youmi");
-			}
-			
-			@Override
-			public void onClicked() {
-				SFLog.d(TAG, "click youmi");
-			}
-		});
+		SFAdvertisement.showSpotAd(this);
 	}
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {

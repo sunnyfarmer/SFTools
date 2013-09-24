@@ -1,14 +1,13 @@
 package sf.tools.peddlers;
 
 import java.util.ArrayList;
-import net.youmi.android.spot.SpotDialogLinstener;
-import net.youmi.android.spot.SpotManager;
 import sf.log.SFLog;
 import sf.tools.peddlers.adapter.AdapterStatisticsRankList;
 import sf.tools.peddlers.adapter.AdapterStatisticsRankList.RANK_LIST_TYPE;
 import sf.tools.peddlers.model.CharacteristicItem;
 import sf.tools.peddlers.model.RankListItem;
 import sf.tools.peddlers.viewholder.activity.VHACharacteristicItem;
+import sf.utils.SFAdvertisement;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,22 +37,7 @@ public class ActivityStatisticsCargoRankList extends TopActivity {
 	protected void onStart() {
 		super.onStart();
 
-		SpotManager.getInstance(this).loadSpotAds();
-		SpotManager.getInstance(this).showSpotAds(this, new SpotDialogLinstener() {
-			@Override
-			public void onShowSuccess() {
-				SFLog.d(TAG, "success youmi");
-			}
-			@Override
-			public void onShowFailed() {
-				SFLog.d(TAG, "fail youmi");
-			}
-			
-			@Override
-			public void onClicked() {
-				SFLog.d(TAG, "click youmi");
-			}
-		});
+		SFAdvertisement.showSpotAd(this);
 	}
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {

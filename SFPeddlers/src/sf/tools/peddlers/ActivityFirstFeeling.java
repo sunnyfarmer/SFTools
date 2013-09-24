@@ -1,12 +1,9 @@
 package sf.tools.peddlers;
 
 import java.util.ArrayList;
-
-import net.youmi.android.AdManager;
-import net.youmi.android.smart.SmartBannerManager;
-
 import sf.tools.peddlers.adapter.AdapterFirstFeeling;
 import sf.tools.peddlers.model.FirstFeeling;
+import sf.utils.SFAdvertisement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,7 +30,7 @@ public class ActivityFirstFeeling extends TopActivity {
 			this.finish();
 		}
 
-		AdManager.getInstance(this).init("ec5afc7d80074930","70bde6655e968616", true);
+		SFAdvertisement.init(this);
 	}
 
 	@Override
@@ -48,8 +45,7 @@ public class ActivityFirstFeeling extends TopActivity {
 			this.tvMsg.setVisibility(View.GONE);
 		}
 
-		SmartBannerManager.init(this);
-		SmartBannerManager.show(this);
+		SFAdvertisement.showSmartBanner(this);
 	}
 
 	@Override
