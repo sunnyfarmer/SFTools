@@ -11,7 +11,7 @@ public class SFAdvertisement {
 	public static final String TAG = "SFAdvertisement";
 
 	public static void init(Context context) {
-		AdManager.getInstance(context).init("ec5afc7d80074930","70bde6655e968616", true);
+		AdManager.getInstance(context).init("ec5afc7d80074930","70bde6655e968616", false);
 	}
 
 	public static void showSmartBanner(Context context) {

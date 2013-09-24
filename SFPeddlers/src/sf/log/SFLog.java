@@ -3,7 +3,7 @@ package sf.log;
 import android.util.Log;
 
 public class SFLog {
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	public static final String TAG = "SFLog";
 
 	public static void d(String tag, String msg) {
