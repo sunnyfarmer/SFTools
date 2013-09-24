@@ -4042,6 +4042,7 @@ sf.tools.peddlers.R$string: int please_input_new_cargo_type_name
 sf.tools.peddlers.R$string: int please_input_new_characteristic
 sf.tools.peddlers.R$string: int please_input_new_first_feeling
 sf.tools.peddlers.R$string: int please_input_setting_group_name
+sf.tools.peddlers.R$string: int please_select_setting_group_first
 sf.tools.peddlers.R$string: int quantity_format
 sf.tools.peddlers.R$string: int rank_format
 sf.tools.peddlers.R$string: int rank_list
