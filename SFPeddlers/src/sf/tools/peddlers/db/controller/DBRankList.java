@@ -1,7 +1,10 @@
 package sf.tools.peddlers.db.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -41,7 +44,8 @@ public class DBRankList extends DBController {
 				"where %s.%s=%s.%s " +
 				"and %s.%s = ? " +
 				"and %s.%s = ? " +
-				"group by %s.%s;",
+				"group by %s.%s "+
+				"order by count(%s.%s) DESC;",
 				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID,
 				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID,
 				DSCharacteristicItemInList.TB_NAME, DSCargoInList.TB_NAME,
@@ -49,7 +53,8 @@ public class DBRankList extends DBController {
 				DSCargoInList.TB_NAME, DSCargoInList.COL_SHOPPING_LIST_ID,
 				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID,
 				DSCargoInList.TB_NAME, DSCargoInList.COL_USER_BEHAVIOR,
-				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID
+				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID,
+				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID
 				),
 				new String[] {
 					String.valueOf(characteristicItem.getmCharacteristicItemId()),
@@ -93,7 +98,8 @@ public class DBRankList extends DBController {
 				"where %s.%s=%s.%s " +
 				"and %s.%s = ? " +
 				"and %s.%s = ? " +
-				"group by %s.%s;",
+				"group by %s.%s "+
+				"order by count(%s.%s) DESC;",
 				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID,
 				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID,
 				DSCharacteristicItemInList.TB_NAME, DSCargoInList.TB_NAME,
@@ -101,7 +107,8 @@ public class DBRankList extends DBController {
 				DSCargoInList.TB_NAME, DSCargoInList.COL_SHOPPING_LIST_ID,
 				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID,
 				DSCargoInList.TB_NAME, DSCargoInList.COL_USER_BEHAVIOR,
-				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID
+				DSCargoInList.TB_NAME, DSCargoInList.COL_CARGO_ID,
+				DSCharacteristicItemInList.TB_NAME, DSCharacteristicItemInList.COL_CHARACTERISTIC_ITEM_ID
 				),
 				new String[] {
 					String.valueOf(characteristicItem.getmCharacteristicItemId()),
@@ -134,9 +141,25 @@ public class DBRankList extends DBController {
 		return itemArray;
 	}
 
-	public HashMap<CharacteristicItem, Integer> queryLookQuantity(Cargo cargo, Characteristic characteristic) {
-		HashMap<CharacteristicItem, Integer> rsMap = new HashMap<CharacteristicItem, Integer>();
-		for (CharacteristicItem characteristicItem : characteristic.getmCharacteristicItemArray()) {
+	public LinkedHashMap<CharacteristicItem, Integer> queryLookQuantity(Cargo cargo, Characteristic characteristic) {
+		LinkedHashMap<CharacteristicItem, Integer> rsMap = new LinkedHashMap<CharacteristicItem, Integer>();
+		ArrayList<CharacteristicItem> itemArray = characteristic.getmCharacteristicItemArray();
+		Collections.sort(itemArray, new Comparator<CharacteristicItem>() {
+			@Override
+			public int compare(CharacteristicItem lhs, CharacteristicItem rhs) {
+				if (lhs!=null && rhs!=null) {
+					if (lhs.getmCharacteristicItemId()>rhs.getmCharacteristicItemId()) {
+						return 1;
+					} else if (lhs.getmCharacteristicItemId()==rhs.getmCharacteristicItemId()) {
+						return -1;
+					} else {
+						return 0;
+					}
+				}
+				return 0;
+			}
+		});
+		for (CharacteristicItem characteristicItem : itemArray) {
 			int quantity = this.queryLookQuantity(cargo, characteristicItem);
 			rsMap.put(characteristicItem, quantity);
 		}
@@ -176,9 +199,25 @@ public class DBRankList extends DBController {
 		return quantity;
 	}
 
-	public HashMap<CharacteristicItem, Integer> queryBuyQuantity(Cargo cargo, Characteristic characteristic) {
-		HashMap<CharacteristicItem, Integer> rsMap = new HashMap<CharacteristicItem, Integer>();
-		for (CharacteristicItem characteristicItem : characteristic.getmCharacteristicItemArray()) {
+	public LinkedHashMap<CharacteristicItem, Integer> queryBuyQuantity(Cargo cargo, Characteristic characteristic) {
+		LinkedHashMap<CharacteristicItem, Integer> rsMap = new LinkedHashMap<CharacteristicItem, Integer>();
+		ArrayList<CharacteristicItem> itemArray = characteristic.getmCharacteristicItemArray();
+		Collections.sort(itemArray, new Comparator<CharacteristicItem>() {
+			@Override
+			public int compare(CharacteristicItem lhs, CharacteristicItem rhs) {
+				if (lhs!=null && rhs!=null) {
+					if (lhs.getmCharacteristicItemId()>rhs.getmCharacteristicItemId()) {
+						return 1;
+					} else if (lhs.getmCharacteristicItemId()==rhs.getmCharacteristicItemId()) {
+						return -1;
+					} else {
+						return 0;
+					}
+				}
+				return 0;
+			}
+		});
+		for (CharacteristicItem characteristicItem : itemArray) {
 			int quantity = this.queryBuyQuantity(cargo, characteristicItem);
 			rsMap.put(characteristicItem, quantity);
 		}

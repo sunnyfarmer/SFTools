@@ -2,6 +2,8 @@ package sf.tools.peddlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+
 import sf.log.SFLog;
 import sf.math.SFMath;
 import sf.tools.chart.SFLineChart;
@@ -92,7 +94,7 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 				SFLog.d(TAG, mVHACargoNCharacteristic.getmSelectedCharacteristic().toString());
 				Cargo cargo = mVHACargoNCharacteristic.getmSelectedCargo();
 				Characteristic characteristic = mVHACargoNCharacteristic.getmSelectedCharacteristic();
-				HashMap<CharacteristicItem, Integer> map = mApp.getmDbManager().getmDBRankList().queryLookQuantity(cargo, characteristic);
+				LinkedHashMap<CharacteristicItem, Integer> map = mApp.getmDbManager().getmDBRankList().queryLookQuantity(cargo, characteristic);
 				refreshLineChart(map);
 
 				tvMsg.setVisibility(View.GONE);
@@ -106,7 +108,7 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 				SFLog.d(TAG, mVHACargoNCharacteristic.getmSelectedCharacteristic().toString());
 				Cargo cargo = mVHACargoNCharacteristic.getmSelectedCargo();
 				Characteristic characteristic = mVHACargoNCharacteristic.getmSelectedCharacteristic();
-				HashMap<CharacteristicItem, Integer> map = mApp.getmDbManager().getmDBRankList().queryBuyQuantity(cargo, characteristic);
+				LinkedHashMap<CharacteristicItem, Integer> map = mApp.getmDbManager().getmDBRankList().queryBuyQuantity(cargo, characteristic);
 				refreshLineChart(map);
 
 				tvMsg.setVisibility(View.GONE);
@@ -144,7 +146,7 @@ public class ActivityStatisticsCharacteristicLine extends TopActivity {
 		this.mVHACargoNCharacteristic.hide();
 	}
 
-	private void refreshLineChart(HashMap<CharacteristicItem, Integer> map) {
+	private void refreshLineChart(LinkedHashMap<CharacteristicItem, Integer> map) {
 		this.mSFLineChart.clearLineEntityList();
 		ArrayList<Integer> quantityArray = new ArrayList<Integer>();
 		for (CharacteristicItem characteristicItem : map.keySet()) {
