@@ -36,6 +36,7 @@ public class BaseActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		this.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 		EasyTracker.getInstance(this).activityStart(this);
 	}
 	@Override
